@@ -1,0 +1,51 @@
+.section-container{
+    min-height: 100vh;
+}
+.article-aside{
+    background-color: rgb(160, 154, 147);
+}
+.img-logo{
+    object-fit:contain;
+}
+.article-registro{
+    background: url(../../../assets/images/fondo-registro.jpeg) no-repeat center;
+    background-size: cover;
+}
+.form-style{
+    height: 500px;
+    position: relative;
+}
+.input-style{
+    border: none;
+    border-bottom: 2px solid rgba(99, 95, 95, 0.507);
+    background-color: rgba(235, 245, 242, 0.555);
+}
+.input-style:focus-visible{
+    outline: none;
+    background-color: rgba(245, 227, 193, 0.575);
+}
+.input-style:hover{
+    background-color: rgba(245, 227, 193, 0.575);
+}
+.button-style{
+    border: none;
+    background-color: rgba(230, 192, 146, 0.753);
+    border-radius: 10px;
+    color: rgb(92, 91, 91);
+}
+.button-hover:hover{
+    background-color: rgb(223, 193, 157);
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.233);
+}
+.msg-success-container{
+    background: rgba(49, 206, 16, 0.47);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(49, 206, 16, 0.3);
+}
+.alert-div{
+    position: absolute;
+    bottom: -80px;
+}

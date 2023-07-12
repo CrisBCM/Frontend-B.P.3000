@@ -1,0 +1,30 @@
+.article-perfil{
+    background-color: rgba(121, 129, 165, 0.185);
+}
+.img-container{
+    min-height: 120px;
+    height: 160px;
+    /* background-color: rgb(235, 186, 130); */
+    border-radius: 5px;
+    position: relative;
+}
+.img-perfil{
+    position: absolute;
+    min-width: 60px;
+    max-width: 120px;
+    height: 110px;
+    top: 50px;
+    border-radius: 100px;
+}
+
+.info-perfil{
+    position: relative;
+    color: rgb(94, 101, 138);
+    font-size: 1rem;
+}
+.ul-info{
+    background-color: #cfcfcfea;
+border-radius: 16px;
+backdrop-filter: blur(8.5px);
+-webkit-backdrop-filter: blur(8.5px);
+}

@@ -1,0 +1,23 @@
+<article *ngIf="persona$" class="article-perfil">
+    <div class="img-container d-flex flex-column align-items-center mx-3">
+        <img [src]="(persona$ | async)?.urlAvatar" alt="" class="img-perfil">
+    </div>
+    <section *ngIf="persona$" class="info-perfil pb-3 pt-3 pb-2 gap-2 text-center">
+        <h4 class="align-self-center text-center py-3">{{(persona$ | async)?.nombreUsuario}}</h4>
+        <ul class="d-flex flex-wrap ul-info list-unstyled justify-content-center gap-4 mb-0 mx-4 py-4">
+            <li class="">
+                <span class="span-style fw-bold">{{(persona$ | async)?.pesoCorporal}} kg</span>
+                <p class="mb-0">Peso</p>
+            </li>
+            <li class="">
+                <span class="span-style fw-bold">{{totalConsumido}} kcal</span>
+                <p class="mb-0">Consumido</p>
+            </li>
+            <li class="">
+                <span class="span-style fw-bold">{{limiteDelDia}} kcal</span>
+                <p class="mb-0">Limite</p>
+            </li>
+        </ul>
+    </section>
+
+</article>

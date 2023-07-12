@@ -1,0 +1,53 @@
+.div-main{
+    background: url(../../../assets/images/fondo-login.jpeg) no-repeat center;
+    background-size: cover;
+}
+.section-container{
+    min-height: 100vh;
+}
+.form-style{
+    background-color: rgba(70, 70, 71, 0.568);
+    color: rgba(211, 250, 170, 0.815);
+    border-radius: 2%;
+    min-height: 500px;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.479);
+}
+.w-label{
+    width: 90%;
+    font-weight: bold;
+}
+.input-style{
+    height: 35px;
+    border: none;
+    padding-inline-start: 8px;
+    border-radius: 15px;
+    background-color: rgba(183, 182, 185, 0.466);
+    color: rgb(225, 228, 228);
+}
+.input-style:hover{
+    outline: 4px solid rgba(189, 247, 189, 0.459);
+}
+.input-style:focus-visible{
+    outline: 4px solid rgba(189, 247, 189, 0.459);
+}
+.button-style{
+    border: none;
+    background-color: rgba(120, 170, 139, 0.37);
+    padding: 5px;
+    border-radius:5px;
+    color: rgb(230, 230, 230);
+}
+.button-valid{
+    background-color: rgba(120, 170, 139, 0.767);
+}
+.button-hover:hover{
+    box-shadow: 0px 1px 10px rgba(239, 241, 123, 0.233);
+}
+.button-a{
+    color: rgb(231, 232, 233);
+    text-decoration: none;
+    border-bottom: 1px solid rgb(218, 214, 214);
+}
+.button-a:hover{
+    color: rgb(144, 198, 243);
+}

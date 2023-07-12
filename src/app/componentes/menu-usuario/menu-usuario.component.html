@@ -1,0 +1,32 @@
+<div class="d-flex flex-wrap" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="img-container d-flex dropdown-style px-3 py-2">
+        <img *ngIf="urlPerfil" class="img-usuario" [src]="urlPerfil" alt="imagen de perfil">
+        <div class="dropdown">
+          <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end drop-down-custom">
+            <li><a class="dropdown-item" routerLink="/bp-perfil">Mi perfil</a></li>
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cerrar sesion</a></li>
+          </ul>
+      </div>
+    </div> 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Cerrar sesion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estas seguro que deseas cerrar sesion?.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" (click)="cerrarSesion($event)" data-bs-dismiss="modal">Cerrar sesion</button>
+      </div>
+    </div>
+  </div>
+</div>
