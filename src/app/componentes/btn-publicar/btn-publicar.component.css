@@ -1,0 +1,35 @@
+.btn-publicar{
+    color: rgb(90, 110, 155);
+    background-color: transparent;
+    border: none;
+    padding: 1.2rem 20px .7rem 20px;
+    position: relative;
+}
+.btn-publicar:hover{
+    background-color: #B5B5B5;
+    cursor: pointer;
+    transition: .4s;
+}
+.btn-publicar:hover .tooltip{
+    opacity: 1;
+}
+.tooltip{
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    
+    box-shadow: 0 0 10px rgba(8, 8, 8, 0.178);
+    padding: .5rem .6rem;
+    font-size: .8rem;
+    border-radius: 8px;
+
+    top: 109%;
+    left: -1%;
+    opacity: 0;
+    transition: opacity .3s;
+}
+.icono-publicar{
+    font-weight:500;
+    font-size: x-large;
+}

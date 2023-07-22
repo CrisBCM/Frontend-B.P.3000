@@ -1,16 +1,19 @@
-<section class="section-container container-fluid d-flex flex-wrap bg-secondary p-0">
-    <article class="col-12 col-md-5 d-flex flex-column justify-content-center align-content-center flex-wrap article-aside">
-        <img class="img-logo mb-5" src="../../../assets/images/avatar/avatar-default.jpg" alt="Logo BP">
-        <h2 class="text-light mb-4">
-            Unite a nuestra comunidad!
-        </h2>
-        <h3 class="text-light">Vas a lograr lo que te propongas</h3>
-    </article>
-    <article class="p-0 col-md-7 bg-light d-flex justify-content-center align-items-center article-registro">
-        <form [formGroup]="registrarForm" class="col-sm-8 col-lg-6 form-style d-flex flex-wrap justify-content-center py-md-0 py-5">
-            <h3 class="w-100 text-center mb-4">Crear Cuenta</h3>
-            <label for="nombreUsuario" class="px-2 w-50 mb-5">
-                <input [ngClass]="{'is-invalid': isValidField('nombreUsuario')}" formControlName="nombreUsuario" class="p-2 w-100 input-style" type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Nombre de usuario">
+<section class="container-fluid d-flex flex-column align-items-center mt-5 flex-wrap p-0">
+        <h3 class="text-center mb-4">Crear Cuenta</h3>
+        <form [formGroup]="registrarForm" class="col-12 col-sm-10 col-md-7 col-lg-6 col-xxl-4 form-style d-flex flex-wrap flex-column align-items-center gap-4 py-md-0 py-5">
+            <label for="nombreCompleto" class="px-2 label-style  w-75">
+                <input [ngClass]="{'is-invalid': isValidField('nombreCompleto')}" formControlName="nombreCompleto" class="p-2 w-100 input-style" type="text" name="nombreCompleto" id="nombreCompleto" placeholder="NombreCompleto">
+                <div class="invalid-feedback">
+                    <span class="ps-2" *ngIf="nombreCompleto.errors?.['minlength']">
+                        Minimo 2 carácteres.
+                    </span>
+                    <span class="ps-2" *ngIf="nombreCompleto.errors?.['required']">
+                        Campo requerido.
+                    </span>
+                </div>
+            </label>
+            <label for="nombreUsuario" class="px-2 label-style  w-75">
+                <input [ngClass]="{'is-invalid': isValidField('nombreUsuario')}" formControlName="nombreUsuario" class="p-2 w-100 input-style" type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Usuario">
                 <div class="invalid-feedback">
                     <span class="ps-2" *ngIf="nombreUsuario.errors?.['minlength']">
                         Minimo 2 carácteres.
@@ -20,7 +23,7 @@
                     </span>
                 </div>
             </label>
-            <label for="peso" class="px-2 w-50 mb-5">
+            <label for="peso" class="px-2  w-75">
                 <input [ngClass]="{'is-invalid': isValidField('peso')}" formControlName="peso" class="p-2 w-100 input-style" type="number" name="peso" id="peso" placeholder="Peso corporal (Kg)">
                 <div class="invalid-feedback">
                     <span class="ps-2" *ngIf="peso.errors?.['min']">
@@ -34,7 +37,7 @@
                     </span>
                 </div>
             </label>
-            <label for="actividad" class="px-2 w-50 mb-5">
+            <label for="actividad" class="px-2  w-75">
                 <select [ngClass]="{'is-invalid': isValidField('actividad')}" formControlName="actividad" class="p-2 w-100 input-style" name="actividad" id="actividad">
                     <option disabled selected >Selecciona una opción</option>
                     <option value="1.2">Ejer. poco o ninguno</option>
@@ -48,8 +51,8 @@
                     </span>
                 </div>
             </label>
-            <label for="email" class="px-2 w-100 mb-5">
-                <input [ngClass]="{'is-invalid': isValidField('email')}" formControlName="email" class="p-2 w-100 input-style" type="text" name="email" id="email" placeholder="Email" (keydown)="changeValue()">
+            <label for="email" class="px-2  w-75">
+                <input [ngClass]="{'is-invalid': isValidField('email')}" formControlName="email" class="p-2 input-style w-100" type="text" name="email" id="email" placeholder="Email" (keydown)="changeValue()">
                 <div class="invalid-feedback">
                     <span class="ps-2" *ngIf="email.errors?.['minlength']">
                         Minimo 4 carácteres.
@@ -59,7 +62,7 @@
                     </span>
                 </div>
             </label>
-            <label for="password" class="px-2 w-100 mb-4">
+            <label for="password" class="px-2  w-75">
                 <input [ngClass]="{'is-invalid': isValidField('password')}" formControlName="password" class="p-2 w-100 input-style" type="password" name="password" id="password" placeholder="Contraseña">
                 <div class="invalid-feedback">
                     <span class="ps-2" *ngIf="password.errors?.['minlength']">
@@ -80,6 +83,4 @@
                 {{msgError.error}}
             </div>
         </form>
-        
-    </article>
 </section>

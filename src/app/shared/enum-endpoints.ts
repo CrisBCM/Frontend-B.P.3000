@@ -5,5 +5,8 @@ export enum EnumEndpoints {
     añadirComida = "http://localhost:8080/v3/comida/añadir",
     eliminarComida = "http://localhost:8080/v3/comida/eliminar",
     editarComida = "http://localhost:8080/v3/comida/editar",
-    obtenerPosts = "http://localhost:8080/publicacion/todas"
+    obtenerPosts = "http://localhost:8080/publicacion/todas",
+    publicar = "http://localhost:8080/publicacion/añadir",
+    enviarComentario = "http://localhost:8080/comentario/añadir",
+    cambiarAvatar = "http://localhost:8080/persona/avatar/cambiar"
 }

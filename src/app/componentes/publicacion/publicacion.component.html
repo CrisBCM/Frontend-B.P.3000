@@ -1,0 +1,32 @@
+<div class="mx-auto d-flex flex-wrap py-sm-5 pe-sm-5 p-0 col-12 col-lg-8 col-xl-6 div-publicacion">
+    <div class="col-12 col-sm-2 text-center autor-img-container">
+        <img class="autor-img" src="../../../assets/images/perritoFino.jpg" alt="">
+    </div>
+    <section *ngIf="publicacion" class="publicacion-container col-12 col-sm-10 px-2 px-sm-0">
+        <h2 class="h2-publicacion mb-2">{{publicacion.titulo}}</h2>
+        <div class="border-bottom mb-2 pb-2">
+            <ul class="ul-info d-flex flex-column gap-2 mb-2">
+                <li class="neutral-style">{{publicacion.tema}} de <a href="#">{{publicacion.autor}}</a> hace {{publicacion.fecha}}</li>
+                <li><button class="btn btn-sm button-style neutral-style ps-0"><i class="fa-solid fa-pen"></i> Editar</button></li>
+            </ul>
+        </div>
+        <div class="contenido mb-5">{{publicacion.contenido}}</div>
+        <article>
+            <h5 class="border-bottom pb-3 mb-3">{{publicacion.comentarios.length}} Comentarios</h5>
+            <app-comentario-form (anadirComentario)="anadirComentario($event)" [idPublicacion]="publicacion.id" class="d-flex flex-wrap mb-3 justify-content-center justify-content-sm-start">
+            </app-comentario-form>
+            <div class="d-flex flex-wrap mb-2 justify-content-center justify-content-sm-start" *ngFor="let comentario of publicacion.comentarios">
+                <div class="col-2 d-flex pt-1 img-container">
+                    <img class="img-perfil-comentario" src="../../../assets/images/perritoFino.jpg" alt="">
+                </div>
+                <ul class="ul-info d-flex flex-wrap gap-1 mb-0 px-3 py-2 col-10 comentario ms-1">
+                    <li><a href="#">{{comentario.autor}}</a></li>
+                    <li>{{comentario.fecha}}</li>
+                    <li class="w-100">
+                        <p class="mb-0 py-2">{{comentario.contenido}}</p>
+                    </li>
+                </ul> 
+            </div>
+        </article>
+    </section>
+</div>

@@ -15,8 +15,12 @@ import { FooterComponent } from './componentes/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderMainComponent } from './componentes/header-main/header-main.component';
-import { BpForoComponent } from './componentes/bp-foro/bp-foro.component';
 import { ForoMainComponent } from './componentes/foro-main/foro-main.component';
+import { BtnPublicarComponent } from './componentes/btn-publicar/btn-publicar.component';
+import { FormPublicacionComponent } from './componentes/form-publicacion/form-publicacion.component';
+import { PublicacionComponent } from './componentes/publicacion/publicacion.component';
+import { PublicacionFiltroPipe } from './pipes/publicacion-filtro.pipe';
+import { ComentarioFormComponent } from './componentes/comentario-form/comentario-form.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +34,12 @@ import { ForoMainComponent } from './componentes/foro-main/foro-main.component';
     MenuUsuarioComponent,
     FooterComponent,
     HeaderMainComponent,
-    BpForoComponent,
-    ForoMainComponent
+    ForoMainComponent,
+    BtnPublicarComponent,
+    FormPublicacionComponent,
+    PublicacionComponent,
+    PublicacionFiltroPipe,
+    ComentarioFormComponent
   ],
   imports: [
     BrowserModule,

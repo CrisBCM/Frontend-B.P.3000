@@ -1,4 +1,4 @@
-<div class="mx-sm-4 mx-lg-0 pb-4 px-0 main-container">
+<div class="mx-auto pb-4 px-0 main-container col-12 col-lg-8 col-xl-6 p-0 mt-5 foro-main">
     <header class="header-container">
         <ul class="d-flex ul-header-container px-4">
             <li class="link-style"><a class="nav-link border-start header-li-style" href="#">Todos los temas</a></li>
@@ -32,7 +32,7 @@
         <section class="post-container" *ngIf="publicaciones$ | async as publicaciones">
             <article class=" px-3 py-2 border-top" *ngFor="let publicacion of publicaciones">
                 <h6 class="mb-0">
-                    <a href="" class="link-style anchor-style">{{publicacion.tema}}: {{publicacion.titulo}}.</a>
+                    <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.tema}}: {{publicacion.titulo}}.</a>
                 </h6>
                 <span>publicado hace: {{publicacion.fecha}} - </span>
                 <span>por: <a href="" class="link-style anchor-style">{{publicacion.autor}}</a></span>

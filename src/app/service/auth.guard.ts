@@ -6,9 +6,14 @@ export const authGuard:CanActivateFn = () =>{
   const loginService = inject(LoginServiceService);
   const router = inject(Router);
 
-  let usuarioActual = loginService.usuarioAutenticado;
+  let usuarioActual:any;
 
-  if(usuarioActual && usuarioActual.token)
+  loginService.usuarioAutenticado.subscribe(usuario =>{
+    usuarioActual = usuario;
+    console.log("soy usuario actual en authguard " + JSON.stringify(usuarioActual));
+  })
+
+  if(usuarioActual.token && usuarioActual)
   {
     return true;
   }

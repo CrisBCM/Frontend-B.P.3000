@@ -19,12 +19,17 @@ export class RegistroComponent {
   constructor(private formBuilder:FormBuilder, private registroService:RegistroServiceService, private router:Router){}
 
   registrarForm = this.formBuilder.group({
+    'nombreCompleto': ["", [Validators.required, Validators.minLength(2)]],
     'nombreUsuario': ["", [Validators.required, Validators.minLength(2)]],
     'peso': ["", [Validators.required, Validators.min(20), Validators.max(200)]],
-    'actividad': ["", Validators.required],
+    'actividad': ["Selecciona una opción", Validators.required],
     'email': ["", [Validators.required, Validators.email]],
     'password': ["", [Validators.required, Validators.minLength(5)]]
   });
+
+  get nombreCompleto(){
+    return this.registrarForm.get("nombreCompleto") as FormControl;
+  }
 
   get nombreUsuario(){
     return this.registrarForm.get("nombreUsuario") as FormControl;
@@ -49,7 +54,7 @@ export class RegistroComponent {
   }
 
   crearPersona():RegistroPersona{
-    let persona = new RegistroPersona(this.email.value, this.password.value, this.nombreUsuario.value, this.peso.value, Number(this.actividad.value));
+    let persona = new RegistroPersona(this.nombreCompleto.value ,this.email.value, this.password.value, this.nombreUsuario.value, this.peso.value, Number(this.actividad.value));
 
     console.log("Se esta creando la persona:")
     console.log(persona);

@@ -1,0 +1,17 @@
+<div class="mx-auto pb-4 px-0 main-container col-12 col-lg-8 col-xl-6 p-0 mt-5 foro-main">
+    <div class="border-bottom border-secondary p-2">
+        <h5>Crear una publicacion</h5>
+    </div>
+    <form [formGroup]="form" class="d-flex flex-column px-3 gap-2 py-4 form-style mt-4">
+        <input formControlName="titulo" type="text" placeholder="Titulo" class="input-style py-1 ps-1">
+        <select formControlName="tema" name="tema" id="tema" class="input-style w-25 py-1">
+            <option selected disabled>Tema</option>
+            <option value="Receta">Receta</option>
+            <option value="Pregunta">Pregunta</option>
+        </select>
+        <textarea formControlName="contenido" name="contenido" id="contenido" cols="30" rows="10" class="input-style textarea ps-1" placeholder="Texto"></textarea>
+        <div class="border-top border-secondary pt-3 mt-3">
+            <button class="btn btn-md btn-publicar" (click)="publicar()">Publicar</button>
+        </div>
+    </form>
+</div>

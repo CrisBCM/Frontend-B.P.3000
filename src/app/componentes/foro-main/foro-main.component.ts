@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Persona } from 'src/app/modelo/clases/persona';
-import { Publicacion } from 'src/app/modelo/interfaces/publicacion';
+import { IPublicacion } from 'src/app/modelo/interfaces/IPublicacion';
 import { ForoService } from 'src/app/service/foro.service';
 
 @Component({
@@ -11,10 +12,14 @@ import { ForoService } from 'src/app/service/foro.service';
 })
 export class ForoMainComponent {
   
-  publicaciones$:Observable<Publicacion[]>;
+  publicaciones$:Observable<IPublicacion[] | null>;
 
-  constructor(private foroService:ForoService){
-    this.publicaciones$ = foroService.obtenerPosts();
+  constructor(private foroService:ForoService, private router:Router){
+    this.publicaciones$ = foroService.behaviorSubjectPublicaciones;
+  }
+  
+  redirigirAPublicacion(idPublicacion:number){
+    this.router.navigate(["/publicacion", idPublicacion]);
   }
 
 }

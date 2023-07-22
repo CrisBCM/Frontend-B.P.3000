@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginServiceService } from 'src/app/service/login-service.service';
+import { SharingService } from 'src/app/service/sharing.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent {
 
   public msgError:any;
 
-  constructor(private formBuilder:FormBuilder, private loginService:LoginServiceService, private router:Router){}
+  constructor(private formBuilder:FormBuilder, private loginService:LoginServiceService,private sharingService:SharingService, private router:Router){}
 
   loginForm = this.formBuilder.group({
     'email': ["",[Validators.required]],
@@ -22,8 +23,7 @@ export class LoginComponent {
   iniciarSesion(){
 
     this.loginService.iniciarSesion(this.loginForm.value).subscribe(data=>{
-
-      console.log(data);
+      this.sharingService.cargarPersona();
 
       this.router.navigate(['/bp-foro']);
     }, err =>{
@@ -37,11 +37,6 @@ export class LoginComponent {
         this.msgError = "Campos invalidos";
       }
 
-      
-
-      console.log(this.msgError);
-      console.log(typeof error)
-      console.log(typeof err.error);
     })
   }
 

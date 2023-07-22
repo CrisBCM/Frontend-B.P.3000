@@ -1,18 +1,21 @@
 import { Estomago } from "./estomago";
+import { Imagen } from "./imagen";
 
 export class Persona {
+    public nombreCompleto:string;
     public nombreUsuario:string;
     public cantidadActividad:number;
     public estomago:Estomago;
     public pesoCorporal:number;
-    public urlAvatar:string;
+    public imgAvatar:Imagen;
 
-    constructor(nombreUsuario:string, cantidadActividad:number, estomago:Estomago, pesoCorporal:number, urlAvatar:string){
+    constructor(nombreCompleto:string, nombreUsuario:string, cantidadActividad:number, estomago:Estomago, pesoCorporal:number, imgAvatar:Imagen){
+        this.nombreCompleto = nombreCompleto;
         this.nombreUsuario = nombreUsuario;
         this.cantidadActividad = cantidadActividad;
         this.estomago = estomago;
         this.pesoCorporal = pesoCorporal;
-        this.urlAvatar = urlAvatar;
+        this.imgAvatar = imgAvatar;
     }
 
 }

@@ -9,11 +9,12 @@ import jwt_decode from "jwt-decode";
 })
 export class LoginServiceService {
 
-  usuarioActual:BehaviorSubject<any>;
+  usuarioActual$:BehaviorSubject<any>;
+  token:any;
 
   constructor(private http:HttpClient) {
 
-    this.usuarioActual = new BehaviorSubject<any>(JSON.parse(localStorage.getItem("usuarioActual") || "{}"));
+    this.usuarioActual$ = new BehaviorSubject<any>(JSON.parse(localStorage.getItem("usuarioActual") || "{}"));
 
    }
 
@@ -23,24 +24,25 @@ export class LoginServiceService {
 
       localStorage.setItem("usuarioActual", JSON.stringify(data));
 
-      this.usuarioActual.next(data);
-
-      console.log(data);
-      
-      return data;
-
+      this.usuarioActual$.next(data);
     }))
   }
 
   get usuarioAutenticado(){
-    return this.usuarioActual.value;
+    return this.usuarioActual$.asObservable();
   }
 
-  get datosPersona(){
-
-    let token = this.usuarioAutenticado.token;
-    
-    return jwt_decode(token);
+  set setUsuarioAutenticado(usuario:any){
+    this.usuarioActual$.next(usuario);
   }
 
+  get tokenDecoded(){
+    this.usuarioAutenticado.subscribe(usuarioAutenticado =>{
+
+      this.token = usuarioAutenticado.token;   
+    });
+
+    let tokenDecode = jwt_decode(this.token);
+    return tokenDecode;
+  }
 }

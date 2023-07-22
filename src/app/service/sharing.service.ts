@@ -4,7 +4,7 @@ import { Persona } from '../modelo/clases/persona';
 import { Imagen } from '../modelo/clases/imagen';
 import { Comida } from '../modelo/clases/comida';
 import { Estomago } from '../modelo/clases/estomago';
-import { PerfilServiceService } from './perfil-service.service';
+import { PerfilService } from './perfil.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,14 @@ export class SharingService {
   private persona$: BehaviorSubject<Persona | null> = new BehaviorSubject<Persona | null>(null);
   private totalConsumido$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  constructor(private perfilService:PerfilServiceService) {
+  constructor(private perfilService:PerfilService) {
 
     this.cargarPersona();
   
+  }
+
+  set cerrarSesion(cerrarSesion:null){
+    this.persona$.next(cerrarSesion);
   }
 
   set totalConsumido(consumoDeldia:number){
@@ -32,8 +36,12 @@ export class SharingService {
     return this.persona$.asObservable();
 }
 
+  set cambiarImagenPersona(persona:Persona){
+    this.persona$.next(persona);
+  }
+
   cargarPersona():void{
-    this.perfilService.getPerfilPersona().subscribe(data =>{
+    this.perfilService.getPerfilPersona().subscribe((data:any)=>{
 
       console.log(data);
 
@@ -86,7 +94,7 @@ export class SharingService {
     
     let estomago:Estomago = this.getEstomago(data);
 
-    let persona:Persona = new Persona(data.nombreUsuario, data.cantidadActividad, estomago, data.pesoCorporal, data.urlAvatar);
+    let persona:Persona = new Persona(data.nombreCompleto, data.nombreUsuario, data.cantidadActividad, estomago, data.pesoCorporal, data.imgAvatar);
 
     return persona;
   }

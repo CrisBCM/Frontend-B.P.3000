@@ -1,0 +1,25 @@
+.form-style{
+    background-color: rgba(97, 129, 179, 0.459);
+}
+.input-style{
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(240, 248, 255, 0.644);
+}
+.input-style:focus-visible{
+    outline: none;
+}
+.textarea{
+    min-height: 122px;
+    height: 122px;
+}
+.border-color{
+    border-color: rgb(243, 14, 14);
+}
+.btn-publicar{
+    background-color: rgba(55, 93, 197, 0.562);
+    color: rgb(209, 209, 209);
+}
+.btn-publicar:hover{
+    background-color:  rgba(55, 93, 197, 0.692);
+}

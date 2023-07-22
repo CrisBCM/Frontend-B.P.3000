@@ -8,15 +8,44 @@
     border-radius: 5px;
     position: relative;
 }
-.img-perfil{
-    position: absolute;
-    min-width: 60px;
+.absolute-container{
+    position: relative;
+    min-width: 100px;
     max-width: 120px;
-    height: 110px;
+    height: 100px;
     top: 50px;
     border-radius: 100px;
 }
-
+.img-perfil{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 100px;
+}
+.editar-foto{
+    background-color:rgba(0, 0, 0, 0.26);
+    width: 100%;
+    height: 100%;
+    min-width: 60px;
+    line-height:100px;
+    color: white;
+    position: absolute;
+    cursor: pointer;
+    border-radius: 100px;
+    opacity: 0;
+    transition: opacity .3s;
+}
+.editar-foto:hover{
+    opacity: 1;
+}
+.input-img{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+}
 .info-perfil{
     position: relative;
     color: rgb(94, 101, 138);
@@ -24,7 +53,7 @@
 }
 .ul-info{
     background-color: #cfcfcfea;
-border-radius: 16px;
-backdrop-filter: blur(8.5px);
--webkit-backdrop-filter: blur(8.5px);
+    border-radius: 16px;
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
 }

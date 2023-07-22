@@ -10,10 +10,12 @@ import { LoginServiceService } from 'src/app/service/login-service.service';
 export class NavbarComponent {
 
   usuarioAutenticado:any;
-
   constructor(private loginService:LoginServiceService){
-    this.usuarioAutenticado = this.loginService.usuarioAutenticado;
+
+    this.loginService.usuarioAutenticado.subscribe(usuario=>{
+      this.usuarioAutenticado = usuario;
+    });
     console.log("SOY USUARIO AUTENTICADO  " + JSON.stringify(this.usuarioAutenticado))
-    
   }
+
 }

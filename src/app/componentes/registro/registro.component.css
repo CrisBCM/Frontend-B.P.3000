@@ -1,31 +1,26 @@
-.section-container{
-    min-height: 100vh;
-}
 .article-aside{
     background-color: rgb(160, 154, 147);
 }
 .img-logo{
     object-fit:contain;
 }
-.article-registro{
-    background: url(../../../assets/images/fondo-registro.jpeg) no-repeat center;
-    background-size: cover;
-}
 .form-style{
-    height: 500px;
     position: relative;
+}
+.label-style{
+    height: min-content;
 }
 .input-style{
     border: none;
-    border-bottom: 2px solid rgba(99, 95, 95, 0.507);
-    background-color: rgba(235, 245, 242, 0.555);
+    border-radius: 10px;
+    background-color: rgb(236, 236, 236)
 }
 .input-style:focus-visible{
     outline: none;
-    background-color: rgba(245, 227, 193, 0.575);
+    background-color: rgb(253, 253, 253);
 }
 .input-style:hover{
-    background-color: rgba(245, 227, 193, 0.575);
+    background-color: rgb(253, 253, 253);
 }
 .button-style{
     border: none;

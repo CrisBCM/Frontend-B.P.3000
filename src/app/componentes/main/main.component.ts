@@ -7,7 +7,7 @@ import { Estomago } from 'src/app/modelo/clases/estomago';
 import { Imagen } from 'src/app/modelo/clases/imagen';
 import { Persona } from 'src/app/modelo/clases/persona';
 import { MainService } from 'src/app/service/main.service';
-import { PerfilServiceService } from 'src/app/service/perfil-service.service';
+import { PerfilService } from 'src/app/service/perfil.service';
 import { SharingService } from 'src/app/service/sharing.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class MainComponent implements OnInit{
 
   comidaSeleccionada!:number;
 
-  image!:any;
+  image:any;
 
   persona$:Observable<Persona | null>;
 
@@ -35,9 +35,6 @@ export class MainComponent implements OnInit{
     this.persona$ = sharingService.personaBehaviorSubject;
 
     this.persona$.subscribe(data =>{
-
-      console.log(JSON.stringify(data?.nombreUsuario));
-
       if(data?.nombreUsuario){
         this.nombreUsuario = data?.nombreUsuario;
       }
@@ -92,7 +89,6 @@ export class MainComponent implements OnInit{
       this.toggleAdd = true;
       this.header = "Añadir Comida"
     }
-    // this.toggle ? this.toggle = false && this.header = "Consumo" : this.toggle = true && this.header = "Añadir Comida";
 
   }
 
@@ -149,16 +145,6 @@ export class MainComponent implements OnInit{
     const formData = new FormData();
     if(this.form.valid && confirm("Estas seguro que deseas editar esta comida?")){
 
-      console.log("iniciando envio de editar");
-
-      formData.append("nombreComida", this.nombreComida.value);
-
-      console.log("soy nombreComida: "+ this.nombreComida.value);
-      
-      formData.append("calorias", this.calorias.value);
-
-      console.log("soy calorias: "+ this.calorias.value);
-
       if(this.image){
         formData.append("imagen", this.image);
       }
@@ -180,9 +166,6 @@ export class MainComponent implements OnInit{
 
         this.estomago.listaComida = nuevaListaComida;
         this.setTotalConsumido();
-
-        console.log("SOY COMIDADADADA: " + comida);
-        console.log("SOY COMIDADADA STRINGIFY: " + JSON.stringify(comida));
       })
 
     }else{

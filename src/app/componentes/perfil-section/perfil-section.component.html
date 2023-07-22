@@ -1,12 +1,18 @@
-<article *ngIf="persona$" class="article-perfil">
+<article *ngIf="persona$ | async as persona" class="article-perfil">
     <div class="img-container d-flex flex-column align-items-center mx-3">
-        <img [src]="(persona$ | async)?.urlAvatar" alt="" class="img-perfil">
+        <div class="absolute-container d-flex">
+            <img [src]="persona.imgAvatar.path" class="img-perfil">
+            <input type="file" name="img" id="img" class="input-img" (change)="cambiarAvatar($event, persona)">
+            <label class="editar-foto text-center" for="img">Cambiar foto</label>
+        </div>
     </div>
-    <section *ngIf="persona$" class="info-perfil pb-3 pt-3 pb-2 gap-2 text-center">
-        <h4 class="align-self-center text-center py-3">{{(persona$ | async)?.nombreUsuario}}</h4>
+    <section  class="info-perfil pb-3 pt-3 pb-2 gap-2 text-center">
+        
+        <h4>{{persona.nombreCompleto}}</h4>
+        <p class="align-self-center text-center mb-3">{{persona.nombreUsuario}}</p>
         <ul class="d-flex flex-wrap ul-info list-unstyled justify-content-center gap-4 mb-0 mx-4 py-4">
             <li class="">
-                <span class="span-style fw-bold">{{(persona$ | async)?.pesoCorporal}} kg</span>
+                <span class="span-style fw-bold">{{persona.pesoCorporal}} kg</span>
                 <p class="mb-0">Peso</p>
             </li>
             <li class="">
