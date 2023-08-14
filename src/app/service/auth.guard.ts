@@ -3,15 +3,13 @@ import { CanActivateFn, Router } from "@angular/router";
 import { LoginServiceService } from "./login-service.service";
 
 export const authGuard:CanActivateFn = () =>{
-  const loginService = inject(LoginServiceService);
+  let usuario = localStorage.getItem("usuarioActual");
+
+  let usuarioActual;
+
+  if(usuario) usuarioActual = JSON.parse(usuario);
   const router = inject(Router);
 
-  let usuarioActual:any;
-
-  loginService.usuarioAutenticado.subscribe(usuario =>{
-    usuarioActual = usuario;
-    console.log("soy usuario actual en authguard " + JSON.stringify(usuarioActual));
-  })
 
   if(usuarioActual.token && usuarioActual)
   {

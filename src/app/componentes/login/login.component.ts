@@ -13,7 +13,7 @@ export class LoginComponent {
 
   public msgError:any;
 
-  constructor(private formBuilder:FormBuilder, private loginService:LoginServiceService,private sharingService:SharingService, private router:Router){}
+  constructor(private formBuilder:FormBuilder, private loginService:LoginServiceService, private router:Router){}
 
   loginForm = this.formBuilder.group({
     'email': ["",[Validators.required]],
@@ -22,23 +22,48 @@ export class LoginComponent {
 
   iniciarSesion(){
 
-    this.loginService.iniciarSesion(this.loginForm.value).subscribe(data=>{
-      this.sharingService.cargarPersona();
+    this.loginService.iniciarSesion(this.loginForm.value).subscribe({
 
-      this.router.navigate(['/bp-foro']);
-    }, err =>{
+      next : () => {
+        console.log("iniciando sesion");
+      },
+      complete : () =>{
+        console.log("redirigiendo a bpforo")
+        this.router.navigate(["/bp-foro"]);
+      },
 
-      let error = err.error;
+      error : err =>{
 
-      if(typeof error === "string"){
-        this.msgError = err.error;
-      }
-      else{
-        this.msgError = "Campos invalidos";
-      }
-
+            let error = err.error;
+      
+            if(typeof error === "string"){
+              this.msgError = err.error;
+            }
+            else{
+              this.msgError = "Campos invalidos";
+            }
+      
+          }
     })
+    console.log("Terminando la funcion iniciar sesion en login component");
   }
+  //   this.loginService.iniciarSesion(this.loginForm.value).subscribe(data=>{
+  //     this.sharingService.cargarPersona();
+
+  //     this.router.navigate(['/bp-foro']);
+  //   }, err =>{
+
+  //     let error = err.error;
+
+  //     if(typeof error === "string"){
+  //       this.msgError = err.error;
+  //     }
+  //     else{
+  //       this.msgError = "Campos invalidos";
+  //     }
+
+  //   })
+  // }
 
   isValidField(name:string):boolean{
     const campoNombre = this.loginForm.get(name) as FormControl;

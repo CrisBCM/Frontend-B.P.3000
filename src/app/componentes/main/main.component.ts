@@ -1,13 +1,13 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Comida } from 'src/app/modelo/clases/comida';
 import { Estomago } from 'src/app/modelo/clases/estomago';
 import { Imagen } from 'src/app/modelo/clases/imagen';
 import { Persona } from 'src/app/modelo/clases/persona';
-import { MainService } from 'src/app/service/main.service';
-import { PerfilService } from 'src/app/service/perfil.service';
+import { PersonaDto } from 'src/app/modelo/clases/persona-dto';
+import { ComidaService } from 'src/app/service/comida.service';
 import { SharingService } from 'src/app/service/sharing.service';
 
 @Component({
@@ -21,44 +21,43 @@ export class MainComponent implements OnInit{
 
   header:string = "Consumo";
 
-  comidaSeleccionada!:number;
+  comidaSeleccionada:number = -111;
 
   image:any;
 
   persona$:Observable<Persona | null>;
 
-  nombreUsuario!:string;
+  persona!:Persona;
 
-  estomago!:Estomago;
+  formNuevaComida:FormGroup;
 
-  constructor(private fb:FormBuilder, private mainService:MainService, private sharingService:SharingService){
+  constructor(private fb:FormBuilder, private comidaService:ComidaService, private sharingService:SharingService){
+
+    this.formNuevaComida = fb.group({
+      nombreComida:["", Validators.required],
+      calorias:["", Validators.required]
+    })
+
     this.persona$ = sharingService.personaBehaviorSubject;
 
-    this.persona$.subscribe(data =>{
-      if(data?.nombreUsuario){
-        this.nombreUsuario = data?.nombreUsuario;
-      }
-      if(data?.estomago){
-        this.estomago = data.estomago;
-        this.sharingService.totalConsumido = this.estomago.totalConsumido;
-      }
+    this.persona$.subscribe((persona:Persona | null) =>{
+
+     if(persona){
+      this.persona = persona;
+     }
     })
 
   }
   ngOnInit(): void {
   }
 
-  form = this.fb.group({
-    nombreComida:["", Validators.required],
-    calorias:["", Validators.required]
-  });
 
   get nombreComida(){
-    return this.form.get("nombreComida") as FormControl;
+    return this.formNuevaComida.get("nombreComida") as FormControl;
   }
 
   get calorias(){
-    return this.form.get("calorias") as FormControl;
+    return this.formNuevaComida.get("calorias") as FormControl;
   }
 
   seleccionarComida(idComida:number){
@@ -81,7 +80,7 @@ export class MainComponent implements OnInit{
   }
 
   cambiarToggleAdd(){
-    this.form.reset();
+    this.formNuevaComida.reset();
     if(this.toggleAdd){
       this.toggleAdd = false;
       this.header = "Consumo"
@@ -127,46 +126,66 @@ export class MainComponent implements OnInit{
 
       formData.append("imagen", this.image);
 
-      this.mainService.subirComida(formData, this.estomago.id, this.nombreUsuario, options).subscribe(data =>{
+      let estomagoId:number;
 
-        console.log("soy estomago id  " + this.estomago.id);
-        let nuevaComida = this.crearComida(data);
+      if(this.persona?.estomago){
+        estomagoId = this.persona.estomago.id
 
-        this.estomago.listaComida.push(nuevaComida);
+        this.comidaService.subirComida(formData, estomagoId, this.persona?.nombreUsuario, options).subscribe(data =>{
 
-        this.setTotalConsumido();
-        this.image = null;
-        console.log("soy dataaaa: "+ JSON.stringify(nuevaComida));
-      })
+          console.log("soy estomago id  " + estomagoId);
+  
+          let nuevaComida = this.crearComida(data);
+  
+          this.persona?.estomago.listaComida.push(nuevaComida);
+
+          this.sharingService.cambiarImagenPersona = this.persona;
+  
+          this.setTotalConsumido();
+          this.image = null;
+          console.log("soy dataaaa: "+ JSON.stringify(nuevaComida));
+        })
+      }
+      
     }
   }
   editarComida(){
 
     const formData = new FormData();
-    if(this.form.valid && confirm("Estas seguro que deseas editar esta comida?")){
+    if(this.formNuevaComida.valid && confirm("Estas seguro que deseas editar esta comida?")){
 
       if(this.image){
         formData.append("imagen", this.image);
       }
 
-      this.mainService.editarComida(this.estomago.id, formData, this.nombreUsuario, this.comidaSeleccionada).subscribe(data =>{
+      formData.append("nombreComida", this.nombreComida.value);
+      formData.append("calorias", this.calorias.value);
 
-        console.log(JSON.stringify(data));
+      if(this.persona.estomago){
 
-        const indiceComida = this.estomago.listaComida.findIndex(comida => comida.id == this.comidaSeleccionada);
+        let estomagoId = this.persona.estomago.id;
 
-        let nuevaListaComida = [...this.estomago.listaComida];
+        this.comidaService.editarComida(estomagoId, formData, this.persona.nombreUsuario, this.comidaSeleccionada).subscribe(data =>{
 
-        let comida:Comida = nuevaListaComida[indiceComida];
-
-        comida.nombreComida = data.nombreComida;
-        comida.calorias = data.calorias;
-        comida.imagen.nombre = data.imagen.nombre;
-        comida.imagen.path = data.imagen.path;
-
-        this.estomago.listaComida = nuevaListaComida;
-        this.setTotalConsumido();
-      })
+          console.log(JSON.stringify(data));
+  
+          const indiceComida = this.persona.estomago.listaComida.findIndex(comida => comida.id == this.comidaSeleccionada);
+  
+          let nuevaListaComida = [...this.persona.estomago.listaComida];
+  
+          let comida:Comida = nuevaListaComida[indiceComida];
+  
+          comida.nombreComida = data.nombreComida;
+          comida.calorias = data.calorias;
+          comida.imagen.nombre = data.imagen.nombre;
+          comida.imagen.path = data.imagen.path;
+  
+          this.persona.estomago.listaComida = nuevaListaComida;
+          this.sharingService.cambiarImagenPersona = this.persona;
+          
+          this.setTotalConsumido();
+        })
+      }
 
     }else{
       console.log("form Invalido!");
@@ -178,11 +197,14 @@ export class MainComponent implements OnInit{
 
     if(confirm("Estas seguro que deseas eliminar esta comida?")){
 
-      this.mainService.eliminarComida(idEstomago, idComida).subscribe( ()=>{
+      this.comidaService.eliminarComida(idEstomago, idComida).subscribe( ()=>{
         
-        this.estomago.listaComida = this.estomago.listaComida.filter(comida => comida.id !== idComida);
+        this.persona.estomago.listaComida = this.persona.estomago.listaComida.filter(comida => comida.id !== idComida);
+
+        this.sharingService.cambiarImagenPersona = this.persona;
 
         this.setTotalConsumido();
+
         console.log("exitoso!");
       });
     };
@@ -200,7 +222,7 @@ export class MainComponent implements OnInit{
   }
 
   setTotalConsumido(){
-    let arrayComida = this.estomago.listaComida;
+    let arrayComida = this.persona.estomago.listaComida;
 
     let consumoTotal:number = this.obtenerTotalConsumido(arrayComida);
 

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import jwt_decode from "jwt-decode";
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Imagen } from 'src/app/modelo/clases/imagen';
 import { Persona } from 'src/app/modelo/clases/persona';
+import { IPublicacion } from 'src/app/modelo/interfaces/IPublicacion';
+import { ForoService } from 'src/app/service/foro.service';
 import { LoginServiceService } from 'src/app/service/login-service.service';
-import { PerfilService } from 'src/app/service/perfil.service';
+import { PersonaService } from 'src/app/service/persona.service';
 import { SharingService } from 'src/app/service/sharing.service';
 
 @Component({
@@ -12,26 +14,34 @@ import { SharingService } from 'src/app/service/sharing.service';
   templateUrl: './perfil-section.component.html',
   styleUrls: ['./perfil-section.component.css']
 })
-export class PerfilSectionComponent implements OnInit{
+export class PerfilSectionComponent implements OnInit, OnDestroy{
   persona$!:Observable<Persona | null>;
   totalConsumido$!:Observable<number>;
   totalConsumido!:number;
   limiteDelDia!:number;
   imagen:any;
-
-  constructor(private perfilService:PerfilService, private sharingService:SharingService){
+  subscriptionPersona!:Subscription;
+  idPersona!:number;
+  constructor(private personaService:PersonaService, private sharingService:SharingService, private foroService:ForoService){
     
   }
+  
 
   ngOnInit(): void {
-    console.log("estoy ejecutando el oninit")
+    this.sharingService.cargarPersona();
+    
     this.persona$ = this.sharingService.personaBehaviorSubject;
+
     this.totalConsumido$ = this.sharingService.obtenerTotalConsumido;
 
-    this.persona$.subscribe(data =>{
+    this.subscriptionPersona = this.persona$.subscribe(data =>{
+
+      // this.sharingService.tokenDecoded.subscribe(tokenDecoded =>{
+      //   this.idPersona = tokenDecoded;
+      // })
 
       if(data){
-        this.limiteDelDia = this.perfilService.getDeficitCalorico(data.pesoCorporal, data.cantidadActividad);
+        this.limiteDelDia = this.personaService.getDeficitCalorico(data.pesoCorporal, data.cantidadActividad);
       }
 
     });
@@ -39,6 +49,11 @@ export class PerfilSectionComponent implements OnInit{
     this.totalConsumido$.subscribe(totalConsumido =>{
       this.totalConsumido = totalConsumido;
     })
+  }
+
+  ngOnDestroy(): void {
+    console.log("se ejecuto el ngOnDestroy")
+    this.subscriptionPersona.unsubscribe();
   }
 
   cambiarAvatar(event:any, persona:Persona){
@@ -50,7 +65,9 @@ export class PerfilSectionComponent implements OnInit{
 
       formImagen.append("imagen", img);
 
-      this.perfilService.cambiarAvatar(persona.nombreUsuario, formImagen).subscribe((nuevaImagen:Imagen) =>{
+      this.personaService.cambiarAvatar(persona.nombreUsuario, formImagen).subscribe((nuevaImagen:Imagen) =>{
+
+        console.log("no me bugeo")
 
         persona.imgAvatar = nuevaImagen;
 

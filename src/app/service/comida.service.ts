@@ -6,7 +6,7 @@ import { EnumEndpoints } from '../shared/enum-endpoints';
 @Injectable({
   providedIn: 'root'
 })
-export class MainService {
+export class ComidaService {
 
   constructor(private http:HttpClient) { }
   

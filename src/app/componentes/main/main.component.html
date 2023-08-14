@@ -6,15 +6,15 @@
     <button (click)="cambiarToggleAdd()" *ngIf="!toggleAdd" class="button-absolute button-absolute-green"> <i class="fa-solid fa-fish class fs-3"></i> <i class="fa-solid fa-plus"></i></button>
     <button (click)="cambiarToggleAdd()" *ngIf="toggleAdd" class="button-absolute button-absolute-red"> <i class="fa-solid fa-xmark fs-4"></i></button>
 
-    <form [formGroup]="form" *ngIf="toggleAdd" action="" class="d-flex flex-column align-items-center w-100 gap-2 py-5 general-bg">
+    <form [formGroup]="formNuevaComida" *ngIf="toggleAdd" action="" class="d-flex flex-column align-items-center w-100 gap-2 py-5 general-bg">
         <input formControlName="nombreComida" class="input-style w-50" type="text" placeholder="Nombre de la comida">
         <input formControlName="calorias" class="input-style w-50" type="number" placeholder="Calorias">
         <input class="input-style w-50" type="file" id="image" (change)="obtenerImagen($event)">
         <button (click)="subirComida($event)" class="button-upload btn btn-sm btn-secondary w-50 align-self-center">Subir</button>
     </form>
     
-    <div *ngIf="!toggleAdd && estomago" class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100">
-        <article (click)="seleccionarComida(comida.id)" *ngFor="let comida of estomago.listaComida" class="article-comida col-3 mb-2 d-flex flex-column justify-content-center" [ngClass]="{'selected': comidaSeleccionada == comida.id}">
+    <div *ngIf="!toggleAdd" class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100">
+        <article (click)="seleccionarComida(comida.id)" *ngFor="let comida of persona.estomago.listaComida" class="article-comida col-3 mb-2 d-flex flex-column justify-content-center" [ngClass]="{'selected': comidaSeleccionada == comida.id}">
             <div class="img-container p-2" [ngClass]="{'d-none': comidaSeleccionada == comida.id && toggleEditar}">
                 <img class="img-comida" [src]="comida.imagen.path" alt="imagen de comida">
             </div>
@@ -23,13 +23,13 @@
                 <h6>{{comida.calorias}} kcal</h6>
                 <div *ngIf="comidaSeleccionada == comida.id">
                     <button (click)="cambiarToggleEditar($event)" class="button-absolute button-edit"><i class="fa-solid fa-pen"></i></button>
-                    <button (click)="eliminarComida(estomago.id, comida.id)" class="button-absolute button-elim"><i class="fa-solid fa-trash"></i></button>
+                    <button (click)="eliminarComida(persona.estomago.id, comida.id)" class="button-absolute button-elim"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>
-            <form (click)="stopPropagation($event)" [formGroup]="form" *ngIf="comidaSeleccionada == comida.id && toggleEditar" class="d-flex flex-column gap-3 align-items-center">
+            <form (click)="stopPropagation($event)" [formGroup]="formNuevaComida" *ngIf="comidaSeleccionada == comida.id && toggleEditar" class="d-flex flex-column gap-3 align-items-center">
                 <input class="w-100 ps-2 input-style" type="file" id="image" (change)="obtenerImagen($event)">
-                <input formControlName="nombreComida" class="w-75 input-edit input-style" type="text" placeholder="Nombre de la comida" [ngModel]="comida.nombreComida">
-                <input formControlName="calorias" class="w-75 input-edit input-style" type="number" placeholder="Calorias" [ngModel]="comida.calorias">
+                <input formControlName="nombreComida" class="w-75 input-edit input-style" type="text" placeholder="Nombre de la comida" >
+                <input formControlName="calorias" class="w-75 input-edit input-style" type="number" placeholder="Calorias" >
                 <div class="w-100 d-flex justify-content-center gap-4">
                     <button (click)="editarComida()" class="btn-send-edit btn btn-sm py-0">Editar</button>
                     <button (click)="cambiarToggleEditar($event)" class="button-absolute-red bg-transparent border-0"><i class="fa-solid fa-xmark fs-4"></i></button>

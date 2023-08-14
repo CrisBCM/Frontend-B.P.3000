@@ -3,6 +3,7 @@
 }
 .img-usuario{
     width: 75%;
+    max-width: 43px;
     height: 75%;
     border-radius: 5em;
 }

@@ -67,6 +67,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; } */
 }
 .anchor-style{
     color: rgb(95, 118, 167);
+    cursor: pointer;
 }
 .anchor-style:hover{
     color: rgb(93, 152, 204);

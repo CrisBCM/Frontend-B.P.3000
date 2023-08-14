@@ -4,24 +4,20 @@ import { Persona } from '../modelo/clases/persona';
 import { Imagen } from '../modelo/clases/imagen';
 import { Comida } from '../modelo/clases/comida';
 import { Estomago } from '../modelo/clases/estomago';
-import { PerfilService } from './perfil.service';
+import { HttpClient } from '@angular/common/http';
+import { PersonaService } from './persona.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SharingService {
+export class SharingService{
 
   private persona$: BehaviorSubject<Persona | null> = new BehaviorSubject<Persona | null>(null);
   private totalConsumido$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-
-  constructor(private perfilService:PerfilService) {
-
-    this.cargarPersona();
   
-  }
 
-  set cerrarSesion(cerrarSesion:null){
-    this.persona$.next(cerrarSesion);
+  constructor(private http:HttpClient, private personaService:PersonaService) {
+    console.log("construyendo sharingService");
   }
 
   set totalConsumido(consumoDeldia:number){
@@ -40,12 +36,21 @@ export class SharingService {
     this.persona$.next(persona);
   }
 
-  cargarPersona():void{
-    this.perfilService.getPerfilPersona().subscribe((data:any)=>{
+  set newPersona(cambio:any){
+    this.persona$.next(cambio);
+  }
 
-      console.log(data);
+
+  
+
+  cargarPersona():void{
+    console.log("ejecutando cargar PERSONA funcion");
+    this.personaService.getPerfilPersona().subscribe((data:any)=>{
+      console.log("dentro de personaService.getperfilpersona.subscribe")
 
       const persona = this.getPersona(data);
+
+      console.log(persona + "soy personsssssssssssa;")
 
       this.persona$.next(persona);
 
@@ -91,10 +96,10 @@ export class SharingService {
   }
 
   getPersona(data:any):Persona{
-    
+    console.log("GET PERSONAAAA: " + JSON.stringify(data));
     let estomago:Estomago = this.getEstomago(data);
 
-    let persona:Persona = new Persona(data.nombreCompleto, data.nombreUsuario, data.cantidadActividad, estomago, data.pesoCorporal, data.imgAvatar);
+    let persona:Persona = new Persona(data.nombreCompleto, data.nombreUsuario, data.cantidadActividad, estomago, data.pesoCorporal, data.imgAvatar, data.publicaciones);
 
     return persona;
   }

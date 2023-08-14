@@ -1,0 +1,12 @@
+.btn-comentario{
+    background-color: transparent;
+    border: none;
+    height: min-content;
+    color: rgb(86, 138, 206);
+}
+.btn-comentario:hover{
+    color: rgb(46, 106, 190);
+}
+.btn-active{
+    background-color: blue;
+}

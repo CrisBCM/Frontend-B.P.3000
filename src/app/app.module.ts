@@ -13,7 +13,7 @@ import { MainComponent } from './componentes/main/main.component';
 import { MenuUsuarioComponent } from './componentes/menu-usuario/menu-usuario.component';
 import { FooterComponent } from './componentes/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderMainComponent } from './componentes/header-main/header-main.component';
 import { ForoMainComponent } from './componentes/foro-main/foro-main.component';
 import { BtnPublicarComponent } from './componentes/btn-publicar/btn-publicar.component';
@@ -21,6 +21,10 @@ import { FormPublicacionComponent } from './componentes/form-publicacion/form-pu
 import { PublicacionComponent } from './componentes/publicacion/publicacion.component';
 import { PublicacionFiltroPipe } from './pipes/publicacion-filtro.pipe';
 import { ComentarioFormComponent } from './componentes/comentario-form/comentario-form.component';
+import { BotonLikeDislikeComponent } from './componentes/boton-like-dislike/boton-like-dislike.component';
+import { EliminarEditarComponent } from './componentes/eliminar-editar/eliminar-editar.component';
+import { AutenticacionInterceptor } from './shared/autenticacion.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +43,9 @@ import { ComentarioFormComponent } from './componentes/comentario-form/comentari
     FormPublicacionComponent,
     PublicacionComponent,
     PublicacionFiltroPipe,
-    ComentarioFormComponent
+    ComentarioFormComponent,
+    BotonLikeDislikeComponent,
+    EliminarEditarComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +56,7 @@ import { ComentarioFormComponent } from './componentes/comentario-form/comentari
     HttpClientModule
     
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:AutenticacionInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

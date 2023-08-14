@@ -1,26 +1,31 @@
-import { Injectable, OnInit } from '@angular/core';
-import { LoginServiceService } from './login-service.service';
-import { PerfilPersona } from '../modelo/clases/perfil-persona';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EnumEndpoints } from '../shared/enum-endpoints';
 import { Imagen } from '../modelo/clases/imagen';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PerfilService{
+export class PersonaService{
 
-  tokenDecoded:any;
-  
-  constructor(private loginService: LoginServiceService, private http:HttpClient) {}
+  tokenDecoded$:any;
 
-  
-  getPerfilPersona():Observable<any>{
-    this.tokenDecoded = this.loginService.tokenDecoded;
-    return this.http.get(`${EnumEndpoints.getPersona}/${this.tokenDecoded.persona_id}`);
+  constructor(private tokenService:TokenService, private http:HttpClient) {
+    
+    this.tokenService.tokenDecoded$.subscribe(tokenDecoded =>{
+      this.tokenDecoded$ = tokenDecoded;
+      console.log("soy tokendecoded$ :" + this.tokenDecoded$)
+    })
   }
 
+
+
+  getPerfilPersona():Observable<any>{
+    console.log("TOKENDECODE GETPERFILPERSONA : " + JSON.stringify(this.tokenDecoded$));
+    return this.http.get(`${EnumEndpoints.getPersona}/${this.tokenDecoded$.persona_id}`);
+  }
 
   getCaloriasDiarias(pesoKg:number, cantActividad:number):number{
 

@@ -1,30 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginServiceService } from 'src/app/service/login-service.service';
 import { Router } from '@angular/router';
 import { SharingService } from 'src/app/service/sharing.service';
 import { Persona } from 'src/app/modelo/clases/persona';
-import { Subscription } from 'rxjs';
+import { TokenService } from 'src/app/service/token.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-menu-usuario',
   templateUrl: './menu-usuario.component.html',
   styleUrls: ['./menu-usuario.component.css']
 })
-export class MenuUsuarioComponent{
+export class MenuUsuarioComponent implements OnInit{
 
   urlPerfil!:string;
 
-  datosPersona:any;
+  datosPersona:Observable<Persona | null>;
 
-  personaSubscription!:Subscription;
-
-  constructor(private sharingService:SharingService, private router:Router, private loginService:LoginServiceService){
-    this.personaSubscription = this.sharingService.personaBehaviorSubject.subscribe((persona:Persona | null)=>{
-      if(persona?.imgAvatar.path) this.urlPerfil = persona?.imgAvatar.path;
-      
-    })
+  constructor(private sharingService:SharingService, private router:Router, private tokenService:TokenService){
+    
+    this.datosPersona = sharingService.personaBehaviorSubject;
   }
+  
 
+  ngOnInit(): void {
+    this.sharingService.cargarPersona();
+    // console.log("ejecutando oninit de menu usuario")
+    // this.sharingService.personaBehaviorSubject.subscribe((persona:Persona | null)=>{
+
+    //   console.log("persona en subscribe menu usuario : " + persona);
+
+    //   if(persona?.imgAvatar.path) this.urlPerfil = persona?.imgAvatar.path;
+      
+    //   console.log(persona);
+    // })
+  }
 
 // ngOnDestroy(): void {
 //   this.personaSubscription.unsubscribe();
@@ -33,10 +42,10 @@ export class MenuUsuarioComponent{
   cerrarSesion(event:Event){
     event.preventDefault();
 
-    this.sharingService.cerrarSesion = null;
-
-    this.loginService.setUsuarioAutenticado = "";
-
+    this.tokenService.newCurrentToken ="{}";
+    this.tokenService.newTokenDecoded = "{}";
+    this.sharingService.newPersona = "{}";
+    
     localStorage.removeItem("usuarioActual");
 
     this.router.navigate(["/iniciar-sesion"]);

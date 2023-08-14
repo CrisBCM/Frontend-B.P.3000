@@ -1,32 +1,150 @@
-<div class="mx-auto d-flex flex-wrap py-sm-5 pe-sm-5 p-0 col-12 col-lg-8 col-xl-6 div-publicacion">
-    <div class="col-12 col-sm-2 text-center autor-img-container">
-        <img class="autor-img" src="../../../assets/images/perritoFino.jpg" alt="">
+<div class="mx-auto d-flex flex-wrap pb-sm-5 pt-sm-4 pe-sm-5 p-0 col-12 col-lg-8 col-xl-6 div-publicacion">
+    <div class="col-12 col-sm-1 text-center autor-img-container mx-3" *ngIf="publicacion">
+        <img class="autor-img" [src]="publicacion.fotoAutor" alt="">
     </div>
     <section *ngIf="publicacion" class="publicacion-container col-12 col-sm-10 px-2 px-sm-0">
         <h2 class="h2-publicacion mb-2">{{publicacion.titulo}}</h2>
-        <div class="border-bottom mb-2 pb-2">
+        <div class=" border-color mb-2 pb-2">
             <ul class="ul-info d-flex flex-column gap-2 mb-2">
-                <li class="neutral-style">{{publicacion.tema}} de <a href="#">{{publicacion.autor}}</a> hace {{publicacion.fecha}}</li>
+                <li class="neutral-style">{{publicacion.tema}} de <a class="autor-link" href="#">{{publicacion.autor}}</a> hace {{calcularAntiguedadFecha(publicacion.fecha)}}</li>
                 <li><button class="btn btn-sm button-style neutral-style ps-0"><i class="fa-solid fa-pen"></i> Editar</button></li>
             </ul>
         </div>
         <div class="contenido mb-5">{{publicacion.contenido}}</div>
-        <article>
-            <h5 class="border-bottom pb-3 mb-3">{{publicacion.comentarios.length}} Comentarios</h5>
-            <app-comentario-form (anadirComentario)="anadirComentario($event)" [idPublicacion]="publicacion.id" class="d-flex flex-wrap mb-3 justify-content-center justify-content-sm-start">
+        <article class="d-flex flex-column gap-2">
+            <h5 class="border-color pb-3">{{publicacion.comentarios.length}} Comentarios</h5>
+            <app-comentario-form (anadirComentario)="anadirComentario($event)" [idPublicacion]="publicacion.id" [respuestaOComentario]="true" class="d-flex flex-wrap justify-content-center justify-content-sm-start gap-1 mb-1 pb-3">
             </app-comentario-form>
-            <div class="d-flex flex-wrap mb-2 justify-content-center justify-content-sm-start" *ngFor="let comentario of publicacion.comentarios">
+            <div class="d-flex flex-wrap justify-content-center justify-content-sm-start" *ngFor="let comentario of publicacion.comentarios; let comentarioI = index">
                 <div class="col-2 d-flex pt-1 img-container">
-                    <img class="img-perfil-comentario" src="../../../assets/images/perritoFino.jpg" alt="">
+                    <img class="img-perfil-comentario" [src]="comentario.fotoAutor" alt="">
                 </div>
-                <ul class="ul-info d-flex flex-wrap gap-1 mb-0 px-3 py-2 col-10 comentario ms-1">
-                    <li><a href="#">{{comentario.autor}}</a></li>
-                    <li>{{comentario.fecha}}</li>
+                <ul class="ul-info d-flex flex-wrap gap-1 mb-1 px-3 py-1 col-10 comentario">
+                    <li><a href="#" class="autor-link">{{comentario.autor}}</a></li>
+                    <li>hace {{calcularAntiguedadFecha(comentario.fecha)}}</li>
+                    <li class="ms-auto">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm py-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end respuesta-menu">
+                                <li>
+                                    <button (click)="idComentario = comentario.id" type="button" class="btn-comentario text-light" data-bs-toggle="modal" data-bs-target="#exampleModalComentario">
+                                        Eliminar
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-comentario text-light"(click)="idComentario = comentario.id" (click)="switchEdicionComentario(comentario.contenido)">Editar</button>
+                                </li>
+                            </ul>
+                            
+                            <!-- Modal Eliminar-->
+                            <div class="modal fade" id="exampleModalComentario" tabindex="-1" aria-labelledby="exampleModalLabelComentario" aria-hidden="true">
+                                
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabelComentario">¿Eliminar Comentario?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Seguro que queres eliminar este comentario?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                            <button class="btn btn-secondary" (click)="eliminarComentario(idComentario)" data-bs-dismiss="modal">Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li class="w-100">
-                        <p class="mb-0 py-2">{{comentario.contenido}}</p>
+                        <p class="mb-0" *ngIf="!editarSwitchComentario || idComentario != comentario.id">{{comentario.contenido}}</p>
+                        <ng-container *ngIf="editarSwitchComentario && idComentario == comentario.id">
+                            <input [(ngModel)]="tempContenido" type="text" placeholder="comentario..." class="comentario-input col-12 py-2 ps-2 ">
+                            <div class="col-12 d-flex justify-content-end border-top">
+                                <button (click)="editarSwitchComentario = false" class="btn btn-sm text-secondary">Cancelar</button>
+                                <button (click)="editarComentario(comentario.id, comentarioI)" class="btn btn-sm btn-enviar me-2 my-2">Enviar</button>
+                            </div>
+                        </ng-container>
+                    </li>
+                    <li class="d-flex gap-3" *ngIf="!editarSwitchComentario || idComentario != comentario.id">
+                        <app-boton-like-dislike [idComentarioORespuesta]="comentario.id" [listaMeGusta]="comentario.listaMeGusta" [listaNoMeGusta]="comentario.listaNoMeGusta" class="d-flex gap-3"></app-boton-like-dislike>
+                        <button class="btn-comentario p-0" (click)="mostrarRespuestas(comentarioI)"><i class="fa-regular fa-message icono-comentario"></i> Responder</button>
+                        <button *ngIf="!respuestasMostradas.includes(comentarioI) && comentario.respuestas.length > 0" class="btn-comentario p-0" (click)="mostrarRespuestas(comentarioI)">{{comentario.respuestas.length}} respuestas</button>
+                        <button *ngIf="respuestasMostradas.includes(comentarioI)" class="btn-comentario p-0" (click)="ocultarRespuestas(comentarioI)">Ocultar respuestas</button>
                     </li>
                 </ul> 
+                <app-comentario-form [idComentario]="comentario.id" [respuestaOComentario]="false" (anadirRespuesta)="anadirRespuestaComentario(comentarioI, $event)" *ngIf="respuestasMostradas.includes(comentarioI)" class="respuesta-container d-flex col-11 mb-1">
+                </app-comentario-form>
+
+                <div class="d-flex flex-wrap col-11" *ngFor="let respuesta of comentario.respuestas; let respuestaI = index">
+
+                  
+                    <div *ngIf="respuestasMostradas.includes(comentarioI)" class="respuesta-container d-flex col-12">
+                        <div class="col-2 d-flex pt-1 img-container">
+                            <img class="img-perfil-comentario" [src]="respuesta.fotoAutor" alt="">
+                        </div>
+                        <ul class="ul-info d-flex flex-wrap gap-1 mb-1 px-3 py-1 col-10 comentario">
+                            <li><a href="#" class="autor-link">{{respuesta.autor}}</a></li>
+                            <li>hace {{calcularAntiguedadFecha(respuesta.fecha)}}</li>
+                            <li class="ms-auto">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm py-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end respuesta-menu">
+                                        <li>
+                                            <button (click)="idRespuesta = respuesta.id" type="button" class="btn-comentario text-light" data-bs-toggle="modal" data-bs-target="#exampleModalRespuesta">
+                                                Eliminar
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button (click)="idRespuesta = respuesta.id" class="btn-comentario text-light" (click)="switchEdicionRespuesta(respuesta.contenido)">Editar</button>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Modal Eliminar-->
+                                    <div class="modal fade" id="exampleModalRespuesta" tabindex="-1" aria-labelledby="exampleModalLabelRespuesta" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabelRespuesta">¿Eliminar Respuesta?</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Seguro que queres eliminar este Respuesta?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                    <button class="btn btn-secondary" (click)="eliminarRespuesta(idRespuesta, comentarioI)" data-bs-dismiss="modal">Eliminar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="w-100" >
+                                <p class="mb-0" *ngIf="!editarSwitchRespuesta || idRespuesta != respuesta.id">{{respuesta.contenido}}</p>
+                                <ng-container *ngIf="editarSwitchRespuesta && idRespuesta == respuesta.id">
+                                    <input [(ngModel)]="tempContenido" type="text" placeholder="comentario..." class="comentario-input col-12 py-2 ps-2 ">
+                                    <div class="col-12 d-flex justify-content-end border-top">
+                                        <button (click)="editarSwitchRespuesta = false" class="btn btn-sm text-secondary">Cancelar</button>
+                                        <button (click)="editarRespuesta(respuesta.id, comentarioI, respuestaI)" class="btn btn-sm btn-enviar me-2 my-2">Enviar</button>
+                                        {{respuesta.id}}
+                                    </div>
+                                </ng-container>
+                                
+                            </li>
+                            <li class="d-flex gap-3" *ngIf="!editarSwitchRespuesta || idRespuesta != respuesta.id">
+                                <app-boton-like-dislike [idComentarioORespuesta]="respuesta.id" [listaMeGusta]="respuesta.listaMeGusta" [listaNoMeGusta]="respuesta.listaNoMeGusta" [comentarioORespuesta]="true" class="d-flex gap-3"></app-boton-like-dislike>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+                
         </article>
     </section>
 </div>

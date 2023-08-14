@@ -1,6 +1,6 @@
-<div class="d-flex flex-wrap menu-usuario" data-bs-toggle="dropdown" aria-expanded="false">
+<div class="d-flex flex-wrap menu-usuario" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="datosPersona | async as persona">
     <div class="img-container d-flex dropdown-style px-2 py-0 align-items-center">
-        <img *ngIf="urlPerfil" class="img-usuario" [src]="urlPerfil" alt="imagen de perfil">
+        <img *ngIf="persona.imgAvatar.path" class="img-usuario" [src]="persona.imgAvatar.path" alt="imagen de perfil">
         <div class="dropdown">
           <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           </button>
@@ -9,7 +9,7 @@
             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cerrar sesion</a></li>
           </ul>
       </div>
-    </div> 
+    </div>
 </div>
 
 <!-- Modal -->

@@ -1,0 +1,8 @@
+<div>
+    <button (click)="meGusta()" class="btn-comentario p-0"><i class="fa-thumbs-up icono-comentario" [ngClass]="{'fa-solid': listaMeGusta.includes(nombreUsuario), 'fa-regular': !listaMeGusta.includes(nombreUsuario)}"></i></button>
+    {{listaMeGusta.length}}
+</div>
+<div>
+    <button (click)="noMeGusta()" class="btn-comentario p-0"><i class="fa-thumbs-down icono-comentario" [ngClass]="{'fa-solid': listaNoMeGusta.includes(nombreUsuario), 'fa-regular': !listaNoMeGusta.includes(nombreUsuario)}"></i></button>
+    {{listaNoMeGusta.length}}
+</div>

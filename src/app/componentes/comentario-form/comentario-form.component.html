@@ -1,7 +1,9 @@
 <div class="col-2 d-flex justify-content-cente img-container">
-    <img class="img-perfil-comentario" src="../../../assets/images/perritoFino.jpg" alt="">
+    <img *ngIf="urlPerfil" class="img-perfil-comentario" [src]="urlPerfil" alt="">
 </div>
-<form [formGroup]="form" class="col-10 ms-1 d-flex">
-    <input formControlName="contenido" type="text" placeholder="comentario..." class="comentario-input py-2 ps-2 ">
-    <button (click)="enviarComentario()" class="btn-enviar"><i class="fa-regular fa-paper-plane"></i></button>
+<form [formGroup]="form" class="form-comentario col-10 d-flex flex-column border">
+    <input formControlName="contenido" type="text" placeholder="comentario..." class="comentario-input col-12 py-2 ps-2 ">
+    <div class="col-12 d-flex justify-content-end border-top">
+        <button (click)="manejarClick()" class="btn btn-sm btn-enviar me-2 my-2">Enviar</button>
+    </div>
 </form>

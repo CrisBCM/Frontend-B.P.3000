@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Publicacion } from 'src/app/modelo/clases/publicacion';
+import { IPublicacion, IPublicacionForm } from 'src/app/modelo/interfaces/IPublicacion';
 import { ForoService } from 'src/app/service/foro.service';
 import { LoginServiceService } from 'src/app/service/login-service.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-form-publicacion',
@@ -15,9 +16,11 @@ export class FormPublicacionComponent {
 
   idUsuario:number;
 
-  constructor(private fb:FormBuilder, private foroService:ForoService, private loginService:LoginServiceService){
+  constructor(private fb:FormBuilder, private foroService:ForoService, private tokenService:TokenService){
 
-    this.tokenDecode = loginService.tokenDecoded;
+    tokenService.tokenDecoded$.subscribe(tokenDecoded =>{
+      this.tokenDecode = tokenDecoded;
+    })
 
     this.idUsuario = this.tokenDecode.persona_id;
 
@@ -29,30 +32,15 @@ export class FormPublicacionComponent {
   });
 
   get titulo(){
-      return this.form.get("titulo")?.value;
+      return this.form.get("titulo") as FormControl;
   }
   get tema(){
-    if(this.form.get("tema")?.value == null) 
-      return;
-
-    return this.form.get("tema")?.value;
+ 
+    return this.form.get("tema") as FormControl;
   }
   get contenido(){
-    if(this.form.get("contenido")?.value == null) 
-      return;
-    return this.form.get("contenido")?.value;
+    return this.form.get("contenido") as FormControl;
   }
-
-  // nuevaPublicacion(){
-    
-  //   let publicacion:Publicacion;
-
-  //   if(this.titulo && this.tema && this.contenido){
-      
-  //      publicacion = new Publicacion(this.titulo , this.tema, this.contenido, new Date());
-  //   }
-  //   return publicacion;
-  // }
 
 
   errorPublicar(){
@@ -63,7 +51,11 @@ export class FormPublicacionComponent {
   publicar(){
     if(!this.form.valid) this.errorPublicar;
 
-    const publicacion:Publicacion = new Publicacion(this.titulo ?? "", this.contenido ?? "", this.tema ?? "", new Date());
+    const publicacion:IPublicacionForm = {
+      titulo : this.titulo.value,
+      tema: this.tema.value,
+      contenido : this.contenido.value,
+    }
 
     console.log(publicacion);
     
