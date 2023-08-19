@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Observable, map } from 'rxjs';
-import { IComentario, IPublicacion, IRespuesta } from 'src/app/modelo/interfaces/IPublicacion';
+import { Comentario } from 'src/app/modelo/interfaces/comentario';
+import { Publicacion } from 'src/app/modelo/interfaces/publicacion';
+import { Respuesta } from 'src/app/modelo/interfaces/respuesta';
 import { ForoService } from 'src/app/service/foro.service';
+import { PerfilUsuarioService } from 'src/app/service/perfil-usuario.service';
 
 @Component({
   selector: 'app-publicacion',
@@ -15,8 +18,8 @@ export class PublicacionComponent{
   idPublicacion!:number;
   idComentario!:number;
   idRespuesta!:number;
-  publicacion!:IPublicacion;
-  publicaciones$:Observable<IPublicacion[] | null>;
+  publicacion!:Publicacion;
+  publicaciones$:Observable<Publicacion[] | null>;
   respuestasMostradas:number[] = [];
   mostrar:boolean = true;
   responder:boolean = false;
@@ -24,8 +27,8 @@ export class PublicacionComponent{
   editarSwitchRespuesta:boolean = false;
   editarSwitchComentario:boolean = false;
 
-  constructor(private activdeRoute:ActivatedRoute, private foroService:ForoService){
-    activdeRoute.params.subscribe((params:Params) =>{
+  constructor(activatedRoute:ActivatedRoute, private foroService:ForoService, private router:Router, private perfilUsuarioService:PerfilUsuarioService){
+    activatedRoute.params.subscribe((params:Params) =>{
       this.idPublicacion = params["idPublicacion"];
     })
 
@@ -40,6 +43,22 @@ export class PublicacionComponent{
       }
     })
   }
+  
+  redirigirAPerfilUsuario(nombreUsuario:string){
+    let nombreUsuarioActual;
+
+    this.perfilUsuarioService.getNombreUsuarioActual.subscribe(nombreUsuarioSub =>{
+      nombreUsuarioActual = nombreUsuarioSub;
+    })
+
+    if(nombreUsuarioActual != nombreUsuario){
+      this.perfilUsuarioService.setPerfilUsuario = null;
+      this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
+    }
+
+    this.router.navigate(["/usuario", nombreUsuario]);
+  }
+
   calcularAntiguedadFecha(fecha:Date){
     let date = new Date(fecha);
     return formatDistance(date, new Date(), {locale:es});
@@ -49,12 +68,12 @@ export class PublicacionComponent{
     this.responder = true;
   }
 
-  anadirComentario(comentario:IComentario){
+  anadirComentario(comentario:Comentario){
     this.publicacion.comentarios.push(comentario);
     console.log(JSON.stringify(comentario) +  "SOY COMENTARIO")
   }
   
-  anadirRespuestaComentario(comentarioI:number, respuesta:IRespuesta){
+  anadirRespuestaComentario(comentarioI:number, respuesta:Respuesta){
     console.log("ESTA FUNCIONANDO")
     this.publicacion.comentarios[comentarioI].respuestas.push(respuesta);
   }

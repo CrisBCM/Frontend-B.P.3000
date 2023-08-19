@@ -1,0 +1,15 @@
+.general-bg{
+    background-color: rgba(121, 129, 165, 0.185);
+}
+.link-style{
+    list-style-type: none;
+    text-decoration: none;
+    text-decoration-line: none;
+}
+.anchor-style{
+    color: rgb(95, 118, 167);
+    cursor: pointer;
+}
+.anchor-style:hover{
+    color: rgb(93, 152, 204);
+}

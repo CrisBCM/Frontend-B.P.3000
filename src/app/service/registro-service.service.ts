@@ -12,7 +12,6 @@ export class RegistroServiceService {
   constructor(private http:HttpClient) {}
 
   postRegistrar(body:any, path:string):Observable<any>{
-    console.log("registro realizado");
 
     return this.http.post(path, body);
   }

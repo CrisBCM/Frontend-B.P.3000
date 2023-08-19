@@ -19,7 +19,6 @@ export class TokenService {
 
   actualizarTokenDecoded(){
     if(this.currentToken$.value.token){
-      console.log("CURRENT TOKEN.VALUE.TOKEN : " + JSON.stringify(this.currentToken$.value.token));
       this.tokenDecoded.next(jwt_decode(this.currentToken$.value.token));
     }
   }
@@ -36,10 +35,7 @@ export class TokenService {
     this.currentToken$.next(cambio);
   }
   set newTokenDecoded(cambio:any){
-    console.log("estoy seteando dentro de newTokenDecoded(cambio:any){}");
     this.tokenDecoded.next(cambio);
-    console.log(JSON.stringify(this.tokenDecoded.value));
-    console.log("TERMINE DE SETEARRRR DENTRO");
   }
 
 }

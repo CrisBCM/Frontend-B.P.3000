@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import jwt_decode from "jwt-decode";
 import { Observable, Subscription } from 'rxjs';
 import { Imagen } from 'src/app/modelo/clases/imagen';
 import { Persona } from 'src/app/modelo/clases/persona';
-import { IPublicacion } from 'src/app/modelo/interfaces/IPublicacion';
 import { ForoService } from 'src/app/service/foro.service';
-import { LoginServiceService } from 'src/app/service/login-service.service';
 import { PersonaService } from 'src/app/service/persona.service';
 import { SharingService } from 'src/app/service/sharing.service';
 
@@ -28,7 +25,6 @@ export class PerfilSectionComponent implements OnInit, OnDestroy{
   
 
   ngOnInit(): void {
-    this.sharingService.cargarPersona();
     
     this.persona$ = this.sharingService.personaBehaviorSubject;
 

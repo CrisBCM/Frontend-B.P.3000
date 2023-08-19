@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginServiceService } from 'src/app/service/login-service.service';
-import { SharingService } from 'src/app/service/sharing.service';
 
 @Component({
   selector: 'app-login',
@@ -25,10 +24,8 @@ export class LoginComponent {
     this.loginService.iniciarSesion(this.loginForm.value).subscribe({
 
       next : () => {
-        console.log("iniciando sesion");
       },
       complete : () =>{
-        console.log("redirigiendo a bpforo")
         this.router.navigate(["/bp-foro"]);
       },
 
@@ -45,25 +42,7 @@ export class LoginComponent {
       
           }
     })
-    console.log("Terminando la funcion iniciar sesion en login component");
   }
-  //   this.loginService.iniciarSesion(this.loginForm.value).subscribe(data=>{
-  //     this.sharingService.cargarPersona();
-
-  //     this.router.navigate(['/bp-foro']);
-  //   }, err =>{
-
-  //     let error = err.error;
-
-  //     if(typeof error === "string"){
-  //       this.msgError = err.error;
-  //     }
-  //     else{
-  //       this.msgError = "Campos invalidos";
-  //     }
-
-  //   })
-  // }
 
   isValidField(name:string):boolean{
     const campoNombre = this.loginForm.get(name) as FormControl;

@@ -35,7 +35,7 @@
                     <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.tema}}: {{publicacion.titulo}}.</a>
                 </h6>
                 <span>publicado hace: {{calcularAntiguedadFecha(publicacion.fecha)}} - </span>
-                <span>por: <a href="" class="link-style anchor-style">{{publicacion.autor}}</a></span>
+                <span>por: <a (click)="redirigirAPerfilUsuario(publicacion.autor)" class="link-style anchor-style">{{publicacion.autor}}</a></span>
             </article>
         </section>
     </main>

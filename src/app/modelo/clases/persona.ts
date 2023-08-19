@@ -1,4 +1,4 @@
-import { IPublicacion } from "../interfaces/IPublicacion";
+import { Publicacion } from "../interfaces/publicacion";
 import { Estomago } from "./estomago";
 import { Imagen } from "./imagen";
 
@@ -9,10 +9,10 @@ export class Persona {
     public estomago:Estomago;
     public pesoCorporal:number;
     public imgAvatar:Imagen;
-    public publicaciones:IPublicacion[];
+    public publicaciones:Publicacion[];
     public totalConsumido:number;
 
-    constructor(nombreCompleto:string, nombreUsuario:string, cantidadActividad:number, estomago:Estomago, pesoCorporal:number, imgAvatar:Imagen, publicaciones:IPublicacion[]){
+    constructor(nombreCompleto:string, nombreUsuario:string, cantidadActividad:number, estomago:Estomago, pesoCorporal:number, imgAvatar:Imagen, publicaciones:Publicacion[]){
         this.nombreCompleto = nombreCompleto;
         this.nombreUsuario = nombreUsuario;
         this.cantidadActividad = cantidadActividad;

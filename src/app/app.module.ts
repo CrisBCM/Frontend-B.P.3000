@@ -8,8 +8,8 @@ import { BpPageComponent } from './componentes/bp-page/bp-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
-import { PerfilSectionComponent } from './componentes/perfil-section/perfil-section.component';
-import { MainComponent } from './componentes/main/main.component';
+import { PerfilSectionComponent } from './componentes/bp-page/perfil-section/perfil-section.component';
+import { MainComponent } from './componentes/bp-page/main/main.component';
 import { MenuUsuarioComponent } from './componentes/menu-usuario/menu-usuario.component';
 import { FooterComponent } from './componentes/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +24,9 @@ import { ComentarioFormComponent } from './componentes/comentario-form/comentari
 import { BotonLikeDislikeComponent } from './componentes/boton-like-dislike/boton-like-dislike.component';
 import { EliminarEditarComponent } from './componentes/eliminar-editar/eliminar-editar.component';
 import { AutenticacionInterceptor } from './shared/autenticacion.interceptor';
+import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
+import { PerfilAsideComponent } from './componentes/perfil-usuario/perfil-aside/perfil-aside.component';
+import { PerfilMainComponent } from './componentes/perfil-usuario/perfil-main/perfil-main.component';
 
 
 @NgModule({
@@ -46,6 +49,9 @@ import { AutenticacionInterceptor } from './shared/autenticacion.interceptor';
     ComentarioFormComponent,
     BotonLikeDislikeComponent,
     EliminarEditarComponent,
+    PerfilUsuarioComponent,
+    PerfilAsideComponent,
+    PerfilMainComponent
   ],
   imports: [
     BrowserModule,

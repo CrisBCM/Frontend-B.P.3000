@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IPublicacion, IPublicacionForm } from 'src/app/modelo/interfaces/IPublicacion';
 import { ForoService } from 'src/app/service/foro.service';
 import { LoginServiceService } from 'src/app/service/login-service.service';
 import { TokenService } from 'src/app/service/token.service';
@@ -51,7 +50,7 @@ export class FormPublicacionComponent {
   publicar(){
     if(!this.form.valid) this.errorPublicar;
 
-    const publicacion:IPublicacionForm = {
+    const publicacion:any = {
       titulo : this.titulo.value,
       tema: this.tema.value,
       contenido : this.contenido.value,

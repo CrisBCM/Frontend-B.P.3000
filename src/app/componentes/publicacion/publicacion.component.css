@@ -72,6 +72,7 @@
 .autor-link{
     color: #6c9ec0;
     text-decoration: none;
+    cursor: pointer;
 }
 .autor-link:hover{
     color: #4192c9;

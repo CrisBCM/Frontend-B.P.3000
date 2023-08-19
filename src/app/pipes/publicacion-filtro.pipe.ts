@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IPublicacion } from '../modelo/interfaces/IPublicacion';
+import { Publicacion } from '../modelo/interfaces/publicacion';
 
 @Pipe({
   name: 'publicacionFiltro'
 })
 export class PublicacionFiltroPipe implements PipeTransform {
 
-  transform(value: IPublicacion[], query: number):any {
+  transform(value: Publicacion[], query: number):any {
     if(query === 0 || query === undefined) return value;
 
     let array = value.filter(publicacion => publicacion.id == query);

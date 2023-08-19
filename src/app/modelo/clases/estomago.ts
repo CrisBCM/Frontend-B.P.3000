@@ -2,12 +2,12 @@ import { Comida } from "./comida";
 
 export class Estomago {
     public id:number;
-    public listaComida:Array<Comida>;
+    public comidas:Array<Comida>;
     public totalConsumido:number;
     
-    constructor(id:number, listaComida:Array<Comida>, totalConsumido:number){
+    constructor(id:number, comidas:Array<Comida>, totalConsumido:number){
         this.id = id;
-        this.listaComida = listaComida;
+        this.comidas = comidas;
         this.totalConsumido = totalConsumido;
     }
 

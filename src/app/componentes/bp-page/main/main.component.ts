@@ -6,7 +6,6 @@ import { Comida } from 'src/app/modelo/clases/comida';
 import { Estomago } from 'src/app/modelo/clases/estomago';
 import { Imagen } from 'src/app/modelo/clases/imagen';
 import { Persona } from 'src/app/modelo/clases/persona';
-import { PersonaDto } from 'src/app/modelo/clases/persona-dto';
 import { ComidaService } from 'src/app/service/comida.service';
 import { SharingService } from 'src/app/service/sharing.service';
 
@@ -137,7 +136,7 @@ export class MainComponent implements OnInit{
   
           let nuevaComida = this.crearComida(data);
   
-          this.persona?.estomago.listaComida.push(nuevaComida);
+          this.persona?.estomago.comidas.push(nuevaComida);
 
           this.sharingService.cambiarImagenPersona = this.persona;
   
@@ -169,9 +168,9 @@ export class MainComponent implements OnInit{
 
           console.log(JSON.stringify(data));
   
-          const indiceComida = this.persona.estomago.listaComida.findIndex(comida => comida.id == this.comidaSeleccionada);
+          const indiceComida = this.persona.estomago.comidas.findIndex(comida => comida.id == this.comidaSeleccionada);
   
-          let nuevaListaComida = [...this.persona.estomago.listaComida];
+          let nuevaListaComida = [...this.persona.estomago.comidas];
   
           let comida:Comida = nuevaListaComida[indiceComida];
   
@@ -180,7 +179,7 @@ export class MainComponent implements OnInit{
           comida.imagen.nombre = data.imagen.nombre;
           comida.imagen.path = data.imagen.path;
   
-          this.persona.estomago.listaComida = nuevaListaComida;
+          this.persona.estomago.comidas = nuevaListaComida;
           this.sharingService.cambiarImagenPersona = this.persona;
           
           this.setTotalConsumido();
@@ -199,7 +198,7 @@ export class MainComponent implements OnInit{
 
       this.comidaService.eliminarComida(idEstomago, idComida).subscribe( ()=>{
         
-        this.persona.estomago.listaComida = this.persona.estomago.listaComida.filter(comida => comida.id !== idComida);
+        this.persona.estomago.comidas = this.persona.estomago.comidas.filter(comida => comida.id !== idComida);
 
         this.sharingService.cambiarImagenPersona = this.persona;
 
@@ -222,7 +221,7 @@ export class MainComponent implements OnInit{
   }
 
   setTotalConsumido(){
-    let arrayComida = this.persona.estomago.listaComida;
+    let arrayComida = this.persona.estomago.comidas;
 
     let consumoTotal:number = this.obtenerTotalConsumido(arrayComida);
 

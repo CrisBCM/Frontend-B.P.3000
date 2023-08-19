@@ -17,7 +17,6 @@ export class SharingService{
   
 
   constructor(private http:HttpClient, private personaService:PersonaService) {
-    console.log("construyendo sharingService");
   }
 
   set totalConsumido(consumoDeldia:number){
@@ -44,13 +43,9 @@ export class SharingService{
   
 
   cargarPersona():void{
-    console.log("ejecutando cargar PERSONA funcion");
     this.personaService.getPerfilPersona().subscribe((data:any)=>{
-      console.log("dentro de personaService.getperfilpersona.subscribe")
 
       const persona = this.getPersona(data);
-
-      console.log(persona + "soy personsssssssssssa;")
 
       this.persona$.next(persona);
 
@@ -72,10 +67,10 @@ export class SharingService{
 
   getListaComidas(data:any):Array<Comida>{
 
-    let listaComidas:Array<Comida> = data.estomago.listaComidas;
+    let comidas:Array<Comida> = data.estomago.comidas;
     let arrayComida:Array<Comida> = [];
 
-      for(let com of listaComidas){
+      for(let com of comidas){
 
         
         let comida = this.crearComida(com);
@@ -89,7 +84,6 @@ export class SharingService{
   getEstomago(data:any):Estomago{
 
     let arrayComida = this.getListaComidas(data);
-
     let estomago = new Estomago (data.estomago.id, arrayComida, data.estomago.totalConsumido);
 
     return estomago;

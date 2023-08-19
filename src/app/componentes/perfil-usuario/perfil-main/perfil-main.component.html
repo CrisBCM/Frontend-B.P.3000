@@ -1,0 +1,29 @@
+<main class="d-flex flex-column main-container align-items-center">
+    <header class="w-100 text-center my-3 general-bg">
+        <h4 class="d-inline-block py-2 me-1">{{header}}</h4>
+    </header>
+    <div *ngIf="usuario$ | async as usuario" class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100">
+        <ng-container *ngIf="switchPublicacionesOComentarios">
+            <article class="px-3 py-2 border w-75" *ngFor="let publicacion of usuario.publicaciones">
+                <h6 class="mb-0">
+                    <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.tema}}: {{publicacion.titulo}}.</a>
+                </h6>
+                <span>publicado hace: {{calcularAntiguedadFecha(publicacion.fecha)}} - </span>
+                <span>por: <a (click)="redirigirAPerfilUsuario(usuario.nombreUsuario)" class="link-style anchor-style">{{publicacion.autor}}</a></span>
+            </article>
+        </ng-container>
+        <ng-container *ngIf="!switchPublicacionesOComentarios">
+            <article class="px-3 py-2 border w-75 d-flex flex-column gap-2" *ngFor="let comentario of usuario.comentarios">
+                <h6 class="mb-0">
+                    <a (click)="redirigirAPerfilUsuario(usuario.nombreUsuario)" class="link-style anchor-style">{{usuario.nombreUsuario}}</a> comentó sobre: <a (click)="redirigirAPublicacion(comentario.publicacionId)" class="link-style anchor-style">{{comentario.nombrePublicacion}}</a>
+                </h6>
+                <span>
+                    {{comentario.contenido}}
+                </span>
+                <span>
+                    hace: {{calcularAntiguedadFecha(comentario.fecha)}}
+                </span>
+            </article>
+        </ng-container>
+    </div>
+</main>

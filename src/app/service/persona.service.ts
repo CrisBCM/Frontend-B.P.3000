@@ -16,14 +16,13 @@ export class PersonaService{
     
     this.tokenService.tokenDecoded$.subscribe(tokenDecoded =>{
       this.tokenDecoded$ = tokenDecoded;
-      console.log("soy tokendecoded$ :" + this.tokenDecoded$)
     })
   }
 
 
 
   getPerfilPersona():Observable<any>{
-    console.log("TOKENDECODE GETPERFILPERSONA : " + JSON.stringify(this.tokenDecoded$));
+    console.log("TOKENDECODE GETPERFILPERSONA : " + JSON.parse(JSON.stringify(this.tokenDecoded$)));
     return this.http.get(`${EnumEndpoints.getPersona}/${this.tokenDecoded$.persona_id}`);
   }
 

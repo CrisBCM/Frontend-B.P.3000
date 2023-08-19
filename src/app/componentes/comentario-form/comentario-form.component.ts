@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Persona } from 'src/app/modelo/clases/persona';
-import { IComentario, IRespuesta } from 'src/app/modelo/interfaces/IPublicacion';
+import { Comentario } from 'src/app/modelo/interfaces/comentario';
+import { Respuesta } from 'src/app/modelo/interfaces/respuesta';
 import { ForoService } from 'src/app/service/foro.service';
 import { LoginServiceService } from 'src/app/service/login-service.service';
 import { SharingService } from 'src/app/service/sharing.service';
@@ -20,8 +21,8 @@ export class ComentarioFormComponent {
   @Input() idComentario!:number;
   @Input() idPublicacion!:number;
   @Input() respuestaOComentario!:boolean;
-  @Output() anadirComentario = new EventEmitter<IComentario>();
-  @Output() anadirRespuesta = new EventEmitter<IRespuesta>();
+  @Output() anadirComentario = new EventEmitter<Comentario>();
+  @Output() anadirRespuesta = new EventEmitter<Respuesta>();
   
 
   constructor(private fb:FormBuilder, private foroService:ForoService, private tokenService:TokenService , private sharingService:SharingService){
@@ -67,7 +68,7 @@ export class ComentarioFormComponent {
     const contenido = new FormData();
     contenido.append("contenido", this.contenido.value)
 
-    this.foroService.enviarComentario(this.idPublicacion, this.idUsuario, contenido).subscribe((nuevoComentario:IComentario)=>{
+    this.foroService.enviarComentario(this.idPublicacion, this.idUsuario, contenido).subscribe((nuevoComentario:Comentario)=>{
       this.anadirComentario.emit(nuevoComentario);
     })
     this.form.reset;
@@ -80,7 +81,7 @@ export class ComentarioFormComponent {
     const contenido = new FormData();
     contenido.append("contenido", this.contenido.value)
 
-    this.foroService.responderComentario(this.idComentario, this.idUsuario, contenido).subscribe((respuesta:IRespuesta) =>{
+    this.foroService.responderComentario(this.idComentario, this.idUsuario, contenido).subscribe((respuesta:Respuesta) =>{
       console.log(this.idComentario);
       this.anadirRespuesta.emit(respuesta);
       
@@ -90,7 +91,7 @@ export class ComentarioFormComponent {
   // responderComentario(idComentario:number){
   //   if(!this.form.valid) return;
 
-  //   this.foroService.responderComentario(idComentario, this.idUsuario, this.comentario).subscribe((respuesta:IRespuesta) =>{
+  //   this.foroService.responderComentario(idComentario, this.idUsuario, this.comentario).subscribe((respuesta:Respuesta) =>{
   //     this.anadirRespuesta.emit(respuesta);
   //   })
 
