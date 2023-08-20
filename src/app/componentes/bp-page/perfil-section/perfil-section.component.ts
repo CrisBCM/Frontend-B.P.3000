@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { Imagen } from 'src/app/modelo/clases/imagen';
-import { Persona } from 'src/app/modelo/clases/persona';
+import { Imagen } from 'src/app/modelo/interfaces/imagen';
+import { Persona } from 'src/app/modelo/interfaces/persona';
 import { ForoService } from 'src/app/service/foro.service';
 import { PersonaService } from 'src/app/service/persona.service';
 import { SharingService } from 'src/app/service/sharing.service';
@@ -14,16 +14,14 @@ import { SharingService } from 'src/app/service/sharing.service';
 export class PerfilSectionComponent implements OnInit, OnDestroy{
   persona$!:Observable<Persona | null>;
   totalConsumido$!:Observable<number>;
-  totalConsumido!:number;
   limiteDelDia!:number;
   imagen:any;
   subscriptionPersona!:Subscription;
   idPersona!:number;
+
   constructor(private personaService:PersonaService, private sharingService:SharingService, private foroService:ForoService){
     
   }
-  
-
   ngOnInit(): void {
     
     this.persona$ = this.sharingService.personaBehaviorSubject;
@@ -41,10 +39,6 @@ export class PerfilSectionComponent implements OnInit, OnDestroy{
       }
 
     });
-
-    this.totalConsumido$.subscribe(totalConsumido =>{
-      this.totalConsumido = totalConsumido;
-    })
   }
 
   ngOnDestroy(): void {
@@ -61,7 +55,7 @@ export class PerfilSectionComponent implements OnInit, OnDestroy{
 
       formImagen.append("imagen", img);
 
-      this.personaService.cambiarAvatar(persona.nombreUsuario, formImagen).subscribe((nuevaImagen:Imagen) =>{
+      this.sharingService.cambiarAvatar(persona.nombreUsuario, formImagen).subscribe((nuevaImagen:Imagen) =>{
 
         console.log("no me bugeo")
 

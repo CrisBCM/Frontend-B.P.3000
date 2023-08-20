@@ -1,11 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Comida } from 'src/app/modelo/clases/comida';
-import { Estomago } from 'src/app/modelo/clases/estomago';
-import { Imagen } from 'src/app/modelo/clases/imagen';
-import { Persona } from 'src/app/modelo/clases/persona';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { Comida } from 'src/app/modelo/interfaces/comida';
+import { Imagen } from 'src/app/modelo/interfaces/imagen';
+import { Persona } from 'src/app/modelo/interfaces/persona';
 import { ComidaService } from 'src/app/service/comida.service';
 import { SharingService } from 'src/app/service/sharing.service';
 
@@ -14,7 +13,7 @@ import { SharingService } from 'src/app/service/sharing.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit{
+export class MainComponent implements OnInit, OnDestroy{
   toggleAdd:boolean = false;
   toggleEditar:boolean = false;
 
@@ -24,32 +23,38 @@ export class MainComponent implements OnInit{
 
   image:any;
 
-  persona$:Observable<Persona | null>;
+  persona$!:Observable<Persona | null>;
 
   persona!:Persona;
 
   formNuevaComida:FormGroup;
 
-  constructor(private fb:FormBuilder, private comidaService:ComidaService, private sharingService:SharingService){
+  onDestroy$:Subject<Boolean> = new Subject();
 
+  constructor(private fb:FormBuilder, private comidaService:ComidaService, private sharingService:SharingService){
     this.formNuevaComida = fb.group({
       nombreComida:["", Validators.required],
       calorias:["", Validators.required]
     })
+  }
 
-    this.persona$ = sharingService.personaBehaviorSubject;
+  ngOnInit(): void {
+    this.persona$ = this.sharingService.personaBehaviorSubject;
 
-    this.persona$.subscribe((persona:Persona | null) =>{
+    this.persona$.pipe(takeUntil(this.onDestroy$)).subscribe((persona:Persona | null) =>{
 
      if(persona){
       this.persona = persona;
+      this.setTotalConsumido();
      }
     })
-
-  }
-  ngOnInit(): void {
+    
   }
 
+  ngOnDestroy(): void {
+    console.log("main componente destruyendose!")
+    this.onDestroy$.next(true);
+  }
 
   get nombreComida(){
     return this.formNuevaComida.get("nombreComida") as FormControl;
@@ -71,9 +76,18 @@ export class MainComponent implements OnInit{
   }
 
   crearComida(com:any){
-    let imagen = new Imagen(com.imagen.id, com.imagen.nombre, com.imagen.path);
+    let imagen:Imagen = {
+      id : com.imagen.id,
+      nombre : com.imagen.nombre,
+      path : com.imagen.path
+    };
         
-    let comida = new Comida(com.id, com.nombreComida, com.calorias, imagen);
+    let comida:Comida = {
+      id : com.id,
+      nombreComida : com.nombreComida,
+      calorias : com.calorias,
+      imagen: imagen
+    }
 
     return comida;
   }
@@ -135,6 +149,7 @@ export class MainComponent implements OnInit{
           console.log("soy estomago id  " + estomagoId);
   
           let nuevaComida = this.crearComida(data);
+          console.log(data);
   
           this.persona?.estomago.comidas.push(nuevaComida);
 
@@ -221,7 +236,7 @@ export class MainComponent implements OnInit{
   }
 
   setTotalConsumido(){
-    let arrayComida = this.persona.estomago.comidas;
+    let arrayComida = this.persona?.estomago.comidas;
 
     let consumoTotal:number = this.obtenerTotalConsumido(arrayComida);
 

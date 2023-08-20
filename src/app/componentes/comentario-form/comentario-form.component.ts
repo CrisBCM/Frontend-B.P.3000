@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Persona } from 'src/app/modelo/clases/persona';
 import { Comentario } from 'src/app/modelo/interfaces/comentario';
+import { Persona } from 'src/app/modelo/interfaces/persona';
 import { Respuesta } from 'src/app/modelo/interfaces/respuesta';
 import { ForoService } from 'src/app/service/foro.service';
 import { LoginServiceService } from 'src/app/service/login-service.service';

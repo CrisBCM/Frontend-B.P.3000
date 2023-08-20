@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Persona } from '../modelo/clases/persona';
-import { Imagen } from '../modelo/clases/imagen';
 import { Comida } from '../modelo/clases/comida';
 import { Estomago } from '../modelo/clases/estomago';
 import { HttpClient } from '@angular/common/http';
 import { PersonaService } from './persona.service';
+import { Persona } from '../modelo/interfaces/persona';
+import { TokenService } from './token.service';
+import { EnumEndpoints } from '../shared/enum-endpoints';
+import { Imagen } from '../modelo/interfaces/imagen';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +16,20 @@ export class SharingService{
 
   private persona$: BehaviorSubject<Persona | null> = new BehaviorSubject<Persona | null>(null);
   private totalConsumido$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  
+  private tokenDecoded:any;
 
-  constructor(private http:HttpClient, private personaService:PersonaService) {
+  constructor(private http:HttpClient, private personaService:PersonaService, private tokenService:TokenService)
+  {
+    this.tokenService.tokenDecoded$.subscribe(tokenDecoded$ =>{
+      this.tokenDecoded = tokenDecoded$;
+    })
+  }
+
+  getPerfilPersona():Observable<Persona>{
+    return this.http.get<Persona>(`${EnumEndpoints.getPersona}/${this.tokenDecoded.persona_id}`);
+  }
+  cambiarAvatar(nombreUsuario:String, imagen:FormData):Observable<Imagen>{
+    return this.http.post<Imagen>(`${EnumEndpoints.cambiarAvatar}/${nombreUsuario}`, imagen);
   }
 
   set totalConsumido(consumoDeldia:number){
@@ -35,67 +48,9 @@ export class SharingService{
     this.persona$.next(persona);
   }
 
-  set newPersona(cambio:any){
-    this.persona$.next(cambio);
+  set newPersona(persona:Persona | null){
+    this.persona$.next(persona);
   }
 
-
-  
-
-  cargarPersona():void{
-    this.personaService.getPerfilPersona().subscribe((data:any)=>{
-
-      const persona = this.getPersona(data);
-
-      this.persona$.next(persona);
-
-    }),
-    (error:any) => {
-      console.error('Error al obtener los datos del perfil de la persona.', error);
-    }
-  }
-
-  
-
-  crearComida(com:any):Comida{
-    let imagen = new Imagen(com.imagen.id, com.imagen.nombre, com.imagen.path);
-        
-    let comida = new Comida(com.id, com.nombreComida, com.calorias, imagen);
-
-    return comida;
-  }
-
-  getListaComidas(data:any):Array<Comida>{
-
-    let comidas:Array<Comida> = data.estomago.comidas;
-    let arrayComida:Array<Comida> = [];
-
-      for(let com of comidas){
-
-        
-        let comida = this.crearComida(com);
-
-        arrayComida.push(comida);
-      };
-
-      return arrayComida;
-  }
-
-  getEstomago(data:any):Estomago{
-
-    let arrayComida = this.getListaComidas(data);
-    let estomago = new Estomago (data.estomago.id, arrayComida, data.estomago.totalConsumido);
-
-    return estomago;
-  }
-
-  getPersona(data:any):Persona{
-    console.log("GET PERSONAAAA: " + JSON.stringify(data));
-    let estomago:Estomago = this.getEstomago(data);
-
-    let persona:Persona = new Persona(data.nombreCompleto, data.nombreUsuario, data.cantidadActividad, estomago, data.pesoCorporal, data.imgAvatar, data.publicaciones);
-
-    return persona;
-  }
 }
 

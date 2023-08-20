@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharingService } from 'src/app/service/sharing.service';
-import { Persona } from 'src/app/modelo/clases/persona';
 import { TokenService } from 'src/app/service/token.service';
 import { Observable } from 'rxjs';
+import { Persona } from 'src/app/modelo/interfaces/persona';
 
 @Component({
   selector: 'app-menu-usuario',
@@ -23,16 +23,9 @@ export class MenuUsuarioComponent implements OnInit{
   
 
   ngOnInit(): void {
-    this.sharingService.cargarPersona();
-    // console.log("ejecutando oninit de menu usuario")
-    // this.sharingService.personaBehaviorSubject.subscribe((persona:Persona | null)=>{
-
-    //   console.log("persona en subscribe menu usuario : " + persona);
-
-    //   if(persona?.imgAvatar.path) this.urlPerfil = persona?.imgAvatar.path;
-      
-    //   console.log(persona);
-    // })
+    this.sharingService.getPerfilPersona().subscribe((persona:Persona) =>{
+      this.sharingService.newPersona = persona;
+    })
   }
 
 // ngOnDestroy(): void {
@@ -44,7 +37,7 @@ export class MenuUsuarioComponent implements OnInit{
 
     this.tokenService.newCurrentToken ="{}";
     this.tokenService.newTokenDecoded = "{}";
-    this.sharingService.newPersona = "{}";
+    this.sharingService.newPersona = null;
     
     localStorage.removeItem("usuarioActual");
 

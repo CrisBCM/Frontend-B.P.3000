@@ -1,4 +1,4 @@
-<main class="d-flex flex-column main-container align-items-center">
+<main *ngIf="persona$ | async as personaAsync" class="d-flex flex-column main-container align-items-center">
     <header class="w-100 text-center my-3 general-bg">
         <h4 class="d-inline-block py-2 me-1">{{header}}</h4>
     </header>
@@ -13,8 +13,8 @@
         <button (click)="subirComida($event)" class="button-upload btn btn-sm btn-secondary w-50 align-self-center">Subir</button>
     </form>
     
-    <div *ngIf="!toggleAdd" class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100">
-        <article (click)="seleccionarComida(comida.id)" *ngFor="let comida of persona.estomago.comidas" class="article-comida col-3 mb-2 d-flex flex-column justify-content-center" [ngClass]="{'selected': comidaSeleccionada == comida.id}">
+    <div *ngIf="!toggleAdd && personaAsync.estomago" class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100">
+        <article (click)="seleccionarComida(comida.id)" *ngFor="let comida of personaAsync.estomago.comidas" class="article-comida col-3 mb-2 d-flex flex-column justify-content-center" [ngClass]="{'selected': comidaSeleccionada == comida.id}">
             <div class="img-container p-2" [ngClass]="{'d-none': comidaSeleccionada == comida.id && toggleEditar}">
                 <img class="img-comida" [src]="comida.imagen.path" alt="imagen de comida">
             </div>
@@ -23,7 +23,7 @@
                 <h6>{{comida.calorias}} kcal</h6>
                 <div *ngIf="comidaSeleccionada == comida.id">
                     <button (click)="cambiarToggleEditar($event)" class="button-absolute button-edit"><i class="fa-solid fa-pen"></i></button>
-                    <button (click)="eliminarComida(persona.estomago.id, comida.id)" class="button-absolute button-elim"><i class="fa-solid fa-trash"></i></button>
+                    <button (click)="eliminarComida(personaAsync.estomago.id, comida.id)" class="button-absolute button-elim"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>
             <form (click)="stopPropagation($event)" [formGroup]="formNuevaComida" *ngIf="comidaSeleccionada == comida.id && toggleEditar" class="d-flex flex-column gap-3 align-items-center">

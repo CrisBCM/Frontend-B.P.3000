@@ -11,7 +11,7 @@ import { TokenService } from './token.service';
 })
 export class LoginServiceService {
 
-  constructor(private http:HttpClient, private sharingService:SharingService, private tokenService:TokenService) {}
+  constructor(private http:HttpClient, private tokenService:TokenService) {}
 
   iniciarSesion(loginValue:any):Observable<any>{
 
@@ -22,9 +22,6 @@ export class LoginServiceService {
       this.tokenService.newCurrentToken = JSON.parse(localStorage.getItem("usuarioActual") || "{}");
 
       this.tokenService.actualizarTokenDecoded();
-
-      this.sharingService.cargarPersona();
-
     }))
   }
 }
