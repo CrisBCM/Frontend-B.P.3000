@@ -1,10 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
+import { PersonaDTO } from 'src/app/dto/persona-dto';
 import { Imagen } from 'src/app/modelo/interfaces/imagen';
 import { Persona } from 'src/app/modelo/interfaces/persona';
 import { ForoService } from 'src/app/service/foro.service';
+import { PerfilUsuarioService } from 'src/app/service/perfil-usuario.service';
 import { PersonaService } from 'src/app/service/persona.service';
 import { SharingService } from 'src/app/service/sharing.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-perfil-section',
@@ -13,37 +17,58 @@ import { SharingService } from 'src/app/service/sharing.service';
 })
 export class PerfilSectionComponent implements OnInit, OnDestroy{
   persona$!:Observable<Persona | null>;
+  usuario$!:Observable<PersonaDTO | null>
   totalConsumido$!:Observable<number>;
   limiteDelDia!:number;
   imagen:any;
-  subscriptionPersona!:Subscription;
-  idPersona!:number;
+  nombreUsuarioParam:string ="";
+  tokenDecoded:any;
+  onDestroy$:Subject<Boolean> = new Subject();
+  perfilAjeno:boolean = false;
 
-  constructor(private personaService:PersonaService, private sharingService:SharingService, private foroService:ForoService){
+  constructor(private personaService:PersonaService, private sharingService:SharingService, private activatedRoute:ActivatedRoute, private tokenService:TokenService, private perfilUsuario:PerfilUsuarioService){}
+
+  ngOnInit(): void {
+    this.usuario$ = this.perfilUsuario.getPerfilUsuario;
+    this.tokenService.tokenDecoded$.pipe(takeUntil(this.onDestroy$)).subscribe(tokenDecode =>{
+      this.tokenDecoded = tokenDecode;
+    })
+
+    this.activatedRoute.params.pipe(takeUntil(this.onDestroy$)).subscribe((param:Params) =>{
+      this.nombreUsuarioParam = param["nombreUsuario"];
+
+      if(this.tokenDecoded.nombreUsuario == this.nombreUsuarioParam){
+        this.perfilAjeno = false;
+        this.obtenerPerfilPropio();
+      }else{
+        this.perfilAjeno = true;
+        this.perfilUsuario.obtenerPerfilUsuario(this.nombreUsuarioParam).subscribe((usuario:PersonaDTO) => {
+          this.perfilUsuario.setPerfilUsuario = usuario;
+        });
+        
+      }
+    })
+
+    
     
   }
-  ngOnInit(): void {
-    
+
+  obtenerPerfilPropio(){
     this.persona$ = this.sharingService.personaBehaviorSubject;
 
     this.totalConsumido$ = this.sharingService.obtenerTotalConsumido;
 
-    this.subscriptionPersona = this.persona$.subscribe(data =>{
-
-      // this.sharingService.tokenDecoded.subscribe(tokenDecoded =>{
-      //   this.idPersona = tokenDecoded;
-      // })
+    this.persona$.pipe(takeUntil(this.onDestroy$)).subscribe(data =>{
 
       if(data){
         this.limiteDelDia = this.personaService.getDeficitCalorico(data.pesoCorporal, data.cantidadActividad);
       }
-
     });
   }
 
   ngOnDestroy(): void {
     console.log("se ejecuto el ngOnDestroy")
-    this.subscriptionPersona.unsubscribe();
+    this.onDestroy$.next(true);
   }
 
   cambiarAvatar(event:any, persona:Persona){

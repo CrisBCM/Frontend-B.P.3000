@@ -2,18 +2,33 @@
     background-color: rgba(121, 129, 165, 0.185);
 }
 .img-container{
-    min-height: 120px;
-    height: 160px;
+    
     /* background-color: rgb(235, 186, 130); */
     border-radius: 5px;
     position: relative;
+    
 }
 .absolute-container{
     position: relative;
     min-width: 100px;
     max-width: 120px;
     height: 100px;
-    top: 50px;
+    border-radius: 100px;
+}
+.img-container-ajeno{
+    min-height: 120px;
+    height: 160px;
+    border-radius: 5px;
+    position: relative;
+}
+.img-perfil-ajeno{
+    width: 40%;
+    height: 70%;
+    min-width: 115px;
+    max-width: 115px;
+    max-height: 115px;
+    min-height: 115px;
+    position: absolute;
     border-radius: 100px;
 }
 .img-perfil{

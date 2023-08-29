@@ -37,6 +37,9 @@ export class ForoService {
   publicar(idUsuario:number, publicacion:any):Observable<Publicacion>{
     return this.http.post<Publicacion>(`${EnumEndpoints.publicar}/${idUsuario}`, publicacion);
   }
+  eliminarPublicacion(idPublicacion:number):Observable<any>{
+    return this.http.delete(`${EnumEndpoints.eliminarPublicacionn}/${idPublicacion}`, { responseType: "text" });
+  }
   enviarComentario(idPublicacion:number, idAutor:number, contenido:any):Observable<Comentario>{
     return this.http.post<Comentario>(`${EnumEndpoints.enviarComentario}/${idPublicacion}/${idAutor}`, contenido);
   }

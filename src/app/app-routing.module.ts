@@ -9,12 +9,10 @@ import { LogedGuard } from './service/loged.guard';
 import { ForoMainComponent } from './componentes/foro-main/foro-main.component';
 import { FormPublicacionComponent } from './componentes/form-publicacion/form-publicacion.component';
 import { PublicacionComponent } from './componentes/publicacion/publicacion.component';
-import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
 
 const routes: Routes = [
   { path: 'bp-foro', component:ForoMainComponent},
-  { path: 'bp-perfil', component:BpPageComponent, canActivate:[authGuard]},
-  {path: 'usuario/:nombreUsuario', component:PerfilUsuarioComponent},
+  { path: 'bp-perfil/:nombreUsuario', component:BpPageComponent, canActivate:[authGuard]},
   { path: 'publicar', component:FormPublicacionComponent, canActivate:[authGuard]},
   { path: 'publicacion/:idPublicacion', component:PublicacionComponent},
   { path: 'registro', component:RegistroComponent},

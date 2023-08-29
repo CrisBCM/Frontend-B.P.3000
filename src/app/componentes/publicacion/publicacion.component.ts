@@ -55,8 +55,7 @@ export class PublicacionComponent{
       this.perfilUsuarioService.setPerfilUsuario = null;
       this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
     }
-
-    this.router.navigate(["/usuario", nombreUsuario]);
+    this.router.navigate(["/bp-perfil", nombreUsuario]);
   }
 
   calcularAntiguedadFecha(fecha:Date){
@@ -87,7 +86,6 @@ export class PublicacionComponent{
     this.respuestasMostradas = nuevasRespuestasMostradas;
   }
   eliminarComentario(idComentario:number){
-    console.log(idComentario);
     this.foroService.eliminarComentario(idComentario).subscribe(()=>{
     })
     let nuevaListaComentario = this.publicacion.comentarios.filter(comentario => comentario.id != idComentario);

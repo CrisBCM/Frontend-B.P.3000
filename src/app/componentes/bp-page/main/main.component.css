@@ -42,13 +42,6 @@
 .button-elim:hover{
     color: rgb(185, 75, 75);
 }
-.input-style{
-    border: none;
-    padding: 5px;
-}
-.input-style:focus-visible{
-    outline: none;
-}
 .article-comida{
     position: relative;
     min-width: 170px;
@@ -88,4 +81,29 @@
 }
 .btn-send-edit:hover{
     color: rgba(248, 248, 248, 0.849);
+}
+.link-style{
+    list-style-type: none;
+    text-decoration: none;
+    text-decoration-line: none;
+}
+.ul-nav{
+    min-height: 50px;
+}
+.button-nav{
+    border: none;
+    background-color: transparent;
+    color: rgb(91, 104, 119);
+}
+.button-active{
+    border-bottom: 2px solid rgb(111, 125, 146);
+    margin-bottom: -2px;
+}
+.li-hover:hover{
+    background-color: rgba(121, 129, 165, 0.185);
+}
+@media (max-width:372px){
+    .button-nav{
+        padding: 10px 5px;
+    }
 }

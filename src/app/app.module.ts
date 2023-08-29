@@ -24,9 +24,9 @@ import { ComentarioFormComponent } from './componentes/comentario-form/comentari
 import { BotonLikeDislikeComponent } from './componentes/boton-like-dislike/boton-like-dislike.component';
 import { EliminarEditarComponent } from './componentes/eliminar-editar/eliminar-editar.component';
 import { AutenticacionInterceptor } from './shared/autenticacion.interceptor';
-import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
-import { PerfilAsideComponent } from './componentes/perfil-usuario/perfil-aside/perfil-aside.component';
-import { PerfilMainComponent } from './componentes/perfil-usuario/perfil-main/perfil-main.component';
+import { ConsumoMainComponent } from './componentes/bp-page/consumo-main/consumo-main.component';
+import { PublicacionesMainComponent } from './componentes/bp-page/publicaciones-main/publicaciones-main.component';
+import { ComentariosMainComponent } from './componentes/bp-page/comentarios-main/comentarios-main.component';
 
 
 @NgModule({
@@ -49,9 +49,9 @@ import { PerfilMainComponent } from './componentes/perfil-usuario/perfil-main/pe
     ComentarioFormComponent,
     BotonLikeDislikeComponent,
     EliminarEditarComponent,
-    PerfilUsuarioComponent,
-    PerfilAsideComponent,
-    PerfilMainComponent
+    ConsumoMainComponent,
+    PublicacionesMainComponent,
+    ComentariosMainComponent
   ],
   imports: [
     BrowserModule,

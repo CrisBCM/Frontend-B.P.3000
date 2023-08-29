@@ -1,10 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { EnumEndpoints } from '../shared/enum-endpoints';
-import { Imagen } from '../modelo/clases/imagen';
-import { TokenService } from './token.service';
-import { Persona } from '../modelo/interfaces/persona';
 
 @Injectable({
   providedIn: 'root'

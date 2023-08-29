@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Persona } from 'src/app/modelo/clases/persona';
 import { ForoService } from 'src/app/service/foro.service';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -42,6 +41,6 @@ export class ForoMainComponent {
       this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
     }
 
-    this.router.navigate(["/usuario", nombreUsuario]);
+    this.router.navigate(["/bp-perfil", nombreUsuario]);
   }
 }

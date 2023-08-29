@@ -29,12 +29,12 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end respuesta-menu">
                                 <li>
-                                    <button (click)="idComentario = comentario.id" type="button" class="btn-comentario text-light" data-bs-toggle="modal" data-bs-target="#exampleModalComentario">
+                                    <button (click)="idComentario = comentario.id" type="button" class="btn-default btn-editarEliminar" data-bs-toggle="modal" data-bs-target="#exampleModalComentario">
                                         Eliminar
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="btn-comentario text-light"(click)="idComentario = comentario.id" (click)="switchEdicionComentario(comentario.contenido)">Editar</button>
+                                    <button class="btn-default btn-editarEliminar"(click)="idComentario = comentario.id" (click)="switchEdicionComentario(comentario.contenido)">Editar</button>
                                 </li>
                             </ul>
                             
@@ -71,9 +71,9 @@
                     </li>
                     <li class="d-flex gap-3" *ngIf="!editarSwitchComentario || idComentario != comentario.id">
                         <app-boton-like-dislike [idComentarioORespuesta]="comentario.id" [listaMeGusta]="comentario.listaMeGusta" [listaNoMeGusta]="comentario.listaNoMeGusta" class="d-flex gap-3"></app-boton-like-dislike>
-                        <button class="btn-comentario p-0" (click)="mostrarRespuestas(comentarioI)"><i class="fa-regular fa-message icono-comentario"></i> Responder</button>
-                        <button *ngIf="!respuestasMostradas.includes(comentarioI) && comentario.respuestas.length > 0" class="btn-comentario p-0" (click)="mostrarRespuestas(comentarioI)">{{comentario.respuestas.length}} respuestas</button>
-                        <button *ngIf="respuestasMostradas.includes(comentarioI)" class="btn-comentario p-0" (click)="ocultarRespuestas(comentarioI)">Ocultar respuestas</button>
+                        <button class="btn-default btn-responder p-0" (click)="mostrarRespuestas(comentarioI)"><i class="fa-regular fa-message icono-comentario"></i> Responder</button>
+                        <button *ngIf="!respuestasMostradas.includes(comentarioI) && comentario.respuestas.length > 0" class="p-0" (click)="mostrarRespuestas(comentarioI)">{{comentario.respuestas.length}} respuestas</button>
+                        <button *ngIf="respuestasMostradas.includes(comentarioI)" class="btn-default btn-responder p-0" (click)="ocultarRespuestas(comentarioI)">Ocultar respuestas</button>
                     </li>
                 </ul> 
                 <app-comentario-form [idComentario]="comentario.id" [respuestaOComentario]="false" (anadirRespuesta)="anadirRespuestaComentario(comentarioI, $event)" *ngIf="respuestasMostradas.includes(comentarioI)" class="respuesta-container d-flex col-11 mb-1">

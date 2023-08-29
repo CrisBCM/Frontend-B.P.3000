@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Persona } from 'src/app/modelo/clases/persona';
 import { ForoService } from 'src/app/service/foro.service';
 import { SharingService } from 'src/app/service/sharing.service';
 import { EnumEndpoints } from 'src/app/shared/enum-endpoints';

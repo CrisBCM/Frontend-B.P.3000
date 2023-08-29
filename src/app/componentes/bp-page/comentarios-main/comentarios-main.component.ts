@@ -1,44 +1,27 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
 import { PersonaDTO } from 'src/app/dto/persona-dto';
+import { Persona } from 'src/app/modelo/interfaces/persona';
 import { PerfilUsuarioService } from 'src/app/service/perfil-usuario.service';
 
 @Component({
-  selector: 'app-perfil-main',
-  templateUrl: './perfil-main.component.html',
-  styleUrls: ['./perfil-main.component.css']
+  selector: 'app-comentarios-main',
+  templateUrl: './comentarios-main.component.html',
+  styleUrls: ['./comentarios-main.component.css']
 })
-export class PerfilMainComponent implements OnInit, OnDestroy{
+export class ComentariosMainComponent implements OnInit{
 
   usuario$!:Observable<PersonaDTO | null>;
-
-  desuscribeSubject:Subject<any> = new Subject;
-  // True = publicaciones
-  switchPublicacionesOComentarios!:Boolean;
-  
-  header:string = "";
-  
-  onDestroy$:Subject<boolean> = new Subject();
+  @Input() persona$!:Observable<Persona | null> | null;
 
   constructor(private perfilUsuarioService:PerfilUsuarioService, private router:Router){
 
   }
-
   ngOnInit(): void {
     this.usuario$ = this.perfilUsuarioService.getPerfilUsuario;
-
-    this.perfilUsuarioService.getSwitchPublicacionesOComentarios.pipe(takeUntil(this.onDestroy$)).subscribe(booleano =>{
-      this.switchPublicacionesOComentarios = booleano;
-
-      this.switchPublicacionesOComentarios ? this.header = "Publicaciones" : this.header = "Comentarios"
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy$.next(true);
   }
 
   calcularAntiguedadFecha(fecha:Date){
@@ -62,6 +45,6 @@ export class PerfilMainComponent implements OnInit, OnDestroy{
       this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
     }
 
-    this.router.navigate(["/usuario", nombreUsuario]);
+    this.router.navigate(["/bp-perfil", nombreUsuario]);
   }
 }

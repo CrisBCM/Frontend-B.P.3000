@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharingService } from 'src/app/service/sharing.service';
 import { TokenService } from 'src/app/service/token.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Persona } from 'src/app/modelo/interfaces/persona';
 
 @Component({
@@ -10,11 +10,12 @@ import { Persona } from 'src/app/modelo/interfaces/persona';
   templateUrl: './menu-usuario.component.html',
   styleUrls: ['./menu-usuario.component.css']
 })
-export class MenuUsuarioComponent implements OnInit{
+export class MenuUsuarioComponent implements OnInit, OnDestroy{
 
   urlPerfil!:string;
-
   datosPersona:Observable<Persona | null>;
+  onDestroy$:Subject<Boolean> = new Subject();
+  tokenDecoded:any;
 
   constructor(private sharingService:SharingService, private router:Router, private tokenService:TokenService){
     
@@ -26,11 +27,19 @@ export class MenuUsuarioComponent implements OnInit{
     this.sharingService.getPerfilPersona().subscribe((persona:Persona) =>{
       this.sharingService.newPersona = persona;
     })
+    this.tokenService.tokenDecoded$.pipe(takeUntil(this.onDestroy$)).subscribe(tokenDecoded =>{
+      this.tokenDecoded = tokenDecoded;
+    })
   }
 
-// ngOnDestroy(): void {
-//   this.personaSubscription.unsubscribe();
-// }
+  ngOnDestroy(): void {
+    this.onDestroy$.next(true);
+  }
+  redirigirAPerfilUsuario(){
+    console.log(this.tokenDecoded);
+    this.router.navigate(["bp-perfil"]);
+    this.router.navigate(["/bp-perfil", this.tokenDecoded.nombreUsuario]);
+  }
 
   cerrarSesion(event:Event){
     event.preventDefault();

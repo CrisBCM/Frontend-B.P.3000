@@ -78,14 +78,19 @@
     color: #4192c9;
     text-decoration: underline;
 }
-.btn-comentario{
+.btn-responder{
+    color: #33698d;
+}
+.btn-default{
     background-color: transparent;
     border: none;
     height: min-content;
-    color: rgb(113, 124, 138);
 }
-.btn-comentario:hover{
-    color: rgb(46, 106, 190);
+.btn-editarEliminar{
+    color: rgba(248, 249, 250, 0.836);
+}
+.btn-editarEliminar:hover{
+    color: rgb(248,249,250);
 }
 .respuesta-menu{
     background-color: rgba(60, 71, 71, 0.815);

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Comida } from '../modelo/clases/comida';
-import { Estomago } from '../modelo/clases/estomago';
 import { HttpClient } from '@angular/common/http';
 import { PersonaService } from './persona.service';
 import { Persona } from '../modelo/interfaces/persona';

@@ -1,29 +1,42 @@
 <article *ngIf="persona$ | async as persona" class="article-perfil">
-    <div class="img-container d-flex flex-column align-items-center mx-3">
-        <div class="absolute-container d-flex">
-            <img [src]="persona.imgAvatar.path" class="img-perfil">
-            <input type="file" name="img" id="img" class="input-img" (change)="cambiarAvatar($event, persona)">
-            <label class="editar-foto text-center" for="img">Cambiar foto</label>
+    <ng-container *ngIf="!perfilAjeno">
+        <div class="img-container d-flex flex-column align-items-center mx-3 pt-4">
+            <div class="absolute-container d-flex">
+                <img [src]="persona.imgAvatar.path" class="img-perfil">
+                <input type="file" name="img" id="img" class="input-img" (change)="cambiarAvatar($event, persona)">
+                <label class="editar-foto text-center" for="img">Cambiar foto</label>
+            </div>
         </div>
-    </div>
-    <section  class="info-perfil pb-3 pt-3 pb-2 gap-2 text-center">
-        
-        <h4>{{persona.nombreCompleto}}</h4>
-        <p class="align-self-center text-center mb-3">{{persona.nombreUsuario}}</p>
-        <ul class="d-flex flex-wrap ul-info list-unstyled justify-content-center gap-4 mb-0 mx-4 py-4">
-            <li class="">
-                <span class="span-style fw-bold">{{persona.pesoCorporal}} kg</span>
-                <p class="mb-0">Peso</p>
-            </li>
-            <li class="">
-                <span  class="span-style fw-bold">{{totalConsumido$ | async}} kcal</span>
-                <p class="mb-0">Consumido</p>
-            </li>
-            <li class="">
-                <span class="span-style fw-bold">{{limiteDelDia}} kcal</span>
-                <p class="mb-0">Limite</p>
-            </li>
-        </ul>
-    </section>
-
+        <section  class="info-perfil pb-3 pt-3 pb-2 gap-2 text-center">
+            
+            <h4>{{persona.nombreCompleto}}</h4>
+            <p class="align-self-center text-center mb-3">{{persona.nombreUsuario}}</p>
+            <ul class="d-flex flex-wrap ul-info list-unstyled justify-content-center gap-4 mb-3 mx-4 py-4">
+                <li class="">
+                    <span class="span-style fw-bold">{{persona.pesoCorporal}} kg</span>
+                    <p class="mb-0">Peso</p>
+                </li>
+                <li class="">
+                    <span  class="span-style fw-bold">{{totalConsumido$ | async}} kcal</span>
+                    <p class="mb-0">Consumido</p>
+                </li>
+                <li class="">
+                    <span class="span-style fw-bold">{{limiteDelDia}} kcal</span>
+                    <p class="mb-0">Limite</p>
+                </li>
+            </ul>
+        </section>
+    </ng-container>
 </article>
+<ng-container *ngIf="perfilAjeno">
+    <article *ngIf="usuario$ | async as usuario" class="article-perfil">
+        <div class="img-container-ajeno d-flex align-items-center justify-content-center mx-3">
+            <img [src]="usuario.imgUsuario" class="img-perfil-ajeno">
+        </div>
+        <section  class="info-perfil pb-3 pb-2 gap-2 text-center">
+            <h4>{{usuario.nombreCompleto}}</h4>
+            <p class="align-self-center text-center mb-3">{{usuario.nombreUsuario}}</p>
+        </section>
+    
+    </article>
+</ng-container>

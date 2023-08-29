@@ -1,0 +1,84 @@
+.general-bg{
+    background-color: rgba(121, 129, 165, 0.185);
+}
+.input-style{
+    border: none;
+    padding: 5px;
+}
+.input-style:focus-visible{
+    outline: none;
+}
+.article-comida{
+    position: relative;
+    min-width: 170px;
+    min-height: 180px;
+    max-height: 180px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.452);
+    border-radius: 6px;
+    background-color:#9eac9bcc;
+    cursor: pointer;
+}
+.selected{
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.445);
+    background-color:#95b68dcc;
+    transition: .4s;
+}
+.img-container{
+    height: 68%;
+}
+.img-comida{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 9px;
+}
+.button-absolute{
+    position: absolute;
+    font-size: 1.2em;
+    background-color: transparent;
+    border: none;
+}
+.button-edit{
+    bottom: 8px;
+    right: 45px;
+    color: rgba(88, 93, 119, 0.863);
+}
+.button-edit:hover{
+    color: rgb(64, 77, 141);
+}
+.button-elim{
+    bottom: 8px;
+    right: 10px;
+    color: rgb(185, 115, 75);
+}
+.button-elim:hover{
+    color: rgb(185, 75, 75);
+}
+.input-edit{
+    background-color:#c2dabccc;
+    padding: 2px;
+}
+.btn-send-edit{
+    color: rgba(216, 216, 216, 0.849);
+    background-color:  rgb(64, 77, 141);
+}
+.btn-send-edit:hover{
+    color: rgba(248, 248, 248, 0.849);
+}
+.button-absolute-green{
+    color: rgba(57, 145, 57, 0.5);
+    top: -15px;
+    right: 5px;
+}
+.button-absolute-red{
+    color: rgba(128, 48, 48, 0.555);
+    top: -5px;
+    right: 9px;
+}
+.button-absolute-green:hover{
+    color:rgba(44, 165, 44, 0.63) ;
+}
+.button-absolute-red:hover{
+    color:rgba(189, 34, 23, 0.719) ;
+}
