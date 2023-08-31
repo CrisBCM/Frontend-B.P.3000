@@ -1,49 +1,68 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
 import { Comentario } from 'src/app/modelo/interfaces/comentario';
 import { Publicacion } from 'src/app/modelo/interfaces/publicacion';
 import { Respuesta } from 'src/app/modelo/interfaces/respuesta';
 import { ForoService } from 'src/app/service/foro.service';
 import { PerfilUsuarioService } from 'src/app/service/perfil-usuario.service';
+import { PublicacionService } from 'src/app/service/publicacion.service';
 
 @Component({
   selector: 'app-publicacion',
   templateUrl: './publicacion.component.html',
   styleUrls: ['./publicacion.component.css']
 })
-export class PublicacionComponent{
+export class PublicacionComponent implements OnInit, OnDestroy{
   idPublicacion!:number;
   idComentario!:number;
   idRespuesta!:number;
   publicacion!:Publicacion;
-  publicaciones$:Observable<Publicacion[] | null>;
+  publicaciones$!:Observable<Publicacion[] | null>;
   respuestasMostradas:number[] = [];
   mostrar:boolean = true;
   responder:boolean = false;
   tempContenido:string = "";
   editarSwitchRespuesta:boolean = false;
   editarSwitchComentario:boolean = false;
+  switchEditarPublicacion:boolean = false;
+  onDestroy$:Subject<Boolean> = new Subject();
 
-  constructor(activatedRoute:ActivatedRoute, private foroService:ForoService, private router:Router, private perfilUsuarioService:PerfilUsuarioService){
+  constructor(private publicacionService:PublicacionService, activatedRoute:ActivatedRoute, private foroService:ForoService, private router:Router, private perfilUsuarioService:PerfilUsuarioService){
     activatedRoute.params.subscribe((params:Params) =>{
       this.idPublicacion = params["idPublicacion"];
     })
 
-    this.publicaciones$ = foroService.behaviorSubjectPublicaciones;
+  }
+  ngOnInit(): void {
+    
+    this.publicaciones$ = this.foroService.behaviorSubjectPublicaciones;
     
     this.publicaciones$
+    .pipe(takeUntil(this.onDestroy$))
     .pipe(map(publicaciones => publicaciones?.filter(publicacion => publicacion.id == this.idPublicacion)))
     .subscribe(arrayPublicacionFiltrada =>{
+
       if(arrayPublicacionFiltrada != null){
+
         this.publicacion = arrayPublicacionFiltrada[0];
-        console.log(JSON.stringify(this.publicacion));
+
+        this.publicacionService.setPublicacion = this.publicacion;
+
+        console.log(JSON.stringify("THIS.PUBLICACION " + this.publicacion));
+
       }
     })
   }
-  
+  ngOnDestroy(): void {
+    this.onDestroy$.next(true);
+  }
+  actualizarPublicacion(publicacion:Publicacion){
+    this.publicacion = publicacion;
+  }
+
   redirigirAPerfilUsuario(nombreUsuario:string){
     let nombreUsuarioActual;
 

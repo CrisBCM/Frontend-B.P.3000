@@ -1,4 +1,5 @@
-<div class="mx-auto d-flex flex-wrap pb-sm-5 pt-sm-4 pe-sm-5 p-0 col-12 col-lg-8 col-xl-6 div-publicacion">
+<app-modal-editar *ngIf="switchEditarPublicacion" (switchEditarPublicacion)="switchEditarPublicacion = $event" (nuevaPublicacion)="actualizarPublicacion($event)"></app-modal-editar>
+<div class="mx-auto d-flex flex-wrap pb-sm-5 pt-sm-4 pe-sm-5 p-0 col-12 col-lg-8 col-xl-6 div-publicacion gap-2">
     <div class="col-12 col-sm-1 text-center autor-img-container mx-3" *ngIf="publicacion">
         <img class="autor-img" [src]="publicacion.fotoAutor" alt="">
     </div>
@@ -7,7 +8,7 @@
         <div class=" border-color mb-2 pb-2">
             <ul class="ul-info d-flex flex-column gap-2 mb-2">
                 <li class="neutral-style">{{publicacion.tema}} de <a class="autor-link" (click)="redirigirAPerfilUsuario(publicacion.autor)">{{publicacion.autor}}</a> hace {{calcularAntiguedadFecha(publicacion.fecha)}}</li>
-                <li><button class="btn btn-sm button-style neutral-style ps-0"><i class="fa-solid fa-pen"></i> Editar</button></li>
+                <li><button class="btn btn-sm button-style neutral-style ps-0" (click)="switchEditarPublicacion = true"><i class="fa-solid fa-pen"></i> Editar</button></li>
             </ul>
         </div>
         <div class="contenido mb-5">{{publicacion.contenido}}</div>

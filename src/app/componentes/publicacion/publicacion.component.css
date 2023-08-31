@@ -129,6 +129,7 @@
         left: 20px;
     }
 }
+
 @media (max-width:333px){
     .img-perfil-comentario{
         display: none;

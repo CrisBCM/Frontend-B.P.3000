@@ -27,6 +27,8 @@ import { AutenticacionInterceptor } from './shared/autenticacion.interceptor';
 import { ConsumoMainComponent } from './componentes/bp-page/consumo-main/consumo-main.component';
 import { PublicacionesMainComponent } from './componentes/bp-page/publicaciones-main/publicaciones-main.component';
 import { ComentariosMainComponent } from './componentes/bp-page/comentarios-main/comentarios-main.component';
+import { ModalEditarComponent } from './componentes/publicacion/modal-editar/modal-editar.component';
+
 
 
 @NgModule({
@@ -51,7 +53,8 @@ import { ComentariosMainComponent } from './componentes/bp-page/comentarios-main
     EliminarEditarComponent,
     ConsumoMainComponent,
     PublicacionesMainComponent,
-    ComentariosMainComponent
+    ComentariosMainComponent,
+    ModalEditarComponent
   ],
   imports: [
     BrowserModule,

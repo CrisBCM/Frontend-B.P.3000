@@ -1,0 +1,15 @@
+<div *ngIf="publicacion$" class="modal-style">
+    <div class="modal-body d-flex justify-content-center">
+        <form [formGroup]="formEditar" class="d-flex flex-column pt-5 form-width">
+            <h6 class="text-center">Editar Publicacion</h6>
+            <label for="titulo">Titulo:</label>
+            <input formControlName="titulo" type="text" class="input-editar mb-2" name="titulo">
+            <label for="titulo">Contenido:</label>
+            <textarea formControlName="contenido" class="input-editar mb-3" name="contenido" id="contenido" cols="30" rows="10"></textarea>
+            <div class="d-flex justify-content-end gap-3">
+                <button class="btn-cancelar" (click)="cerrarFormEditar()">Cancelar</button>
+                <button class="btn-editar" (click)="confirmarEditar()">Editar</button>
+            </div>
+        </form>
+    </div>
+</div>
