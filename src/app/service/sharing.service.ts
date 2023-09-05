@@ -6,6 +6,7 @@ import { Persona } from '../modelo/interfaces/persona';
 import { TokenService } from './token.service';
 import { EnumEndpoints } from '../shared/enum-endpoints';
 import { Imagen } from '../modelo/interfaces/imagen';
+import { Publicacion } from '../modelo/interfaces/publicacion';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,12 @@ export class SharingService{
 
   set newPersona(persona:Persona | null){
     this.persona$.next(persona);
+  }
+  set actualizarPublicacionesPersona(publicacion:Publicacion){
+    if(this.persona$.value){
+      let indexPubli = this.persona$.value.publicaciones.findIndex(publi => publi.id = publicacion.id);
+      this.persona$.value.publicaciones[indexPubli] = publicacion;
+    }
   }
 
 }

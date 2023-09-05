@@ -13,6 +13,7 @@
     background-color: rgb(208, 195, 195);
     max-width: 80%;
     min-height: 500px;
+    border-radius: 5px;
 }
 .input-editar{
     border: none;

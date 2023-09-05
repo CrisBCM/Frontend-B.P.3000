@@ -8,6 +8,7 @@ import { Persona } from 'src/app/modelo/interfaces/persona';
 import { Publicacion } from 'src/app/modelo/interfaces/publicacion';
 import { ForoService } from 'src/app/service/foro.service';
 import { PerfilUsuarioService } from 'src/app/service/perfil-usuario.service';
+import { PublicacionService } from 'src/app/service/publicacion.service';
 
 @Component({
   selector: 'app-publicaciones-main',
@@ -21,8 +22,9 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
   persona!:Persona;
   idPublicacion:number = -111;
   onDestroy$:Subject<Boolean> = new Subject();
+  switchEditarPublicacion:boolean = false;
 
-  constructor(private perfilUsuarioService:PerfilUsuarioService, private router:Router, private foroService:ForoService){}
+  constructor(private perfilUsuarioService:PerfilUsuarioService, private router:Router, private foroService:ForoService, private publicacionService:PublicacionService){}
 
   ngOnInit(): void {
     this.usuario$ = this.perfilUsuarioService.getPerfilUsuario;
@@ -39,7 +41,14 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
    this.onDestroy$.next(true);
   }
-
+  actualizarPublicacion(publicacion:Publicacion){
+    
+  }
+  setPublicacionEditar(publicacion:Publicacion){
+    this.switchEditarPublicacion = true;
+    this.publicacionService.setPublicacion = publicacion;
+    console.log(publicacion);
+  }
   calcularAntiguedadFecha(fecha:Date){
     let date = new Date(fecha);
     return formatDistance(date, new Date(), {locale:es});

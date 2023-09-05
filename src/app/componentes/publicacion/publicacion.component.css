@@ -119,15 +119,6 @@
     .div-publicacion{
         margin-top: 70px;
     }
-    .autor-img-container{
-        position: relative;
-        height: 50px;
-    }
-    .autor-img{
-        position: absolute;
-        top: -35px;
-        left: 20px;
-    }
 }
 
 @media (max-width:333px){

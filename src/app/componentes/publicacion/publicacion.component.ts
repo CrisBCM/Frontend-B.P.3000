@@ -9,6 +9,7 @@ import { Respuesta } from 'src/app/modelo/interfaces/respuesta';
 import { ForoService } from 'src/app/service/foro.service';
 import { PerfilUsuarioService } from 'src/app/service/perfil-usuario.service';
 import { PublicacionService } from 'src/app/service/publicacion.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-publicacion',
@@ -29,12 +30,13 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   editarSwitchComentario:boolean = false;
   switchEditarPublicacion:boolean = false;
   onDestroy$:Subject<Boolean> = new Subject();
+  tokenDecoded$!:Observable<any>;
 
-  constructor(private publicacionService:PublicacionService, activatedRoute:ActivatedRoute, private foroService:ForoService, private router:Router, private perfilUsuarioService:PerfilUsuarioService){
+  constructor(private tokenService:TokenService, private publicacionService:PublicacionService, activatedRoute:ActivatedRoute, private foroService:ForoService, private router:Router, private perfilUsuarioService:PerfilUsuarioService){
     activatedRoute.params.subscribe((params:Params) =>{
       this.idPublicacion = params["idPublicacion"];
     })
-
+    this.tokenDecoded$ = tokenService.tokenDecoded$;
   }
   ngOnInit(): void {
     
@@ -61,6 +63,7 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   }
   actualizarPublicacion(publicacion:Publicacion){
     this.publicacion = publicacion;
+    this.publicacionService.setPublicacion = publicacion;
   }
 
   redirigirAPerfilUsuario(nombreUsuario:string){

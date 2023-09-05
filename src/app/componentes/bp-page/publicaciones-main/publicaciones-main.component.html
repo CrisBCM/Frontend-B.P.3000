@@ -17,10 +17,10 @@
                                 </button>
                             </li>
                             <li>
-                                <button class="btn-eliminarEditar">Editar</button>
+                                <button class="btn-eliminarEditar" (click)="setPublicacionEditar(publicacion)">Editar</button>
                             </li>
                         </ul>
-
+                        <app-modal-editar *ngIf="switchEditarPublicacion" (switchEditarPublicacion)="switchEditarPublicacion = $event" (nuevaPublicacion)="actualizarPublicacion($event)"></app-modal-editar>
                         <!-- Modal eliminar -->
                         <div class="modal fade" id="exampleModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabelEliminar" aria-hidden="true">
                                 

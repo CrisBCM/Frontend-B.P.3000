@@ -30,6 +30,12 @@ export class ForoService {
   set actualizarPublicaciones(nuevaListaPublicaciones:Publicacion[] | null){
     this.publicaciones$.next(nuevaListaPublicaciones);
   }
+  set publicacionEditada(publicacion:Publicacion){
+      if(this.publicaciones$.value){
+      let indexPubli = this.publicaciones$.value.findIndex(publi => publi.id = publicacion.id);
+      this.publicaciones$.value[indexPubli] = publicacion;
+    }
+  }
 
   obtenerPosts():Observable<Publicacion[]>{
     return this.http.get<Publicacion[]>(EnumEndpoints.obtenerPosts);
