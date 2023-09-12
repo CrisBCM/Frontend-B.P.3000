@@ -5,6 +5,7 @@ import { EnumEndpoints } from '../shared/enum-endpoints';
 import { Publicacion } from '../modelo/interfaces/publicacion';
 import { Comentario } from '../modelo/interfaces/comentario';
 import { Respuesta } from '../modelo/interfaces/respuesta';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class ForoService {
 
   publicaciones$:BehaviorSubject<Publicacion[] | null> = new BehaviorSubject<Publicacion[] | null>(null);;
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private router:Router) {
 
     this.obtenerPosts().subscribe(arrayPublicacion =>{
       console.log(arrayPublicacion);
@@ -34,6 +35,45 @@ export class ForoService {
       if(this.publicaciones$.value){
       let indexPubli = this.publicaciones$.value.findIndex(publi => publi.id = publicacion.id);
       this.publicaciones$.value[indexPubli] = publicacion;
+    }
+  }
+  set añadirPublicacion(nuevaPublicacion:Publicacion){
+    if(this.publicaciones$.value){
+      this.publicaciones$.value.push(nuevaPublicacion);
+    }
+  }
+  redirigirAPublicacion(idPublicacion:number){
+    this.router.navigate(["/publicacion", idPublicacion]);
+  }
+  obtenerIndicePublicacion(idPublicacion:number):number{
+    let indicePublicacion:number = 0;
+    if(this.publicaciones$.value){
+      indicePublicacion = this.publicaciones$.value.findIndex(publicacion => publicacion.id == idPublicacion);
+    }
+    return indicePublicacion;
+  }
+  seteliminarComentario(idComentario:number, idPublicacion:number){
+    if(this.publicaciones$.value){
+      let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+      let nuevoArrayComentarios = this.publicaciones$.value[indicePublicacion].comentarios.filter(comentario => comentario.id != idComentario);
+      this.publicaciones$.value[indicePublicacion].comentarios = nuevoArrayComentarios;
+    }
+  }
+  setEliminarRespuesta(idRespuesta:number, idPublicacion:number, idComentario:number){
+    if(this.publicaciones$.value){
+      let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+      let indiceComentario = this.publicaciones$.value[indicePublicacion].comentarios.findIndex(comentario => comentario.id == idComentario);
+
+      let nuevoArrayRespuestas = this.publicaciones$.value[indicePublicacion].comentarios[indiceComentario].respuestas.filter(respuesta => respuesta.id != idRespuesta);
+      this.publicaciones$.value[indicePublicacion].comentarios[indiceComentario].respuestas = nuevoArrayRespuestas;
+    }
+  }
+  setEditarComentario(idPublicacion:number, nuevoComentario:Comentario){
+    if(this.publicaciones$.value){
+      let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+      let indiceComentario = this.publicaciones$.value[indicePublicacion].comentarios.findIndex(comentario => comentario.id == nuevoComentario.id);
+      
+      this.publicaciones$.value[indicePublicacion].comentarios[indiceComentario] = nuevoComentario;
     }
   }
 

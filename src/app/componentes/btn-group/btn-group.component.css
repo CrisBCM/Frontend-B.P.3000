@@ -1,0 +1,23 @@
+.respuesta-menu{
+    background-color: rgba(60, 71, 71, 0.815);
+    border: none;
+    width: min-content;
+    --bs-dropdown-min-width: 6rem;
+}
+.btn-editarEliminar{
+    color: rgba(248, 249, 250, 0.836);
+}
+.btn-editarEliminar:hover{
+    color: rgb(248,249,250);
+}
+.btn-default{
+    background-color: transparent;
+    border: none;
+    height: min-content;
+}
+.btn{
+    border: none;
+}
+.btn:active{
+    border: none;
+}

@@ -1,0 +1,16 @@
+.comentario-input{
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+}
+.comentario-input:focus-visible{
+    outline: none;
+}
+.btn-enviar{
+    background-color: rgb(85, 159, 228);
+    color: whitesmoke;
+    transition: .3s;
+}
+.btn-enviar:hover{
+    background-color: rgb(36, 138, 233);
+}

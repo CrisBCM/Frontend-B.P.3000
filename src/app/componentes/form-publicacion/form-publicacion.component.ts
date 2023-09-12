@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { ForoService } from 'src/app/service/foro.service';
 import { LoginServiceService } from 'src/app/service/login-service.service';
+import { SpinnerService } from 'src/app/service/spinner.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -9,21 +11,32 @@ import { TokenService } from 'src/app/service/token.service';
   templateUrl: './form-publicacion.component.html',
   styleUrls: ['./form-publicacion.component.css']
 })
-export class FormPublicacionComponent {
+export class FormPublicacionComponent implements OnInit, OnDestroy{
 
   tokenDecode:any;
 
-  idUsuario:number;
+  idUsuario!:number;
 
-  constructor(private fb:FormBuilder, private foroService:ForoService, private tokenService:TokenService){
+  spinner!:boolean;
+  onDestroy$:Subject<boolean> = new Subject();
 
-    tokenService.tokenDecoded$.subscribe(tokenDecoded =>{
+  constructor(private fb:FormBuilder, private foroService:ForoService, private tokenService:TokenService, private spinnerService:SpinnerService){}
+  ngOnInit(): void {
+    this.tokenService.tokenDecoded$.pipe(takeUntil(this.onDestroy$)).subscribe(tokenDecoded =>{
       this.tokenDecode = tokenDecoded;
     })
 
     this.idUsuario = this.tokenDecode.persona_id;
 
+    this.spinnerService.obtenerSpinner.pipe(takeUntil(this.onDestroy$)).subscribe(data =>{
+      this.spinner = data;
+    })
   }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next(true);
+  }
+
   form = this.fb.group({
     'titulo':["", [Validators.required, Validators.maxLength(300)]],
     'tema':["Tema", Validators.required],
@@ -60,6 +73,9 @@ export class FormPublicacionComponent {
     
     this.foroService.publicar(this.idUsuario, publicacion).subscribe(nuevaPublicacion =>{
       console.log(nuevaPublicacion);
+      this.form.reset();
+      this.foroService.añadirPublicacion = nuevaPublicacion;
+      this.foroService.redirigirAPublicacion(nuevaPublicacion.id);
     })
   }
 }

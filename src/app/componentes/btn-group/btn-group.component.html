@@ -1,0 +1,15 @@
+<button type="button" class="btn btn-sm py-0" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-ellipsis"></i>
+</button>
+<ul class="dropdown-menu dropdown-menu-end respuesta-menu">
+    <li>
+        <button class="btn-default btn-editarEliminar" (click)="switchModalEliminar.emit(true)">
+            Eliminar
+        </button>
+    </li>
+    <li>
+        <button class="btn-default btn-editarEliminar" (click)="switchEditar.emit(true)">
+            Editar
+        </button>
+    </li>
+</ul>

@@ -1,0 +1,58 @@
+.respuesta-container{
+    padding-left: 60px;
+}
+.img-container{ 
+    min-width: 49px;
+    max-width: 49px;
+}
+.img-perfil-comentario{
+    min-width: 40px;
+    min-height: 40px;
+    width: 90%;
+    height: 40px;
+    border-radius: 100%;
+}
+.comentario{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.062);
+    background-color:#d3e5f39d ;
+    border-radius: 5px;
+}
+.ul-info{
+    list-style-type: none;
+    padding: 0;
+}
+.autor-link{
+    color: #6c9ec0;
+    text-decoration: none;
+    cursor: pointer;
+}
+.respuesta-menu{
+    background-color: rgba(60, 71, 71, 0.815);
+    border: none;
+    width: min-content;
+    --bs-dropdown-min-width: 6rem;
+    
+}
+.comentario-input{
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+}
+.comentario-input:focus-visible{
+    outline: none;
+}
+
+@media (max-width:575px){
+    .div-publicacion{
+        margin-top: 70px;
+    }
+}
+
+@media (max-width:333px){
+    .img-perfil-comentario{
+        display: none;
+    }
+    .img-container{
+        display: none;
+    }
+}

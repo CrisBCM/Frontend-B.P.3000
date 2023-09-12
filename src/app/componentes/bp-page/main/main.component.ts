@@ -24,6 +24,7 @@ export class MainComponent implements OnInit, OnDestroy{
   nombreUsuarioParam:string = "";
   perfilAjeno:boolean = false;
   navOpcion:string = "";
+  personaOUsuarioExiste:boolean = false;
 
   constructor(private sharingService:SharingService, private activatedRoute:ActivatedRoute, private tokenService:TokenService, private perfilUsuario:PerfilUsuarioService){}
 
@@ -39,7 +40,6 @@ export class MainComponent implements OnInit, OnDestroy{
         
         this.obtenerPerfilPropio();
         this.navOpcion = "consumo";
-        
       }else{
         this.persona$ = null;
         this.navOpcion = "publicaciones"
@@ -51,7 +51,8 @@ export class MainComponent implements OnInit, OnDestroy{
   
         this.perfilAjeno = true;
       }
-    })   
+      
+    })
   }
 
   ngOnDestroy(): void {

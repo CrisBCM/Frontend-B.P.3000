@@ -1,0 +1,31 @@
+<div class="d-flex flex-wrap col-12" *ngFor="let respuesta of comentario.respuestas; let respuestaI = index">
+    <div id="modal-container">
+        <app-modal-eliminar *ngIf="modalEliminar"
+                            [tituloModal]="'Eliminar Respuesta?'"
+                            [mensajeModal]="'Seguro que desea eliminar la respuesta?'"
+                            (confirmarEliminar)="eliminarRespuesta()" 
+                            (cerrarModal)="modalEliminar = $event">
+        </app-modal-eliminar>
+    </div>
+    <div *ngIf="respuestasMostradas.includes(comentarioIndice)" class="respuesta-container d-flex col-12">
+        <div class="col-2 d-flex pt-1 img-container">
+            <img class="img-perfil-comentario" [src]="respuesta.fotoAutor" alt="">
+        </div>
+        <ul class="ul-info d-flex flex-wrap gap-1 mb-1 px-3 py-1 col-10 comentario">
+            <li><a class="autor-link" (click)="redirigirAPerfilUsuario(respuesta.autor)">{{respuesta.autor}}</a></li>
+            <li>hace {{calcularAntiguedadFecha(respuesta.fecha)}}</li>
+            <li class="ms-auto" *ngIf="tokenDecoded$ | async as tokenDecoded">
+                <app-btn-group *ngIf="tokenDecoded.nombreUsuario == respuesta.autor" (switchModalEliminar)="modalEliminar = $event" (switchEditar)="editarSwitchRespuesta = $event" (click)="idRespuesta = respuesta.id"></app-btn-group>
+            </li>
+            <li class="w-100" >
+                <p class="mb-0" *ngIf="!editarSwitchRespuesta || idRespuesta != respuesta.id">{{respuesta.contenido}}</p>
+                <ng-container *ngIf="editarSwitchRespuesta && idRespuesta == respuesta.id">
+                    <app-form-editar-comentario-respuesta [contenidoTemp]="respuesta.contenido" (cerrarEditar)="editarSwitchRespuesta = $event" (contenidoFinal)="tempContenido = $event" (confirmarEditar)="editarRespuesta(respuestaI)"></app-form-editar-comentario-respuesta>
+                </ng-container>
+            </li>
+            <li class="d-flex gap-3" *ngIf="!editarSwitchRespuesta || idRespuesta != respuesta.id">
+                <app-boton-like-dislike [idComentarioORespuesta]="respuesta.id" [listaMeGusta]="respuesta.listaMeGusta" [listaNoMeGusta]="respuesta.listaNoMeGusta" [comentarioORespuesta]="true" class="d-flex gap-3"></app-boton-like-dislike>
+            </li>
+        </ul>
+    </div>
+</div>

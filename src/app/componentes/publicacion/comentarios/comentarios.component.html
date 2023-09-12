@@ -1,0 +1,43 @@
+<article class="d-flex flex-column gap-2">
+    <h5 class="border-color pb-3">{{publicacion.comentarios.length}} Comentarios</h5>
+    <app-comentario-form [placeholder]="'Escribi tu comentario'" (anadirComentario)="anadirComentario($event)" [idPublicacion]="publicacion.id" [respuestaOComentario]="true" class="d-flex flex-wrap justify-content-center justify-content-sm-start gap-1 mb-1 pb-3">
+    </app-comentario-form>
+    <div class="d-flex flex-wrap justify-content-center justify-content-sm-start" *ngFor="let comentario of publicacion.comentarios; let comentarioI = index">
+        <!--Modales-->
+        <div id="modal-container">
+            <app-modal-eliminar *ngIf="modalEliminar"
+                                [tituloModal]="'Eliminar Comentario?'"
+                                [mensajeModal]="'Seguro que desea eliminar el comentario?'"
+                                (confirmarEliminar)="eliminarComentario()" 
+                                (cerrarModal)="modalEliminar = $event">
+            </app-modal-eliminar>
+        </div>
+
+        <div class="col-2 d-flex pt-1 img-container">
+            <img class="img-perfil-comentario" [src]="comentario.fotoAutor" alt="">
+        </div>
+        <ul class="ul-info d-flex flex-wrap gap-1 mb-1 px-3 py-1 col-10 comentario">
+            <li><a class="autor-link" (click)="redirigirAPerfilUsuario(comentario.autor)">{{comentario.autor}}</a></li>
+            <li>hace {{calcularAntiguedadFecha(comentario.fecha)}}</li>
+            <li class="ms-auto"*ngIf="tokenDecoded$ | async as tokenDecoded" >
+                <app-btn-group *ngIf="tokenDecoded.nombreUsuario == comentario.autor" (switchModalEliminar)="modalEliminar = $event" (switchEditar)="editarSwitchComentario = $event" (click)="idComentario = comentario.id"></app-btn-group>
+            </li>
+            <li class="w-100">
+                <p class="mb-0" *ngIf="!editarSwitchComentario || idComentario != comentario.id">{{comentario.contenido}}</p>
+                <ng-container *ngIf="editarSwitchComentario && idComentario == comentario.id">
+                    <app-form-editar-comentario-respuesta [contenidoTemp]="comentario.contenido" (cerrarEditar)="editarSwitchComentario = $event" (contenidoFinal)="tempContenido = $event" (confirmarEditar)="editarComentario(comentarioI)"></app-form-editar-comentario-respuesta>
+                </ng-container>
+            </li>
+            <li class="d-flex gap-3" *ngIf="!editarSwitchComentario || idComentario != comentario.id">
+                <app-boton-like-dislike [idComentarioORespuesta]="comentario.id" [listaMeGusta]="comentario.listaMeGusta" [listaNoMeGusta]="comentario.listaNoMeGusta" class="d-flex gap-3"></app-boton-like-dislike>
+                <button class="btn-default btn-responder p-0" (click)="mostrarRespuestas(comentarioI)"><i class="fa-regular fa-message icono-comentario"></i> Responder</button>
+                <button *ngIf="!respuestasMostradas.includes(comentarioI) && comentario.respuestas.length > 0" class="p-0  btn-default btn-responder" (click)="mostrarRespuestas(comentarioI)">{{comentario.respuestas.length}} respuestas</button>
+                <button *ngIf="respuestasMostradas.includes(comentarioI)" class="btn-default btn-responder p-0" (click)="ocultarRespuestas(comentarioI)">Ocultar respuestas</button>
+            </li>
+        </ul> 
+        <app-comentario-form [placeholder]="'Escribe tu respuesta'" [idComentario]="comentario.id" [respuestaOComentario]="false" (anadirRespuesta)="anadirRespuestaComentario(comentarioI, $event)" *ngIf="respuestasMostradas.includes(comentarioI)" class="respuesta-container d-flex col-11 mb-1">
+        </app-comentario-form>
+        <app-respuestas [comentario]="comentario" [comentarioIndice]="comentarioI" [publicacion]="publicacion" [respuestasMostradas]="respuestasMostradas" class="col-11"></app-respuestas>
+    </div>
+        
+</article>

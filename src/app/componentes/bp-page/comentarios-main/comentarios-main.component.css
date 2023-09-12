@@ -13,3 +13,26 @@
 .anchor-style:hover{
     color: rgb(93, 152, 204);
 }
+
+@media (max-width: 530px) {
+    .article-relative{
+        position: relative;
+    }
+    .btn-responsive{
+        background-color: rgb(131, 124, 124);
+        position: absolute;
+        right: -9px;
+        top: -10px;
+    }
+}
+@media (min-width: 768px) and (max-width:853px){
+    .article-relative{
+        position: relative;
+    }
+    .btn-responsive{
+        background-color: rgb(131, 124, 124);
+        position: absolute;
+        right: -9px;
+        top: -10px;
+    }
+}

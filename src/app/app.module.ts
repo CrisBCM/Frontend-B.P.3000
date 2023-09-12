@@ -22,12 +22,19 @@ import { PublicacionComponent } from './componentes/publicacion/publicacion.comp
 import { PublicacionFiltroPipe } from './pipes/publicacion-filtro.pipe';
 import { ComentarioFormComponent } from './componentes/comentario-form/comentario-form.component';
 import { BotonLikeDislikeComponent } from './componentes/boton-like-dislike/boton-like-dislike.component';
-import { EliminarEditarComponent } from './componentes/eliminar-editar/eliminar-editar.component';
 import { AutenticacionInterceptor } from './shared/autenticacion.interceptor';
 import { ConsumoMainComponent } from './componentes/bp-page/consumo-main/consumo-main.component';
 import { PublicacionesMainComponent } from './componentes/bp-page/publicaciones-main/publicaciones-main.component';
 import { ComentariosMainComponent } from './componentes/bp-page/comentarios-main/comentarios-main.component';
 import { ModalEditarComponent } from './componentes/publicacion/modal-editar/modal-editar.component';
+import { ComentariosComponent } from './componentes/publicacion/comentarios/comentarios.component';
+import { RespuestasComponent } from './componentes/publicacion/respuestas/respuestas.component';
+import { BtnEliminarComponent } from './componentes/btn-eliminar/btn-eliminar.component';
+import { ModalEliminarComponent } from './componentes/modal-eliminar/modal-eliminar.component';
+import { BtnGroupComponent } from './componentes/btn-group/btn-group.component';
+import { FormEditarComentarioRespuestaComponent } from './componentes/form-editar-comentario-respuesta/form-editar-comentario-respuesta.component';
+import { CargandoSpinnerComponent } from './componentes/cargando-spinner/cargando-spinner.component';
+import { SpinnerInterceptor } from './shared/spinner.interceptor';
 
 
 
@@ -50,11 +57,17 @@ import { ModalEditarComponent } from './componentes/publicacion/modal-editar/mod
     PublicacionFiltroPipe,
     ComentarioFormComponent,
     BotonLikeDislikeComponent,
-    EliminarEditarComponent,
     ConsumoMainComponent,
     PublicacionesMainComponent,
     ComentariosMainComponent,
-    ModalEditarComponent
+    ModalEditarComponent,
+    ComentariosComponent,
+    RespuestasComponent,
+    BtnEliminarComponent,
+    ModalEliminarComponent,
+    BtnGroupComponent,
+    FormEditarComentarioRespuestaComponent,
+    CargandoSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +78,8 @@ import { ModalEditarComponent } from './componentes/publicacion/modal-editar/mod
     HttpClientModule
     
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:AutenticacionInterceptor, multi:true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:AutenticacionInterceptor, multi:true},
+              {provide: HTTP_INTERCEPTORS, useClass:SpinnerInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

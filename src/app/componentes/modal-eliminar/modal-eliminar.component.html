@@ -1,0 +1,14 @@
+<div class="modal-style">
+    <div class="modal-body">
+        <div class="mt-1 py-2 text-center">
+            <h5>{{tituloModal}}</h5>
+        </div>
+        <div class="text-center border border-start-0 border-end-0 py-3">
+            <p class="mb-0">{{mensajeModal}}</p>
+        </div>
+        <div class="d-flex justify-content-end gap-3 py-2">
+            <button class="btn btn-md border btn-cancelar text-light" (click)="cerrar()">Cancelar</button>
+            <button class="btn btn-md border btn-eliminar me-3 text-light" (click)="confirmar()">Eliminar</button>
+        </div>
+    </div>
+</div>

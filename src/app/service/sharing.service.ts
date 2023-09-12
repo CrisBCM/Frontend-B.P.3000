@@ -7,6 +7,7 @@ import { TokenService } from './token.service';
 import { EnumEndpoints } from '../shared/enum-endpoints';
 import { Imagen } from '../modelo/interfaces/imagen';
 import { Publicacion } from '../modelo/interfaces/publicacion';
+import { Comentario } from '../modelo/interfaces/comentario';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,11 @@ export class SharingService{
   }
   cambiarAvatar(nombreUsuario:String, imagen:FormData):Observable<Imagen>{
     return this.http.post<Imagen>(`${EnumEndpoints.cambiarAvatar}/${nombreUsuario}`, imagen);
+  }
+  editarComentario(indiceComentario:number, comentarioNuevo:Comentario){
+    if(this.persona$.value){
+      this.persona$.value.comentarios[indiceComentario] = comentarioNuevo;
+    }
   }
 
   set totalConsumido(consumoDeldia:number){

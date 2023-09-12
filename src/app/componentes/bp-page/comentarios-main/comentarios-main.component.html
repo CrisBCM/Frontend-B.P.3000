@@ -1,12 +1,16 @@
 <ng-container *ngIf="persona$ | async as persona; else usuarioAjeno">
     <div class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100">
-        <article class="px-3 py-2 border w-75 d-flex flex-column gap-2" *ngFor="let comentario of persona.comentarios">
-            <h6 class="mb-0">
-                <a (click)="redirigirAPerfilUsuario(persona.nombreUsuario)" class="link-style anchor-style">{{persona.nombreUsuario}}</a> comentó sobre: <a (click)="redirigirAPublicacion(comentario.publicacionId)" class="link-style anchor-style">{{comentario.nombrePublicacion}}</a>
-            </h6>
-            <span>
+        <article class="px-3 py-2 border w-75 d-flex flex-column gap-2 article-relative" *ngFor="let comentario of persona.comentarios let indiceComentario = index">
+            <div class="d-flex flex-wrap justify-content-between">
+                <h6 class="mb-0">
+                    <a (click)="redirigirAPerfilUsuario(persona.nombreUsuario)" class="link-style anchor-style">{{persona.nombreUsuario}}</a> comentó sobre: <a (click)="redirigirAPublicacion(comentario.publicacionId)" class="link-style anchor-style">{{comentario.nombrePublicacion}}</a>
+                </h6>
+                <app-btn-group (switchEditar)="switchEditar = $event" (click)="idComentario = comentario.id" class="btn-group btn-responsive" role="group"></app-btn-group>
+            </div>
+            <span *ngIf="!switchEditar || idComentario != comentario.id">
                 {{comentario.contenido}}
             </span>
+            <app-form-editar-comentario-respuesta *ngIf="switchEditar && idComentario == comentario.id" [contenidoTemp]="comentario.contenido" (cerrarEditar)="switchEditar= $event" (contenidoFinal)="contenidoTemporal = $event" (confirmarEditar)="editarComentario(indiceComentario, comentario.publicacionId)"></app-form-editar-comentario-respuesta>
             <span>
                 hace: {{calcularAntiguedadFecha(comentario.fecha)}}
             </span>

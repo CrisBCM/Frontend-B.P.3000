@@ -1,0 +1,5 @@
+<input [(ngModel)]="contenidoTemp" (change)="mostrarContenido()" type="text" placeholder="comentario..." class="comentario-input col-12 py-2 ps-2 ">
+<div class="col-12 d-flex justify-content-end border-top">
+    <button (click)="emitCerrarEditar()" class="btn btn-sm text-secondary">Cancelar</button>
+    <button (click)="emitConfirmarEditar()" class="btn btn-sm btn-enviar me-2 my-2">Enviar</button>
+</div>

@@ -11,7 +11,8 @@
         </select>
         <textarea formControlName="contenido" name="contenido" id="contenido" cols="30" rows="10" class="input-style textarea ps-1" placeholder="Texto"></textarea>
         <div class="border-top border-secondary pt-3 mt-3">
-            <button class="btn btn-md btn-publicar" (click)="publicar()">Publicar</button>
+            <button *ngIf="!spinner" class="btn btn-md btn-publicar" (click)="publicar()">Publicar</button>
+            <app-cargando-spinner *ngIf="spinner"></app-cargando-spinner>
         </div>
     </form>
 </div>

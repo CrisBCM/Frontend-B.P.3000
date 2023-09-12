@@ -18,6 +18,7 @@ export class ComentarioFormComponent {
   idUsuario:number;
   tokenDecoded:any;
   urlPerfil!:string;
+  @Input() placeholder!:string;
   @Input() idComentario!:number;
   @Input() idPublicacion!:number;
   @Input() respuestaOComentario!:boolean;
@@ -71,7 +72,8 @@ export class ComentarioFormComponent {
     this.foroService.enviarComentario(this.idPublicacion, this.idUsuario, contenido).subscribe((nuevoComentario:Comentario)=>{
       this.anadirComentario.emit(nuevoComentario);
     })
-    this.form.reset;
+    this.form.reset();
+
   }
 
 

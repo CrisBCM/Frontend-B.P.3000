@@ -1,0 +1,18 @@
+.modal-body{
+    background-color: rgb(211, 211, 211);
+    max-width: 40%;
+    min-height: 100px;
+    border-radius: 10px;
+}
+.btn-eliminar{
+    background-color: rgb(105, 150, 216);
+}
+.btn-cancelar{
+    background-color: rgb(180, 179, 179);
+}
+.btn-eliminar:hover{
+    background-color: rgb(47, 87, 148);
+}
+.btn-cancelar:hover{
+    background-color: rgba(155, 155, 155, 0.992);
+}
