@@ -1,17 +1,28 @@
+.btn-default{
+    background-color: transparent;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+}
 .btn-bg{
     background-color: rgb(255, 255, 255);
 }
 .btn-active{
     background-color: rgb(156, 159, 194);
 }
-.btn:disabled{
+.btn-default:disabled{
     opacity: 0,1;
     color: gray;
     border: none;
 }
-.btn:hover{
+.btn-default:hover{
     background-color: rgba(123, 124, 129, 0.608);
 }
 .flecha-bg{
     color: rgb(88, 93, 148);
+}
+@media (min-width:700px) {
+    .btn-default{
+        padding: 1px 8px;
+    }
 }
