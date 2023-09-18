@@ -1,0 +1,17 @@
+.btn-bg{
+    background-color: rgb(255, 255, 255);
+}
+.btn-active{
+    background-color: rgb(156, 159, 194);
+}
+.btn:disabled{
+    opacity: 0,1;
+    color: gray;
+    border: none;
+}
+.btn:hover{
+    background-color: rgba(123, 124, 129, 0.608);
+}
+.flecha-bg{
+    color: rgb(88, 93, 148);
+}

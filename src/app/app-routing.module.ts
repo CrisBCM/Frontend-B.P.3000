@@ -9,6 +9,7 @@ import { LogedGuard } from './service/loged.guard';
 import { ForoMainComponent } from './componentes/foro-main/foro-main.component';
 import { FormPublicacionComponent } from './componentes/form-publicacion/form-publicacion.component';
 import { PublicacionComponent } from './componentes/publicacion/publicacion.component';
+import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginacion.component';
 
 const routes: Routes = [
   { path: 'bp-foro', component:ForoMainComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'publicacion/:idPublicacion', component:PublicacionComponent},
   { path: 'registro', component:RegistroComponent},
   { path:'iniciar-sesion', component:LoginComponent, canActivate:[LogedGuard]},
+  { path:'btn', component:BtnPaginacionComponent},
   { path:'', redirectTo:'bp-foro', pathMatch:'full'},
 ];
 

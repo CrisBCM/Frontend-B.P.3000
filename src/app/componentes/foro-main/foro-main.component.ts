@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { ForoService } from 'src/app/service/foro.service';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -12,14 +12,34 @@ import { PerfilUsuarioService } from 'src/app/service/perfil-usuario.service';
   templateUrl: './foro-main.component.html',
   styleUrls: ['./foro-main.component.css']
 })
-export class ForoMainComponent {
+export class ForoMainComponent implements OnInit, OnDestroy{
   
   publicaciones$:Observable<Publicacion[] | null>;
+  publicaciones!:Publicacion[] | null;
+  paginaActual:number = 1;
+  onDestroy$:Subject<boolean> = new Subject<boolean>;
+  cantMostrarPublicaciones:number = 5;
 
   constructor(private foroService:ForoService, private router:Router, private perfilUsuarioService:PerfilUsuarioService){
     this.publicaciones$ = this.foroService.behaviorSubjectPublicaciones;
+    this.publicaciones$.subscribe
+  }
+  ngOnInit(): void {
+    this.publicaciones$.pipe(takeUntil(this.onDestroy$)).subscribe(publicaciones =>{
+      this.publicaciones = publicaciones
+    })
+  }
+  ngOnDestroy(): void {
+    this.onDestroy$.next(true);
   }
   
+  get publicacionesPaginadas(){
+    const inicio = (this.paginaActual -1 ) * this.cantMostrarPublicaciones;
+    const fin = (inicio + this.cantMostrarPublicaciones);
+
+    return this.publicaciones?.slice(inicio, fin);
+  }
+
   redirigirAPublicacion(idPublicacion:number){
     this.router.navigate(["/publicacion", idPublicacion]);
   }

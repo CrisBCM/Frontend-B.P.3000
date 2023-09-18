@@ -1,5 +1,5 @@
 <ng-container *ngIf="persona; else usuarioAjeno">
-    <div class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100">
+    <div class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100 mb-3">
         <ng-container *ngIf="persona.publicaciones.length > 0; else ceroPublicaciones">
             <article class="px-3 py-2 border w-75 article-relative" *ngFor="let publicacion of persona.publicaciones">
                 <div class="d-flex flex-wrap justify-content-between">
@@ -53,7 +53,7 @@
     </div>
 </ng-container>
 <ng-template #usuarioAjeno>
-    <div *ngIf="usuario$ | async as usuario" class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100">
+    <div *ngIf="usuario$ | async as usuario" class="d-flex flex-wrap justify-content-center gap-4 py-4 general-bg w-100 mb-3">
         <ng-container *ngIf="usuario.publicaciones.length > 0; else ceroPublicaciones">
             <article class="px-3 py-2 border w-75" *ngFor="let publicacion of usuario.publicaciones">
                 <h6 class="mb-0">

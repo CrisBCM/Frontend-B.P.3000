@@ -19,7 +19,6 @@ import { ForoMainComponent } from './componentes/foro-main/foro-main.component';
 import { BtnPublicarComponent } from './componentes/btn-publicar/btn-publicar.component';
 import { FormPublicacionComponent } from './componentes/form-publicacion/form-publicacion.component';
 import { PublicacionComponent } from './componentes/publicacion/publicacion.component';
-import { PublicacionFiltroPipe } from './pipes/publicacion-filtro.pipe';
 import { ComentarioFormComponent } from './componentes/comentario-form/comentario-form.component';
 import { BotonLikeDislikeComponent } from './componentes/boton-like-dislike/boton-like-dislike.component';
 import { AutenticacionInterceptor } from './shared/autenticacion.interceptor';
@@ -35,6 +34,7 @@ import { BtnGroupComponent } from './componentes/btn-group/btn-group.component';
 import { FormEditarComentarioRespuestaComponent } from './componentes/form-editar-comentario-respuesta/form-editar-comentario-respuesta.component';
 import { CargandoSpinnerComponent } from './componentes/cargando-spinner/cargando-spinner.component';
 import { SpinnerInterceptor } from './shared/spinner.interceptor';
+import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginacion.component';
 
 
 
@@ -54,7 +54,6 @@ import { SpinnerInterceptor } from './shared/spinner.interceptor';
     BtnPublicarComponent,
     FormPublicacionComponent,
     PublicacionComponent,
-    PublicacionFiltroPipe,
     ComentarioFormComponent,
     BotonLikeDislikeComponent,
     ConsumoMainComponent,
@@ -67,7 +66,8 @@ import { SpinnerInterceptor } from './shared/spinner.interceptor';
     ModalEliminarComponent,
     BtnGroupComponent,
     FormEditarComentarioRespuestaComponent,
-    CargandoSpinnerComponent
+    CargandoSpinnerComponent,
+    BtnPaginacionComponent
   ],
   imports: [
     BrowserModule,

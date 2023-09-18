@@ -1,0 +1,9 @@
+<div class="d-flex flex-wrap gap-3">
+    <button class="btn btn-md flecha-bg" [disabled]="paginaActual == 1" (click)="cambiarPagina(paginaActual-1)"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="btn btn-md btn-bg" *ngIf="paginaActual != arrayBotones[0] && !listaBotones.includes(arrayBotones[0])" (click)="cambiarPagina(arrayBotones[0])">{{arrayBotones[0]}}</button>
+    <span class="align-self-end" *ngIf="paginaActual != arrayBotones[0] && !listaBotones.includes(arrayBotones[0])">...</span>
+    <button [ngClass]="{'btn-active':paginaActual == e}" class="btn btn-md btn-bg"  type="button" (click)="cambiarPagina(e)" *ngFor="let e of listaBotones let i = index ">{{e}}</button>
+    <span class="align-self-end" *ngIf="paginaActual != ultimoElementoEnArray && !listaBotones.includes(ultimoElementoEnArray)">...</span>
+    <button class="btn btn-md btn-bg" *ngIf="paginaActual != ultimoElementoEnArray && !listaBotones.includes(ultimoElementoEnArray)" (click)="cambiarPagina(ultimoElementoEnArray)">{{ultimoElementoEnArray}}</button>
+    <button class="btn btn-md border-none flecha-bg" [disabled]="paginaActual == ultimoElementoEnArray"  (click)="cambiarPagina(paginaActual+1)"><i class="fa-solid fa-chevron-right"></i></button>
+</div>

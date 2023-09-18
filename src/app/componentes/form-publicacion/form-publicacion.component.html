@@ -2,17 +2,25 @@
     <div class="border-bottom border-secondary p-2">
         <h5>Crear una publicacion</h5>
     </div>
-    <form [formGroup]="form" class="d-flex flex-column px-3 gap-2 py-4 form-style mt-4">
-        <input formControlName="titulo" type="text" placeholder="Titulo" class="input-style py-1 ps-1">
-        <select formControlName="tema" name="tema" id="tema" class="input-style w-25 py-1">
+    <form [formGroup]="form" class="d-flex flex-column px-3 py-4 form-style mt-4">
+        <label for="titulo" class="mb-1">Titulo</label>
+        <input formControlName="titulo" type="text" placeholder="Titulo" id="titulo" class="input-style py-2 ps-1 mb-3">
+        <select formControlName="tema" name="tema" id="tema" class="input-style w-25 py-2 mb-3">
             <option selected disabled>Tema</option>
             <option value="Receta">Receta</option>
             <option value="Pregunta">Pregunta</option>
         </select>
-        <textarea formControlName="contenido" name="contenido" id="contenido" cols="30" rows="10" class="input-style textarea ps-1" placeholder="Texto"></textarea>
-        <div class="border-top border-secondary pt-3 mt-3">
-            <button *ngIf="!spinner" class="btn btn-md btn-publicar" (click)="publicar()">Publicar</button>
-            <app-cargando-spinner *ngIf="spinner"></app-cargando-spinner>
+        <div class="d-flex justify-content-between mb-1">
+            <label for="contenido">Descripcion</label>
+            <div>
+                <span [ngClass]="{'text-danger': contenido.errors?.['maxlength']}">{{contenido.value.length}}</span>
+                <span class="pe-2">/3000</span>
+            </div>
+        </div>
+        <textarea formControlName="contenido" name="contenido" id="contenido" cols="30" rows="10" class="input-style textarea ps-1" placeholder="Descripcion"></textarea>
+        <div class="border-top border-secondary pt-3 mt-3 d-flex align-content-center">
+            <button [disabled]="spinner || form.invalid" class="btn btn-md btn-publicar me-2    " (click)="publicar()">Publicar</button>
+            <app-cargando-spinner *ngIf="spinner" class="mt-1"></app-cargando-spinner>
         </div>
     </form>
 </div>
