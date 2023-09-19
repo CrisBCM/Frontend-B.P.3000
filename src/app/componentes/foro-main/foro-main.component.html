@@ -1,48 +1,26 @@
-<div class="mx-auto pb-4 px-0 main-container col-12 col-lg-8 col-xl-6 p-0 mt-5 foro-main">
+<div class="mx-auto pb-4 px-0 main-container col-12 col-lg-10 col-xl-7 p-0 mt-5 foro-main">
     <header class="header-container">
         <ul class="d-flex ul-header-container px-4">
             <li class="link-style">
-                <a class="nav-link border-start header-li-style" href="#">Todos los temas</a>
+                <a class="nav-link border-start header-li-style" (click)="paginaSeleccionada = 'general'">Todos los temas</a>
             </li>
             <li class="link-style">
-                <a class="nav-link border-start border-end header-li-style" href="#">Foro indice</a>
+                <a class="nav-link border-start border-end header-li-style" (click)="paginaSeleccionada = 'indexForo'">Foro indice</a>
             </li>
         </ul>
-        <nav class="d-flex flex-wrap justify-content-center align-content-center px-0 px-sm-4">
-            <ul class="ul-filtro d-flex gap-4 align-items-center px-3 px-sm-0 mb-sm-0">
-                <li class="link-style d-flex align-items-center gap-2"> 
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option disabled selected>Ordenar por tema</option>
-                        <option value="1">Recetas</option>
-                        <option value="2">Preguntas</option>
-                        <option value="2">Todo</option>
-                    </select>
-                </li>
-                <li class="link-style d-flex align-items-center gap-2"> 
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option disabled selected>Fecha de subida</option>
-                        <option value="1">Reciente</option>
-                        <option value="2">Ultimo</option>
-                      </select>
-                </li>
-            </ul>
+        <!-- <nav class="d-flex flex-wrap justify-content-center align-content-center px-0 px-sm-4">
             <form class="ms-sm-auto d-flex gap-2 form-search">
                 <input type="text" class="input-search p-2">
                 <button class="button-magnifyng-glass"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
-        </nav>
+        </nav> -->
     </header>
-    <main class="px-4 mt-4">
-        <section class="post-container" *ngIf="publicaciones$ | async as publicaciones">
-            <article class=" px-3 py-2 border-top" *ngFor="let publicacion of publicacionesPaginadas">
-                <h6 class="mb-0">
-                    <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.tema}}: {{publicacion.titulo}}.</a>
-                </h6>
-                <span>publicado hace: {{calcularAntiguedadFecha(publicacion.fecha)}} - </span>
-                <span>por: <a (click)="redirigirAPerfilUsuario(publicacion.autor)" class="link-style anchor-style">{{publicacion.autor}}</a></span>
-            </article>
-            <app-btn-paginacion *ngIf="publicaciones.length > 5" class="d-flex justify-content-center py-3 border-top" [listaObjetos]="publicaciones" (emitPaginaActual)="paginaActual = $event" [cantMostrarPublicaciones]="cantMostrarPublicaciones"></app-btn-paginacion>
-        </section>
-        
-    </main>
+    <ng-container *ngIf="paginaSeleccionada == 'general'">
+        <app-publicaciones-general>
+
+        </app-publicaciones-general>
+    </ng-container>
+    <ng-container *ngIf="paginaSeleccionada == 'indexForo'">
+        indexFOro
+    </ng-container>
 </div>

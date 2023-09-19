@@ -35,6 +35,8 @@ import { FormEditarComentarioRespuestaComponent } from './componentes/form-edita
 import { CargandoSpinnerComponent } from './componentes/cargando-spinner/cargando-spinner.component';
 import { SpinnerInterceptor } from './shared/spinner.interceptor';
 import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginacion.component';
+import { PublicacionesGeneralComponent } from './componentes/foro-main/publicaciones-general/publicaciones-general.component';
+import { FiltroDropdownComponent } from './componentes/filtro-dropdown/filtro-dropdown.component';
 
 
 
@@ -67,7 +69,9 @@ import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginac
     BtnGroupComponent,
     FormEditarComentarioRespuestaComponent,
     CargandoSpinnerComponent,
-    BtnPaginacionComponent
+    BtnPaginacionComponent,
+    PublicacionesGeneralComponent,
+    FiltroDropdownComponent
   ],
   imports: [
     BrowserModule,
