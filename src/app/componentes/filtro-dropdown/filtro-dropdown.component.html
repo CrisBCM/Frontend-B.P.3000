@@ -1,4 +1,4 @@
-<ul class="ul-filtro d-flex gap-4 align-items-center px-3 px-sm-0 mb-sm-0">
+<!-- <ul class="ul-filtro d-flex gap-4 align-items-center px-3 px-sm-0 mb-sm-0">
     <li class="link-style d-flex align-items-center gap-2"> 
         <select class="form-select form-select-sm" aria-label=".form-select-sm example">
             <option disabled selected>Ordenar por tema</option>
@@ -14,4 +14,23 @@
             <option value="2">Ultimo</option>
           </select>
     </li>
-</ul>
+</ul> -->
+
+<div class="contenedor-filtro">
+    <div class="filtrar-tema-contenedor">
+        <button class="d-flex gap-2 btn-default" (click)="switchFiltro ? switchFiltro = false : switchFiltro = true">
+            <span>{{nombreFiltro}}</span>
+            <div>
+                <svg *ngIf="switchFiltro == false" xmlns="http://www.w3.org/2000/svg" height="10px" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                <svg *ngIf="switchFiltro == true" xmlns="http://www.w3.org/2000/svg" height="10px" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/></svg>
+            </div>
+        </button>
+        <div *ngIf="switchFiltro" class="lista-filtro">
+            <ul class="ul-style" *ngIf="opcionesDeFiltro">
+                <li class="li-style d-flex align-items-center ps-2" *ngFor="let opcion of opcionesDeFiltro" (click)="emitirFiltro(opcion)">
+                    <span class="li-span">{{opcion}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

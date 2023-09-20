@@ -17,6 +17,8 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
   cantMostrarPublicaciones: number = 5;
   publicaciones!:Publicacion[] | null;
   onDestroy$:Subject<boolean> = new Subject();
+  opcionesDeFiltro:string[] = ["Todos","Receta", "Preguntas"];
+  nombreFiltroPorTema:string = "Todos"
 
   constructor(private router: Router, private perfilUsuarioService: PerfilUsuarioService, private foroService:ForoService){}
 
@@ -30,6 +32,33 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
     this.onDestroy$.next(true);
   }
   
+  filtrar(tipoDeFiltro:string){
+    switch(tipoDeFiltro){
+      case "Todos":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorTemaTodo();
+      break;
+      case "Receta":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorTemaReceta();
+      break;
+      case "Preguntas":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorTemaPregunta();
+      break;
+      default : console.log("BOTON INEXISTENTE");
+      break;
+    }
+  }
+  filtrarPorTemaReceta(){
+     if(this.foroService.publicacionesRecetas){
+      this.publicaciones = this.foroService.publicacionesRecetas;
+     }
+  }
+  filtrarPorTemaPregunta(){
+    if(this.foroService.publicacionesPreguntas){
+      this.publicaciones = this.foroService.publicacionesPreguntas;
+     }
+  }
+  filtrarPorTemaTodo(){
+    if(this.foroService.publicacionesTodo){
+      this.publicaciones = this.foroService.publicacionesTodo;
+     }
+  }
   // cambiarPublicacionesPaginadas(){
   //   let nuevoArray = this.publicacionesPaginadas.filter(e => e.autor == "Cris123");
   //   console.log(nuevoArray);

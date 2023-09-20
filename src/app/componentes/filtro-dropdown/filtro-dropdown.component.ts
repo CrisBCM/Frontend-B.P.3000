@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filtro-dropdown',
@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./filtro-dropdown.component.css']
 })
 export class FiltroDropdownComponent {
+  @Input() nombreFiltro:string = "";
+  @Input() opcionesDeFiltro: string[] = [];
+  @Output() filtrar = new EventEmitter<string>;
+  switchFiltro:boolean = false;
+
+  constructor(){}
   
+  emitirFiltro(tipoDeFiltro:string){
+    this.filtrar.emit(tipoDeFiltro);
+  }
 }

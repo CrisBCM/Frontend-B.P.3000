@@ -25,6 +25,16 @@ export class ForoService {
     
   }
 
+  get publicacionesRecetas(){
+    return this.publicaciones$.value?.filter(publicacion => publicacion.tema == "Receta");
+  }
+  get publicacionesPreguntas(){
+    return this.publicaciones$.value?.filter(publicacion => publicacion.tema == "Pregunta");
+  }
+  get publicacionesTodo(){
+    return this.publicaciones$.value;
+  }
+
   get behaviorSubjectPublicaciones():Observable<Publicacion[] | null>{
     return this.publicaciones$.asObservable();
   }

@@ -33,22 +33,47 @@ export class BtnPaginacionComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log();
-    if (this.listaObjetos) {
-      this.cantidadPaginas = Math.ceil(
-        this.listaObjetos.length / this.cantMostrarPublicaciones
-      );
-      console.log(this.cantidadPaginas + ' cantidadPaginas');
-    }
 
-    for (let i = 1; i <= this.cantidadPaginas; i++) {
-      this.arrayBotones.push(i);
-    }
+    // if (this.listaObjetos) {
 
+    //   this.cantidadPaginas = Math.ceil(
+
+    //     this.listaObjetos.length / this.cantMostrarPublicaciones
+
+    //   );
+    // }
+
+    // for (let i = 1; i <= this.cantidadPaginas; i++) {
+    //   this.arrayBotones.push(i);
+    // }
+
+    // if (this.arrayBotones && this.arrayBotones.length > 0) {
+    //   this.ultimoElementoEnArray = this.arrayBotones.slice(-1)[0];
+    // }
+  }
+
+  definirUltimoElemento(){
     if (this.arrayBotones && this.arrayBotones.length > 0) {
       this.ultimoElementoEnArray = this.arrayBotones.slice(-1)[0];
     }
-    console.log(this.listaObjetos);
+  }
+  definirCantidadDeBotones(){
+    let botones = [];
+
+    for (let i = 1; i <= this.cantidadPaginas; i++) {
+      botones.push(i);
+    }
+    this.arrayBotones = botones;
+  }
+  definirCantidadPaginas(){
+    if (this.listaObjetos) {
+
+      this.cantidadPaginas = Math.ceil(
+
+        this.listaObjetos.length / this.cantMostrarPublicaciones
+
+      );
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -60,12 +85,20 @@ export class BtnPaginacionComponent implements OnInit {
   }
 
   get listaBotones(): number[] {
+    
+    this.definirCantidadPaginas();
+    this.definirCantidadDeBotones();
+    this.definirUltimoElemento();
+    
+    console.log(this.cantidadPaginas + " CANTIDAD PAGINAS");
     let cantidadBotones = 0;
+
     this.isMobile ? (cantidadBotones = 1) : (cantidadBotones = 4);
     const inicio = this.paginaActual - 1;
     const fin = this.paginaActual + cantidadBotones;
     return this.arrayBotones.slice(inicio, fin);
   }
+
   cambiarPagina(nuevoNumero: number) {
     this.paginaActual = nuevoNumero;
     this.emitPaginaActual.emit(this.paginaActual);

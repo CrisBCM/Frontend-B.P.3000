@@ -1,6 +1,6 @@
 <main class="px-4 mt-4" *ngIf="publicaciones">
     <header class="mb-3">
-        <app-filtro-dropdown></app-filtro-dropdown>
+        <app-filtro-dropdown [nombreFiltro]="nombreFiltroPorTema" [opcionesDeFiltro]="opcionesDeFiltro" (filtrar)="filtrar($event)"></app-filtro-dropdown>
     </header>
     <section class="post-container" *ngIf="publicaciones">
         <article class=" px-3 py-2 border-top" *ngFor="let publicacion of publicacionesPaginadas">
