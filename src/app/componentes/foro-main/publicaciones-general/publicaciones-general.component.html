@@ -1,6 +1,6 @@
 <main class="px-4 mt-4" *ngIf="publicaciones">
     <header class="mb-3">
-        <app-filtro-dropdown [nombreFiltro]="nombreFiltroPorTema" [opcionesDeFiltro]="opcionesDeFiltro" (filtrar)="filtrar($event)"></app-filtro-dropdown>
+        <app-filtro-dropdown [nombreFiltro]="nombreFiltroPorTema" [opcionesDeFiltro]="opcionesDeFiltro" (filtrar)="filtrar($event)" (filtrar)="reiniciarBotones()"></app-filtro-dropdown>
     </header>
     <section class="post-container" *ngIf="publicaciones">
         <article class=" px-3 py-2 border-top" *ngFor="let publicacion of publicacionesPaginadas">
@@ -10,6 +10,6 @@
             <span>publicado hace: {{calcularAntiguedadFecha(publicacion.fecha)}} - </span>
             <span>por: <a (click)="redirigirAPerfilUsuario(publicacion.autor)" class="link-style anchor-style">{{publicacion.autor}}</a></span>
         </article>
-        <app-btn-paginacion *ngIf="publicaciones.length > 5" class="d-flex justify-content-center py-3 border-top" [listaObjetos]="publicaciones" (emitPaginaActual)="paginaActual = $event" [cantMostrarPublicaciones]="cantMostrarPublicaciones"></app-btn-paginacion>
+        <app-btn-paginacion #btnPaginacion *ngIf="publicaciones.length > 5" class="d-flex justify-content-center py-3 border-top" [listaObjetos]="publicaciones" (emitPaginaActual)="paginaActual = $event" [cantMostrarPublicaciones]="cantMostrarPublicaciones"></app-btn-paginacion>
     </section>
 </main>

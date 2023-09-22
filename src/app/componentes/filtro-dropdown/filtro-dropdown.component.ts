@@ -15,5 +15,6 @@ export class FiltroDropdownComponent {
   
   emitirFiltro(tipoDeFiltro:string){
     this.filtrar.emit(tipoDeFiltro);
+    this.switchFiltro = false;
   }
 }

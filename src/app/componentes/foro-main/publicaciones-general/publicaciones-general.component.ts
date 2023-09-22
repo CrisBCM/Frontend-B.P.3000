@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { formatDistance } from 'date-fns';
 import es from 'date-fns/locale/es';
@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { Publicacion } from 'src/app/modelo/interfaces/publicacion';
 import { ForoService } from 'src/app/service/foro.service';
 import { PerfilUsuarioService } from 'src/app/service/perfil-usuario.service';
+import { BtnPaginacionComponent } from '../../btn-paginacion/btn-paginacion.component';
 
 @Component({
   selector: 'app-publicaciones-general',
@@ -17,8 +18,9 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
   cantMostrarPublicaciones: number = 5;
   publicaciones!:Publicacion[] | null;
   onDestroy$:Subject<boolean> = new Subject();
-  opcionesDeFiltro:string[] = ["Todos","Receta", "Preguntas"];
-  nombreFiltroPorTema:string = "Todos"
+  opcionesDeFiltro:string[] = ["Mas nuevo","Antiguo", "Mas gustado"];
+  nombreFiltroPorTema:string = "Mas nuevo"
+  @ViewChild('btnPaginacion') btnPaginacion!:BtnPaginacionComponent;
 
   constructor(private router: Router, private perfilUsuarioService: PerfilUsuarioService, private foroService:ForoService){}
 
@@ -31,22 +33,27 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.onDestroy$.next(true);
   }
+
+  reiniciarBotones(){
+    this.paginaActual = 1;
+    this.btnPaginacion.paginaActual = this.paginaActual;
+  }
   
   filtrar(tipoDeFiltro:string){
     switch(tipoDeFiltro){
-      case "Todos":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorTemaTodo();
+      case "Mas nuevo":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorMasNuevo();
       break;
-      case "Receta":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorTemaReceta();
+      case "Antiguo":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorAntiguedad();
       break;
-      case "Preguntas":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorTemaPregunta();
+      case "Mas gustado":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorTemaPregunta();
       break;
       default : console.log("BOTON INEXISTENTE");
       break;
     }
   }
-  filtrarPorTemaReceta(){
-     if(this.foroService.publicacionesRecetas){
-      this.publicaciones = this.foroService.publicacionesRecetas;
+  filtrarPorAntiguedad(){
+     if(this.foroService.publicacionesAntiguas){
+      this.publicaciones = this.foroService.publicacionesAntiguas;
      }
   }
   filtrarPorTemaPregunta(){
@@ -54,9 +61,9 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
       this.publicaciones = this.foroService.publicacionesPreguntas;
      }
   }
-  filtrarPorTemaTodo(){
-    if(this.foroService.publicacionesTodo){
-      this.publicaciones = this.foroService.publicacionesTodo;
+  filtrarPorMasNuevo(){
+    if(this.foroService.publicacionesMasNuevas){
+      this.publicaciones = this.foroService.publicacionesMasNuevas;
      }
   }
   // cambiarPublicacionesPaginadas(){

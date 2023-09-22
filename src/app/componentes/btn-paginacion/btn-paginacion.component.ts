@@ -16,7 +16,7 @@ import { Publicacion } from 'src/app/modelo/interfaces/publicacion';
 export class BtnPaginacionComponent implements OnInit {
   @Input() listaObjetos!: Publicacion[] | null;
 
-  paginaActual: number = 1;
+  @Input() paginaActual: number = 1;
 
   @Output() emitPaginaActual = new EventEmitter<number>();
 
@@ -33,23 +33,6 @@ export class BtnPaginacionComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-
-    // if (this.listaObjetos) {
-
-    //   this.cantidadPaginas = Math.ceil(
-
-    //     this.listaObjetos.length / this.cantMostrarPublicaciones
-
-    //   );
-    // }
-
-    // for (let i = 1; i <= this.cantidadPaginas; i++) {
-    //   this.arrayBotones.push(i);
-    // }
-
-    // if (this.arrayBotones && this.arrayBotones.length > 0) {
-    //   this.ultimoElementoEnArray = this.arrayBotones.slice(-1)[0];
-    // }
   }
 
   definirUltimoElemento(){

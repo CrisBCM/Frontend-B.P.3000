@@ -17,22 +17,29 @@ export class ForoService {
 
   constructor(private http:HttpClient, private router:Router) {
 
-    this.obtenerPosts().subscribe(arrayPublicacion =>{
+    this.obtenerPosts().subscribe((arrayPublicacion:Publicacion[]) =>{
       console.log(arrayPublicacion);
 
-      this.publicaciones$.next(arrayPublicacion);
+      this.publicaciones$.next(arrayPublicacion.sort((publicacionA, publicacionB) => new Date(publicacionB.fecha).getTime() - new Date(publicacionA.fecha).getTime()));
     }) 
     
   }
 
-  get publicacionesRecetas(){
-    return this.publicaciones$.value?.filter(publicacion => publicacion.tema == "Receta");
+  filtrarPorMasNuevo(array:Publicacion[] | null){
+    return array?.sort((a,b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+  }
+  filtrarPorMasAntiguo(array:Publicacion[] | null){
+    return array?.sort((a,b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+  }
+
+  get publicacionesAntiguas(){
+    return this.filtrarPorMasAntiguo(this.publicaciones$.value);
   }
   get publicacionesPreguntas(){
     return this.publicaciones$.value?.filter(publicacion => publicacion.tema == "Pregunta");
   }
-  get publicacionesTodo(){
-    return this.publicaciones$.value;
+  get publicacionesMasNuevas(){
+    return this.filtrarPorMasNuevo(this.publicaciones$.value);
   }
 
   get behaviorSubjectPublicaciones():Observable<Publicacion[] | null>{
