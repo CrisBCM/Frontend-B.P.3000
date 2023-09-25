@@ -3,7 +3,11 @@
 }
 .div-publicacion{
     margin: 48px 0;
-    background:#dadbdd;
+    background:#dadbdd;   
+}
+.div-aside{
+    display: flex;
+    flex-direction: row;
 }
 .border-color{
     border-bottom: .5px solid rgb(181, 184, 185);
@@ -86,6 +90,16 @@
     border: none;
     height: min-content;
 }
+.btn-votar{
+    font-size:40px;
+    color: #7d8fa38c;
+}
+.btn-votar-abajo:hover{
+    color: #c92c2c8a;
+}
+.btn-votar-arriba:hover{
+    color: #2c70c98a;
+}
 .btn-editarEliminar{
     color: rgba(248, 249, 250, 0.836);
 }
@@ -115,6 +129,12 @@
 .btn-enviar:hover{
     background-color: rgb(36, 138, 233);
 }
+.votar-arriba-activo{
+    color: #2c70c98a;
+}
+.votar-abajo-activo{
+    color: #c92c2c8a;
+}
 @media (max-width:575px){
     .div-publicacion{
         margin-top: 70px;
@@ -127,5 +147,10 @@
     }
     .img-container{
         display: none;
+    }
+}
+@media (min-width:588px){
+    .div-aside{
+        flex-direction: column;
     }
 }

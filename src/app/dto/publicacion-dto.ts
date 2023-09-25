@@ -8,4 +8,5 @@ export interface PublicacionDTO {
     tema:string;
     listaMeGusta:string[];
     listaNoMeGusta:string[];
+    puntuacion:number;
 }

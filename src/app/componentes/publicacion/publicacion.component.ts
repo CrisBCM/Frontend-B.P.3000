@@ -18,6 +18,7 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class PublicacionComponent implements OnInit, OnDestroy{
   idPublicacion!:number;
+  nombreUsuario:string = "";
   publicacion!:Publicacion;
   publicaciones$!:Observable<Publicacion[] | null>;
   mostrar:boolean = true;
@@ -27,10 +28,16 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   tokenDecoded$!:Observable<any>;
 
   constructor(private tokenService:TokenService, private publicacionService:PublicacionService, activatedRoute:ActivatedRoute, private foroService:ForoService, private router:Router, private perfilUsuarioService:PerfilUsuarioService){
+    
     activatedRoute.params.subscribe((params:Params) =>{
       this.idPublicacion = params["idPublicacion"];
     })
     this.tokenDecoded$ = tokenService.tokenDecoded$;
+
+    this.tokenDecoded$.subscribe(tokendDecoded =>{
+      this.nombreUsuario = tokendDecoded.nombreUsuario;
+      console.log(this.nombreUsuario);
+    })
   }
   ngOnInit(): void {
     
@@ -54,6 +61,14 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   }
   ngOnDestroy(): void {
     this.onDestroy$.next(true);
+  }
+  publicacionMeGusta(){
+    this.foroService.publicacionMeGusta(this.idPublicacion, this.nombreUsuario).subscribe(()=>{})
+    this.foroService.setMeGustaPublicacion(this.idPublicacion, this.nombreUsuario);
+  }
+  publicacionNoMeGusta(){
+    this.foroService.publicacionNoMeGusta(this.idPublicacion, this.nombreUsuario).subscribe(()=>{})
+    this.foroService.setPublicacionNoMeGusta(this.idPublicacion, this.nombreUsuario);
   }
   actualizarPublicacion(publicacion:Publicacion){
     this.publicacion = publicacion;

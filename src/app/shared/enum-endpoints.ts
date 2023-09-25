@@ -20,5 +20,7 @@ export enum EnumEndpoints {
     noMeGusta = "http://localhost:8080/comentario/nomegusta",
     meGustaRespuesta = "http://localhost:8080/respuesta/megusta",
     noMeGustaRespuesta = "http://localhost:8080/respuesta/nomegusta",
-    perfilUsuario = "http://localhost:8080/persona/usuario"
+    perfilUsuario = "http://localhost:8080/persona/usuario",
+    publicacionVotarMeGusta = "http://localhost:8080/publicacion/megusta",
+    publicacionVotarNoMeGusta = "http://localhost:8080/publicacion/nomegusta"
 }

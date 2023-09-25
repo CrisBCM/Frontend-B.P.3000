@@ -57,8 +57,8 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
      }
   }
   filtrarPorTemaPregunta(){
-    if(this.foroService.publicacionesPreguntas){
-      this.publicaciones = this.foroService.publicacionesPreguntas;
+    if(this.foroService.publicacionesMasGustado){
+      this.publicaciones = this.foroService.publicacionesMasGustado;
      }
   }
   filtrarPorMasNuevo(){

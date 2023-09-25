@@ -24,6 +24,59 @@ export class ForoService {
     }) 
     
   }
+  
+  recalcularPuntuacionPublicacion(indicePublicacion:number){
+    if(this.publicaciones$.value){
+      this.publicaciones$.value[indicePublicacion].puntuacion = this.publicaciones$.value[indicePublicacion].listaMeGusta.length - this.publicaciones$.value[indicePublicacion].listaNoMeGusta.length;
+    }
+  }
+  setMeGustaPublicacion(idPublicacion:number, nombreUsuario:string){
+    if(this.publicaciones$.value){
+
+      let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+
+      if(!this.publicaciones$.value[indicePublicacion].listaMeGusta.includes(nombreUsuario)){
+
+        if(this.publicaciones$.value[indicePublicacion].listaNoMeGusta.includes(nombreUsuario)){
+          let indiceUsuarioNoMeGusta = this.publicaciones$.value[indicePublicacion].listaNoMeGusta.findIndex(nombre => nombre == nombreUsuario);
+          this.publicaciones$.value[indicePublicacion].listaNoMeGusta.splice(indiceUsuarioNoMeGusta, 1);
+        }
+
+        this.publicaciones$.value[indicePublicacion].listaMeGusta.push(nombreUsuario);
+
+      }else{
+        let indiceUsuarioMeGusta = this.publicaciones$.value[indicePublicacion].listaMeGusta.findIndex(nombre => nombre == nombreUsuario);
+
+        this.publicaciones$.value[indicePublicacion].listaMeGusta.splice(indiceUsuarioMeGusta, 1);
+      }
+      this.recalcularPuntuacionPublicacion(indicePublicacion);
+    }
+  }
+
+  setPublicacionNoMeGusta(idPublicacion:number, nombreUsuario:string){
+    if(this.publicaciones$.value){
+
+      let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+
+      if(!this.publicaciones$.value[indicePublicacion].listaNoMeGusta.includes(nombreUsuario)){
+
+        if(this.publicaciones$.value[indicePublicacion].listaMeGusta.includes(nombreUsuario)){
+          let indiceUsuarioMeGusta = this.publicaciones$.value[indicePublicacion].listaMeGusta.findIndex(nombre => nombre == nombreUsuario);
+          this.publicaciones$.value[indicePublicacion].listaMeGusta.splice(indiceUsuarioMeGusta, 1);
+        }
+
+        this.publicaciones$.value[indicePublicacion].listaNoMeGusta.push(nombreUsuario);
+        
+      }else{
+        let indiceUsuarioNoMeGusta = this.publicaciones$.value[indicePublicacion].listaNoMeGusta.findIndex(nombre => nombre == nombreUsuario);
+
+        this.publicaciones$.value[indicePublicacion].listaNoMeGusta.splice(indiceUsuarioNoMeGusta, 1);
+      }
+      this.recalcularPuntuacionPublicacion(indicePublicacion);
+    }
+
+    
+  }
 
   filtrarPorMasNuevo(array:Publicacion[] | null){
     return array?.sort((a,b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
@@ -31,12 +84,15 @@ export class ForoService {
   filtrarPorMasAntiguo(array:Publicacion[] | null){
     return array?.sort((a,b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
   }
+  filtrarPorMasGustado(array:Publicacion[] | null){
+    return array?.sort((a,b) => b.puntuacion - a.puntuacion);
+  }
 
   get publicacionesAntiguas(){
     return this.filtrarPorMasAntiguo(this.publicaciones$.value);
   }
-  get publicacionesPreguntas(){
-    return this.publicaciones$.value?.filter(publicacion => publicacion.tema == "Pregunta");
+  get publicacionesMasGustado(){
+    return this.filtrarPorMasGustado(this.publicaciones$.value);
   }
   get publicacionesMasNuevas(){
     return this.filtrarPorMasNuevo(this.publicaciones$.value);
@@ -129,5 +185,11 @@ export class ForoService {
   }
   noMeGusta(url:string, idComentarioORespuesta:number, nombreUsuario:string):Observable<any>{
     return this.http.put(`${url}/${idComentarioORespuesta}/${nombreUsuario}`, "");
+  }
+  publicacionMeGusta(idPublicacion:number, nombreUsuario:string):Observable<any>{
+    return this.http.put(`${EnumEndpoints.publicacionVotarMeGusta}/${idPublicacion}/${nombreUsuario}`, "");
+  }
+  publicacionNoMeGusta(idPublicacion:number, nombreUsuario:string):Observable<any>{
+    return this.http.put(`${EnumEndpoints.publicacionVotarNoMeGusta}/${idPublicacion}/${nombreUsuario}`, "");
   }
 }
