@@ -1,6 +1,7 @@
 <main class="px-4 mt-4" *ngIf="publicaciones">
-    <header class="mb-3">
+    <header class="mb-3 d-flex flex-wrap header-filtros">
         <app-filtro-dropdown [nombreFiltro]="nombreFiltroPorTema" [opcionesDeFiltro]="opcionesDeFiltro" (filtrar)="filtrar($event)" (filtrar)="reiniciarBotones()"></app-filtro-dropdown>
+        <app-filtro-busqueda class="filtro-busqueda"></app-filtro-busqueda>
     </header>
     <section class="post-container" *ngIf="publicaciones">
         <article class=" px-3 py-2 border-top" *ngFor="let publicacion of publicacionesPaginadas">

@@ -37,6 +37,7 @@ import { SpinnerInterceptor } from './shared/spinner.interceptor';
 import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginacion.component';
 import { PublicacionesGeneralComponent } from './componentes/foro-main/publicaciones-general/publicaciones-general.component';
 import { FiltroDropdownComponent } from './componentes/filtro-dropdown/filtro-dropdown.component';
+import { FiltroBusquedaComponent } from './componentes/filtro-busqueda/filtro-busqueda.component';
 
 
 
@@ -71,7 +72,8 @@ import { FiltroDropdownComponent } from './componentes/filtro-dropdown/filtro-dr
     CargandoSpinnerComponent,
     BtnPaginacionComponent,
     PublicacionesGeneralComponent,
-    FiltroDropdownComponent
+    FiltroDropdownComponent,
+    FiltroBusquedaComponent
   ],
   imports: [
     BrowserModule,

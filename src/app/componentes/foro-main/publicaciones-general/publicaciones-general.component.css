@@ -13,3 +13,15 @@
 .anchor-style:hover{
     color: rgb(93, 152, 204);
 }
+.filtro-busqueda{
+    margin-left: auto;
+}
+@media (max-width:379px) {
+    .header-filtros{
+        justify-content: center;
+        gap: 20px;
+    }
+    .filtro-busqueda{
+        margin-left: 0px;
+    }
+}

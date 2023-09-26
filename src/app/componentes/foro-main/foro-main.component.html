@@ -1,10 +1,10 @@
 <div class="mx-auto pb-4 px-0 main-container col-12 col-lg-10 col-xl-7 p-0 mt-5 foro-main">
     <header class="header-container">
         <ul class="d-flex ul-header-container px-4">
-            <li class="link-style">
+            <li class="link-style" [ngClass]="{'pagina-activa': paginaSeleccionada == 'general'}">
                 <a class="nav-link border-start header-li-style" (click)="paginaSeleccionada = 'general'">Todos los temas</a>
             </li>
-            <li class="link-style">
+            <li class="link-style" [ngClass]="{'pagina-activa': paginaSeleccionada == 'indexForo'}">
                 <a class="nav-link border-start border-end header-li-style" (click)="paginaSeleccionada = 'indexForo'">Foro indice</a>
             </li>
         </ul>
