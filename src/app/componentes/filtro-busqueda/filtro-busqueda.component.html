@@ -1,4 +1,4 @@
 <form class="d-flex gap-2 form-search">
-    <input type="text" class="input-search">
-    <button class="button-magnifyng-glass"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <input type="text" class="input-search" name="palabraFiltro" [(ngModel)]="palabraFiltro">
+    <button class="button-magnifyng-glass" (click)="emitirFiltro()"><i class="fa-solid fa-magnifying-glass"></i></button>
 </form>

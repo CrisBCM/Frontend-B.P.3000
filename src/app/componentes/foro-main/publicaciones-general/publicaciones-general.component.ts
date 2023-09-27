@@ -51,6 +51,10 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
       break;
     }
   }
+  filtrarPorPalabra(palabra:string){
+      console.log("FILTRANDO POR : " + palabra);
+      this.publicaciones = this.foroService.getPublicacionesFiltroPalabra(palabra);
+  }
   filtrarPorAntiguedad(){
      if(this.foroService.publicacionesAntiguas){
       this.publicaciones = this.foroService.publicacionesAntiguas;

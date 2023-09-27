@@ -78,6 +78,9 @@ export class ForoService {
     
   }
 
+  // filtrarPorPalabra(array:Publicacion[] | null, palabra:string){
+  //   return array?.filter(publicacion => publicacion.titulo.includes(palabra));
+  // }
   filtrarPorMasNuevo(array:Publicacion[] | null){
     return array?.sort((a,b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
   }
@@ -88,6 +91,15 @@ export class ForoService {
     return array?.sort((a,b) => b.puntuacion - a.puntuacion);
   }
 
+  getPublicacionesFiltroPalabra(palabra:string):Publicacion[] | null{
+    let arrayFiltrado = this.publicaciones$.value?.filter(publicacion => publicacion.titulo.toLocaleLowerCase().includes(palabra.toLocaleLowerCase()));
+    if(arrayFiltrado){
+      return arrayFiltrado;
+    }else{
+      return [];
+    }
+  }
+  
   get publicacionesAntiguas(){
     return this.filtrarPorMasAntiguo(this.publicaciones$.value);
   }
