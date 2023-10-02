@@ -1,0 +1,42 @@
+.div-container{
+    background-color: rgba(240, 248, 255, 0.938);
+    min-height: 400px;
+}
+.table-categoria{
+    width: 96%;
+}
+.th-categoria{
+    padding: 10px 0;
+}
+.td-categoria{
+    background-color: rgba(148, 158, 155, 0.37);
+    padding: 20px 10px;
+    max-height: 100px;
+}
+.td-relative{
+    position: relative;
+}
+.info{
+    cursor: pointer;
+}
+.info:hover .descripcion-tooltip{
+    opacity: 1;
+}
+.descripcion-tooltip{
+    margin-left: 5px;
+    background-color: rgb(212, 212, 212);
+    position: absolute;
+    padding: 10px 10px;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    box-shadow: 0 0 10px rgba(8, 8, 8, 0.178);
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+/* @media (min-width: 992px) {
+    .table-categoria{
+        width: 96%;
+    }
+} */

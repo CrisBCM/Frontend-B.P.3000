@@ -101,11 +101,14 @@
       </a>
       <div class="d-none d-lg-flex col-lg-6 list-container">
         <ul class="navbar-nav justify-content-md-center ms-md-5 justify-content-center align-items-center">
-          <li class="nav-item">
-            <a *ngIf="!usuarioAutenticado.token" routerLink="/iniciar-sesion" class="nav-link px-3 font-style">Iniciar Sesion</a>
+          <li *ngIf="!usuarioAutenticado.token" class="nav-item">
+            <a  routerLink="/iniciar-sesion" class="nav-link px-3 font-style">Iniciar Sesion</a>
           </li>
           <li class="nav-item">
             <a class="nav-link font-style px-4" aria-current="page" routerLink="/bp-foro">Foro</a>
+          </li>
+          <li class="nav-item" *ngIf="tokenDecoded.role == 'ADMIN'">
+            <a class="nav-link font-style px-4" aria-current="page" routerLink="/admin">Admin</a>
           </li>
         </ul>
       </div>

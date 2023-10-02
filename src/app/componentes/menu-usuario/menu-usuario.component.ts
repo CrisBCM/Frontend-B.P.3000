@@ -4,6 +4,7 @@ import { SharingService } from 'src/app/service/sharing.service';
 import { TokenService } from 'src/app/service/token.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Persona } from 'src/app/modelo/interfaces/persona';
+import { Roles } from 'src/app/shared/roles';
 
 @Component({
   selector: 'app-menu-usuario',
@@ -28,7 +29,7 @@ export class MenuUsuarioComponent implements OnInit, OnDestroy{
       this.sharingService.newPersona = persona;
     })
     this.tokenService.tokenDecoded$.pipe(takeUntil(this.onDestroy$)).subscribe(tokenDecoded =>{
-      this.tokenDecoded = tokenDecoded;
+      this.tokenDecoded = tokenDecoded;   
     })
   }
 

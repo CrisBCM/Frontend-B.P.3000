@@ -5,7 +5,7 @@ export interface PublicacionDTO {
     fecha:Date;
     titulo:string;
     contenido:string;
-    tema:string;
+    categoria:string;
     listaMeGusta:string[];
     listaNoMeGusta:string[];
     puntuacion:number;

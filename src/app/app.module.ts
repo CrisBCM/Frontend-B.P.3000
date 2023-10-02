@@ -38,6 +38,10 @@ import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginac
 import { PublicacionesGeneralComponent } from './componentes/foro-main/publicaciones-general/publicaciones-general.component';
 import { FiltroDropdownComponent } from './componentes/filtro-dropdown/filtro-dropdown.component';
 import { FiltroBusquedaComponent } from './componentes/filtro-busqueda/filtro-busqueda.component';
+import { CategoriaComponent } from './componentes/categoria/categoria.component';
+import { AdminInterfazComponent } from './componentes/admin-interfaz/admin-interfaz.component';
+import { AdminNavComponent } from './componentes/admin-interfaz/admin-nav/admin-nav.component';
+import { AdminCategoriaComponent } from './componentes/admin-interfaz/admin-categoria/admin-categoria.component';
 
 
 
@@ -73,7 +77,11 @@ import { FiltroBusquedaComponent } from './componentes/filtro-busqueda/filtro-bu
     BtnPaginacionComponent,
     PublicacionesGeneralComponent,
     FiltroDropdownComponent,
-    FiltroBusquedaComponent
+    FiltroBusquedaComponent,
+    CategoriaComponent,
+    AdminInterfazComponent,
+    AdminNavComponent,
+    AdminCategoriaComponent
   ],
   imports: [
     BrowserModule,
