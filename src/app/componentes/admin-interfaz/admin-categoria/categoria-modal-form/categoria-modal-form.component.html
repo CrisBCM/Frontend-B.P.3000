@@ -1,0 +1,28 @@
+<div class="modal-style">
+    <div class="modal-body" *ngIf="!switchEditar">
+        <h5 class="text-center mt-5">{{tituloModal}}</h5>
+        <form class="form-categoria d-flex flex-column gap-3">
+            <div class="d-flex flex-column">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="input-style">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="descripcion">Descripcion</label>
+                <textarea name="descripcion" id="descripcion" cols="30" rows="10" class="input-style"></textarea>
+            </div>
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <button class="btn-style btn-cancelar">Cancelar</button>
+                <button class="btn-style btn-crear">Crear</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-body" *ngIf="switchEditar">
+        <h5 class="text-center">{{tituloModal}}</h5>
+        <form class="form-categoria d-flex flex-column">
+            <label for="nombre">Nombre</label>
+            <input type="text">
+            <label for="descripcion">Descripcion</label>
+            <input type="text" class="input-style">
+        </form>
+    </div>
+</div>

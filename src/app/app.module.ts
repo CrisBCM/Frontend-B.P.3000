@@ -42,6 +42,8 @@ import { CategoriaComponent } from './componentes/categoria/categoria.component'
 import { AdminInterfazComponent } from './componentes/admin-interfaz/admin-interfaz.component';
 import { AdminNavComponent } from './componentes/admin-interfaz/admin-nav/admin-nav.component';
 import { AdminCategoriaComponent } from './componentes/admin-interfaz/admin-categoria/admin-categoria.component';
+import { CategoriaBtnsComponent } from './componentes/admin-interfaz/admin-categoria/categoria-btns/categoria-btns.component';
+import { CategoriaModalFormComponent } from './componentes/admin-interfaz/admin-categoria/categoria-modal-form/categoria-modal-form.component';
 
 
 
@@ -81,7 +83,9 @@ import { AdminCategoriaComponent } from './componentes/admin-interfaz/admin-cate
     CategoriaComponent,
     AdminInterfazComponent,
     AdminNavComponent,
-    AdminCategoriaComponent
+    AdminCategoriaComponent,
+    CategoriaBtnsComponent,
+    CategoriaModalFormComponent
   ],
   imports: [
     BrowserModule,
