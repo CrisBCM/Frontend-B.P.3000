@@ -12,6 +12,7 @@
     flex-basis: 30%;
     height: 60px;
     border-radius: 15px 15px 0 0;
+    cursor: pointer;
 }
 .li-active{
     background-color: rgba(240, 248, 255, 0.938);

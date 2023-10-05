@@ -1,34 +1,42 @@
-<div class="d-flex justify-content-end">
-    <button class="me-3 me-md-4 btn-style">Crear</button>
-</div>
-<app-categoria-modal-form></app-categoria-modal-form>
-<table class="table-categoria mx-auto">
-    <thead class="thead-categoria">
-        <tr>
-            <th class="th-categoria">Categoria</th>
-            <th class="th-categoria">Publicaciones</th>
-            <th class="th-categoria">Ultimo</th>
-            <th class="th-categoria"> </th>
-        </tr>
-    </thead>
-    <tbody class="tbody-categoria">
-        <tr>
-            <td class="td-categoria td-relative">
-                <span class="me-2 ">Juan</span>
-                <span class="info">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <div class="descripcion-tooltip" role="tooltip">
-                        <h6>Descripcion</h6>
-                        <span>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio inventore eius odit possimus voluptate aliquid, ab recusandae dolor reprehenderit perferendis aliquam, autem praesentium consequuntur. Dignissimos at vero eum quia iste.
-                        </span>
-                    </div>
-                </span>
-                
-            </td>
-            <td class="td-categoria">2</td>
-            <td class="td-categoria">ultimo</td>
-            <td class="td-categoria text-center"><i class="fa-solid fa-ellipsis"></i></td>
-        </tr>
-    </tbody>
-</table>
+<ng-container *ngIf="categorias$ | async as categorias">
+    <div class="d-flex justify-content-end">
+        <button class="me-3 me-md-4 btn-style" (click)="modalSwitch = true">Crear</button>
+    </div>
+    <app-categoria-modal-form *ngIf="modalSwitch" (emitCerrar)="modalSwitch = $event"></app-categoria-modal-form>
+    <app-modal-eliminar  *ngIf="switchEliminar"
+                         [tituloModal]="'Eliminar Categoria'"
+                         [mensajeModal]="'Esta seguro que desea eliminar la categoria?'"
+                         (cerrarModal)="switchEliminar = $event"
+                         (confirmarEliminar)="eliminarCategoria()">
+    </app-modal-eliminar>
+    <table class="table-categoria mx-auto">
+        <thead class="thead-categoria">
+            <tr>
+                <th class="th-categoria">Categoria</th>
+                <th class="th-categoria">Publicaciones</th>
+                <th class="th-categoria">Ultimo</th>
+                <th class="th-categoria"> </th>
+            </tr>
+        </thead>
+        <tbody class="tbody-categoria">
+            <tr *ngFor="let categoria of categorias">
+                <td class="td-categoria td-relative">
+                    <span class="me-2 ">{{categoria.nombre}}</span>
+                    <span class="info">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <div class="descripcion-tooltip" role="tooltip">
+                            <h6>Descripcion</h6>
+                            <span>
+                                {{categoria.descripcion}}
+                            </span>
+                        </div>
+                    </span>
+                    
+                </td>
+                <td class="td-categoria">{{categoria.publicaciones.length}}</td>
+                <td class="td-categoria">ultimo</td>
+                <td class="td-categoria text-center"><app-btn-group (switchModalEliminar)="switchEliminar = $event" (click)="idCategoria = categoria.id"></app-btn-group></td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>

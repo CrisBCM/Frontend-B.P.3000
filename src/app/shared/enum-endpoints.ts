@@ -22,5 +22,9 @@ export enum EnumEndpoints {
     noMeGustaRespuesta = "http://localhost:8080/respuesta/nomegusta",
     perfilUsuario = "http://localhost:8080/persona/usuario",
     publicacionVotarMeGusta = "http://localhost:8080/publicacion/megusta",
-    publicacionVotarNoMeGusta = "http://localhost:8080/publicacion/nomegusta"
+    publicacionVotarNoMeGusta = "http://localhost:8080/publicacion/nomegusta",
+    crearCategoria = "http://localhost:8080/categoria/crear",
+    obtenerCategorias = "http://localhost:8080/categoria/todas",
+    eliminarCategoria = "http://localhost:8080/categoria/eliminar",
+    editarCategoria = "http://localhost:8080/categoria/editar"
 }

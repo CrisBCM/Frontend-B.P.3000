@@ -1,9 +1,9 @@
 <nav class="admin-nav">
     <ul class="admin-nav-ul ps-0 d-flex gap-2 mb-0">
-        <li class="nav-li ps-4 li-active">
+        <li [ngClass]="{'li-active': paginaActual == 'Categorias'}" class="nav-li ps-4" (click)="emitCambioDePagina.emit('Categorias')">
             Categoria
         </li>
-        <li class="nav-li ps-4">
+        <li [ngClass]="{'li-active': paginaActual == 'Usuarios'}" class="nav-li ps-4" (click)="emitCambioDePagina.emit('Usuarios')">
             Usuarios
         </li>
     </ul>

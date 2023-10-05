@@ -8,9 +8,8 @@
     background-color: rgba(148, 158, 155, 0.37);
     padding: 20px 10px;
     max-height: 100px;
-}
-.td-relative{
-    
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 .info{
     cursor: pointer;

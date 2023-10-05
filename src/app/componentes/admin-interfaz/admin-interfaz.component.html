@@ -1,6 +1,9 @@
 <div class="admin-container col-12 col-lg-10 col-xl-7 p-0 mt-5 mx-auto">
-    <app-admin-nav></app-admin-nav>
+    <app-admin-nav [paginaActual]="paginaActual" (emitCambioDePagina)="paginaActual = $event"></app-admin-nav>
     <main class="admin-main pt-4">
-        <app-admin-categoria></app-admin-categoria>
+        <app-admin-categoria *ngIf="paginaActual == 'Categorias'"></app-admin-categoria>
+        <div *ngIf="paginaActual == 'Usuarios'">
+            otra vista
+        </div>
     </main>
 </div>
