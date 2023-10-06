@@ -6,6 +6,7 @@ import { Publicacion } from '../modelo/interfaces/publicacion';
 import { Comentario } from '../modelo/interfaces/comentario';
 import { Respuesta } from '../modelo/interfaces/respuesta';
 import { Router } from '@angular/router';
+import { CategoriaResumenDTO } from '../dto/categoria-resumen-dto';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ import { Router } from '@angular/router';
 })
 export class ForoService {
 
-  publicaciones$:BehaviorSubject<Publicacion[] | null> = new BehaviorSubject<Publicacion[] | null>(null);;
+  publicaciones$:BehaviorSubject<Publicacion[] | null> = new BehaviorSubject<Publicacion[] | null>(null);
+  categorias$:BehaviorSubject<CategoriaResumenDTO[]> = new BehaviorSubject<CategoriaResumenDTO[]>([]);
 
   constructor(private http:HttpClient, private router:Router) {
 
@@ -21,8 +23,16 @@ export class ForoService {
       console.log(arrayPublicacion);
 
       this.publicaciones$.next(arrayPublicacion.sort((publicacionA, publicacionB) => new Date(publicacionB.fecha).getTime() - new Date(publicacionA.fecha).getTime()));
-    }) 
+    })
+
+    this.obtenerCategoriasResumen().subscribe((categorias:CategoriaResumenDTO[]) => {
+      this.categorias$.next(categorias);
+    })
     
+  }
+
+  get categoriasAsObservable(){
+    return this.categorias$.asObservable();
   }
   
   recalcularPuntuacionPublicacion(indicePublicacion:number){
@@ -203,5 +213,8 @@ export class ForoService {
   }
   publicacionNoMeGusta(idPublicacion:number, nombreUsuario:string):Observable<any>{
     return this.http.put(`${EnumEndpoints.publicacionVotarNoMeGusta}/${idPublicacion}/${nombreUsuario}`, "");
+  }
+  obtenerCategoriasResumen():Observable<CategoriaResumenDTO[]>{
+    return this.http.get<CategoriaResumenDTO[]>(EnumEndpoints.obtenerResumenCategorias);
   }
 }

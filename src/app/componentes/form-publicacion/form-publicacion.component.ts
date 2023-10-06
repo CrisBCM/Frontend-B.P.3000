@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { CategoriaResumenDTO } from 'src/app/dto/categoria-resumen-dto';
 import { ForoService } from 'src/app/service/foro.service';
 import { LoginServiceService } from 'src/app/service/login-service.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
@@ -18,9 +19,13 @@ export class FormPublicacionComponent implements OnInit, OnDestroy{
   idUsuario!:number;
 
   spinner!:boolean;
+
   onDestroy$:Subject<boolean> = new Subject();
 
+  categorias$!:Observable<CategoriaResumenDTO[]>;
+
   constructor(private fb:FormBuilder, private foroService:ForoService, private tokenService:TokenService, private spinnerService:SpinnerService){}
+
   ngOnInit(): void {
     this.tokenService.tokenDecoded$.pipe(takeUntil(this.onDestroy$)).subscribe(tokenDecoded =>{
       this.tokenDecode = tokenDecoded;
@@ -31,6 +36,8 @@ export class FormPublicacionComponent implements OnInit, OnDestroy{
     this.spinnerService.obtenerSpinner.pipe(takeUntil(this.onDestroy$)).subscribe(data =>{
       this.spinner = data;
     })
+
+    this.categorias$ = this.foroService.categoriasAsObservable;
   }
 
   ngOnDestroy(): void {
