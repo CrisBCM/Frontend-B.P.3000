@@ -24,6 +24,7 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   mostrar:boolean = true;
   responder:boolean = false;
   switchEditarPublicacion:boolean = false;
+  switchEliminarPublicacion:boolean = false;
   onDestroy$:Subject<Boolean> = new Subject();
   tokenDecoded$!:Observable<any>;
 
@@ -61,6 +62,11 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   }
   ngOnDestroy(): void {
     this.onDestroy$.next(true);
+  }
+  eliminarPublicacion(){
+    this.foroService.eliminarPublicacion(this.idPublicacion).subscribe(()=>{
+      this.router.navigate(["/bp-foro"]);
+    })
   }
   publicacionMeGusta(){
     this.foroService.publicacionMeGusta(this.idPublicacion, this.nombreUsuario).subscribe(()=>{})

@@ -34,8 +34,8 @@
     list-style-type: none;
     padding: 0;
 }
-.btn-style:hover{
-    color: white;
+.button-style:hover{
+    color: rgb(135, 175, 226);
 }
 .contenido{
     white-space: pre-wrap;

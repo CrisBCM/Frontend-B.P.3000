@@ -46,16 +46,16 @@ export class FormPublicacionComponent implements OnInit, OnDestroy{
 
   form = this.fb.group({
     'titulo':["", [Validators.required, Validators.maxLength(300)]],
-    'tema':["Tema", Validators.required],
+    'categoria':["Categoria", Validators.required],
     'contenido':["", [Validators.required, Validators.minLength(3), Validators.maxLength(3000)]]
   });
 
   get titulo(){
       return this.form.get("titulo") as FormControl;
   }
-  get tema(){
+  get categoria(){
  
-    return this.form.get("tema") as FormControl;
+    return this.form.get("categoria") as FormControl;
   }
   get contenido(){
     return this.form.get("contenido") as FormControl;
@@ -72,7 +72,7 @@ export class FormPublicacionComponent implements OnInit, OnDestroy{
 
     const publicacion:any = {
       titulo : this.titulo.value,
-      tema: this.tema.value,
+      categoria: this.categoria.value,
       contenido : this.contenido.value,
     }
 

@@ -1,4 +1,5 @@
 <div class="mx-auto d-flex flex-wrap pb-sm-5 pt-sm-4 pe-sm-5 p-0 col-12 col-lg-8 col-xl-6 div-publicacion gap-2">
+    <app-modal-eliminar *ngIf="switchEliminarPublicacion" [tituloModal]="'¿Eliminar Publicacion?'" [mensajeModal]="'¿Estas seguro que deseas eliminar esta publicacion?'" (cerrarModal)="switchEliminarPublicacion = false" (confirmarEliminar)="eliminarPublicacion()"></app-modal-eliminar>
     <div class="div-aside col-sm-1 autor-img-container mx-3 align-items-center gap-4" *ngIf="publicacion">
         <img class="autor-img" [src]="publicacion.fotoAutor" alt="">
         <div class="d-flex flex-column align-items-center">
@@ -23,6 +24,11 @@
                             <i class="fa-solid fa-pen"></i>
                             Editar
                         </button>
+                        <button class="btn btn-sm button-style neutral-style ps-0" (click)="switchEliminarPublicacion = true">
+                            <i class="fa-regular fa-trash-can"></i>
+                            Eliminar
+                        </button>
+                        
                     </li>
                 </ng-container>
             </ul>

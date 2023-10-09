@@ -33,6 +33,7 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
       this.persona$.pipe(takeUntil(this.onDestroy$)).subscribe((persona:Persona | null)=>{
         if(persona){
           this.persona = persona;
+          console.log(this.persona.publicaciones + "PUBLICACIONESSSSS");
         }
       })
     }
