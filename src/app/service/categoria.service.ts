@@ -23,6 +23,15 @@ export class CategoriaService {
     return this.categorias.asObservable();
   }
   
+  cambiarEstadoCategoria(idCategoria:number){
+  
+    let categoriaIndice = this.categorias.value.findIndex(categoria => categoria.id == idCategoria);
+    this.categorias.value[categoriaIndice].habilitado
+     ? 
+     this.categorias.value[categoriaIndice].habilitado = false 
+     : 
+     this.categorias.value[categoriaIndice].habilitado = true;
+  }
   filtrarCategoria(id:number){
     let nuevaListaCategorias = this.categorias.value.filter(categoria => categoria.id != id);
 
@@ -32,6 +41,9 @@ export class CategoriaService {
     this.categorias.value.push(categoria);
   }
 
+  cambiarEstado(id:number):Observable<void>{
+    return this.http.post<void>(`${EnumEndpoints.cambiarEstadoCategoria}/${id}`, "");
+  }
   obtenerCategorias():Observable<Categoria[]>{
     return this.http.get<Categoria[]>(EnumEndpoints.obtenerCategorias);
   }

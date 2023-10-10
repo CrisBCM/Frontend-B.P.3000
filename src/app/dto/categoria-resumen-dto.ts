@@ -1,4 +1,4 @@
 export interface CategoriaResumenDTO {
-    id:number;
     nombre:string;
+    habilitado:boolean;
 }

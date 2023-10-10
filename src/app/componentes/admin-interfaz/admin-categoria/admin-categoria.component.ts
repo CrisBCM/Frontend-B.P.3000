@@ -17,6 +17,11 @@ export class AdminCategoriaComponent {
   constructor(private categoriaService:CategoriaService){
     this.categorias$ = categoriaService.categoriasObservable;
   }
+  cambiarEstadoCategoria(){
+    this.categoriaService.cambiarEstado(this.idCategoria).subscribe(()=>{
+    })
+    this.categoriaService.cambiarEstadoCategoria(this.idCategoria);
+  }
 
   eliminarCategoria(){
     this.categoriaService.eliminarCategoria(this.idCategoria).subscribe(()=>{

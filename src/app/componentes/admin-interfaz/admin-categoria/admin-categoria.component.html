@@ -14,7 +14,7 @@
             <tr>
                 <th class="th-categoria">Categoria</th>
                 <th class="th-categoria">Publicaciones</th>
-                <th class="th-categoria">Ultimo</th>
+                <th class="th-categoria">Estado</th>
                 <th class="th-categoria"> </th>
             </tr>
         </thead>
@@ -34,8 +34,17 @@
                     
                 </td>
                 <td class="td-categoria">{{categoria.publicaciones.length}}</td>
-                <td class="td-categoria">ultimo</td>
-                <td class="td-categoria text-center"><app-btn-group (switchModalEliminar)="switchEliminar = $event" (click)="idCategoria = categoria.id"></app-btn-group></td>
+                <td class="td-categoria">
+                    <span *ngIf="!categoria.habilitado">Oculto</span>
+                    <span *ngIf="categoria.habilitado">Visible</span>
+                </td>
+                <td class="td-categoria text-center"><app-btn-group
+                    (switchModalEliminar)="switchEliminar = $event"
+                    (click)="idCategoria = categoria.id"
+                    [btnCambioDeEstado]="true"
+                    [estadoHabilitado]="categoria.habilitado"
+                    (emitCambioDeEstado)="cambiarEstadoCategoria()"></app-btn-group>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -2,14 +2,28 @@
     <i class="fa-solid fa-ellipsis"></i>
 </button>
 <ul class="dropdown-menu dropdown-menu-end respuesta-menu">
-    <li>
+    <li class="li-hover">
         <button class="btn-default btn-editarEliminar" (click)="switchModalEliminar.emit(true)">
+            <i class="fa-regular fa-trash-can"></i>
             Eliminar
         </button>
     </li>
-    <li>
+    <li class="li-hover">
         <button class="btn-default btn-editarEliminar" (click)="switchEditar.emit(true)">
+            <i class="fa-solid fa-pen"></i>
             Editar
+        </button>
+    </li>
+    <li class="li-hover">
+        <button *ngIf="btnCambioDeEstado" class="btn-default btn-editarEliminar" (click)="emitCambioDeEstado.emit()">
+            <div  *ngIf="estadoHabilitado" >
+                <i class="fa-regular fa-eye-slash"></i>
+                Ocultar
+            </div>
+            <div *ngIf="!estadoHabilitado">
+                <i class="fa-regular fa-eye"></i>
+                Mostrar
+            </div>
         </button>
     </li>
 </ul>

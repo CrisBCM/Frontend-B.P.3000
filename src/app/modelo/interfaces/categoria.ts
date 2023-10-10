@@ -5,4 +5,5 @@ import { PublicacionDTO } from "src/app/dto/publicacion-dto";
 export interface Categoria extends CategoriaDTO{
     id:number;
     publicaciones:Publicacion[];
+    habilitado:boolean;
 }
