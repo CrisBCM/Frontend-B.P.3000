@@ -22,16 +22,27 @@ export class CategoriaService {
   get categoriasObservable():Observable<Categoria[]>{
     return this.categorias.asObservable();
   }
-  
+  actualizarCategoria(id:number, nuevoNombre:string, nuevaDescripcion:string){
+    let categoriaIndice = this.encontrarIndice(id);
+
+    this.categorias.value[categoriaIndice].nombre = nuevoNombre;
+    this.categorias.value[categoriaIndice].descripcion = nuevaDescripcion;
+  }
   cambiarEstadoCategoria(idCategoria:number){
   
-    let categoriaIndice = this.categorias.value.findIndex(categoria => categoria.id == idCategoria);
+    let categoriaIndice = this.encontrarIndice(idCategoria);
+
     this.categorias.value[categoriaIndice].habilitado
      ? 
      this.categorias.value[categoriaIndice].habilitado = false 
      : 
      this.categorias.value[categoriaIndice].habilitado = true;
   }
+
+  encontrarIndice(id:number){
+    return this.categorias.value.findIndex(categoria => categoria.id == id);
+  }
+
   filtrarCategoria(id:number){
     let nuevaListaCategorias = this.categorias.value.filter(categoria => categoria.id != id);
 

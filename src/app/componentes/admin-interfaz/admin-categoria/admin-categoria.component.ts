@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CategoriaDTO } from 'src/app/dto/categoria-dto';
 import { Categoria } from 'src/app/modelo/interfaces/categoria';
 import { CategoriaService } from 'src/app/service/categoria.service';
 
@@ -9,10 +10,12 @@ import { CategoriaService } from 'src/app/service/categoria.service';
   styleUrls: ['./admin-categoria.component.css']
 })
 export class AdminCategoriaComponent {
-  modalSwitch:boolean = false;
+  switchCrear:boolean = false;
   categorias$!:Observable<Categoria[]>;
   switchEliminar:boolean = false;
+  switchEditar:boolean = false;
   idCategoria!:number;
+  categoria!:CategoriaDTO;
 
   constructor(private categoriaService:CategoriaService){
     this.categorias$ = categoriaService.categoriasObservable;
@@ -21,6 +24,22 @@ export class AdminCategoriaComponent {
     this.categoriaService.cambiarEstado(this.idCategoria).subscribe(()=>{
     })
     this.categoriaService.cambiarEstadoCategoria(this.idCategoria);
+  }
+  elegirCategoria(id:number, categoria:CategoriaDTO){
+    this.idCategoria = id;
+    this.categoria = categoria;
+  }
+
+  editarCategoria(categoria:CategoriaDTO){
+    const formData = new FormData();
+
+    formData.append("nuevoNombre", categoria.nombre);
+    formData.append("nuevaDescripcion", categoria.descripcion);
+
+    this.categoriaService.editarCategoria(this.idCategoria, formData).subscribe(()=>{
+      this.categoriaService.actualizarCategoria(this.idCategoria, categoria.nombre, categoria.descripcion);
+      this.switchEditar = false;
+    })
   }
 
   eliminarCategoria(){

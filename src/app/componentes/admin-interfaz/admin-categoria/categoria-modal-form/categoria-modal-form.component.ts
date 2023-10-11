@@ -10,10 +10,13 @@ import { CategoriaService } from 'src/app/service/categoria.service';
   styleUrls: ['./categoria-modal-form.component.css']
 })
 export class CategoriaModalFormComponent {
-  @Input() tituloModal:string = "Crear categoria";
+  @Input() tituloModal:string = "";
   @Input() categoriaEditar!:Categoria;
   @Input() switchEditar:boolean = false;
   @Output() emitCerrar = new EventEmitter<boolean>;
+  @Input() categoriaNombre:string = "";
+  @Input() categoriaDescripcion:string = "";
+  @Output() emitEditar = new EventEmitter<CategoriaDTO>;
 
   constructor(private fb:FormBuilder, private categoriaService:CategoriaService){
 
@@ -40,6 +43,14 @@ export class CategoriaModalFormComponent {
       this.categoriaService.añadirCategoria(categoria);
       this.emitCerrar.emit(false);
     })
+  }
+  emitEditarCategoria(){
+    const categoria:CategoriaDTO = {
+      "nombre": this.categoriaNombre,
+      "descripcion": this.categoriaDescripcion
+    };
+
+    this.emitEditar.emit(categoria);
   }
   
 }

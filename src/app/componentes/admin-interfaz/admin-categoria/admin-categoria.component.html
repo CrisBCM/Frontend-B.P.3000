@@ -1,8 +1,19 @@
 <ng-container *ngIf="categorias$ | async as categorias">
     <div class="d-flex justify-content-end">
-        <button class="me-3 me-md-4 btn-style" (click)="modalSwitch = true">Crear</button>
+        <button class="me-3 me-md-4 btn-style" (click)="switchCrear = true">Crear</button>
     </div>
-    <app-categoria-modal-form *ngIf="modalSwitch" (emitCerrar)="modalSwitch = $event"></app-categoria-modal-form>
+    <app-categoria-modal-form *ngIf="switchCrear" 
+        [tituloModal]="'Crear Categoria'"
+        (emitCerrar)="switchCrear = $event"
+        ></app-categoria-modal-form>
+    <app-categoria-modal-form *ngIf="switchEditar"
+        [switchEditar]="true"
+        [tituloModal]="'Editar Categoria'"
+        (emitCerrar)="switchEditar = $event"
+        [categoriaNombre]="categoria.nombre"
+        [categoriaDescripcion]="categoria.descripcion"
+        (emitEditar)="editarCategoria($event)"></app-categoria-modal-form>
+
     <app-modal-eliminar  *ngIf="switchEliminar"
                          [tituloModal]="'Eliminar Categoria'"
                          [mensajeModal]="'Esta seguro que desea eliminar la categoria?'"
@@ -31,7 +42,6 @@
                             </span>
                         </div>
                     </span>
-                    
                 </td>
                 <td class="td-categoria">{{categoria.publicaciones.length}}</td>
                 <td class="td-categoria">
@@ -40,7 +50,8 @@
                 </td>
                 <td class="td-categoria text-center"><app-btn-group
                     (switchModalEliminar)="switchEliminar = $event"
-                    (click)="idCategoria = categoria.id"
+                    (switchEditar)="switchEditar = $event"
+                    (click)="elegirCategoria(categoria.id, categoria)"
                     [btnCambioDeEstado]="true"
                     [estadoHabilitado]="categoria.habilitado"
                     (emitCambioDeEstado)="cambiarEstadoCategoria()"></app-btn-group>
