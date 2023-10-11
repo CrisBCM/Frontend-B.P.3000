@@ -15,7 +15,7 @@
     cursor: pointer;
 }
 .li-active{
-    background-color: rgba(240, 248, 255, 0.938);
+    background-color: rgba(228, 233, 237, 0.938);
 }
 @media (min-width: 600px) {
     .nav-li{

@@ -5,11 +5,9 @@
     padding: 10px 0;
 }
 .td-categoria{
-    background-color: rgba(148, 158, 155, 0.37);
+    background-color: rgba(159, 176, 197, 0.507);
     padding: 20px 10px;
     max-height: 100px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
 }
 .info{
     cursor: pointer;
@@ -40,6 +38,11 @@
 }
 .btn-style:hover{
     color: white;
+}
+.btns{
+    padding: 2px 4px;
+    border-radius: 5px;
+    background-color: rgba(120, 146, 161, 0.692);
 }
 /* @media (min-width: 992px) {
     .table-categoria{

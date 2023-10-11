@@ -17,8 +17,8 @@
         </form>
     </div>
     <div class="modal-body" *ngIf="switchEditar && categoriaNombre && categoriaDescripcion">
-        <h5 class="text-center">{{tituloModal}}</h5>
-        <form class="form-categoria d-flex flex-column">
+        <h5 class="text-center mt-5">{{tituloModal}}</h5>
+        <form class="form-categoria d-flex flex-column gap-3">
             <div class="d-flex flex-column">
                 <label for="nombre">Nombre</label>
                 <input name="nombre" id="nombre" type="text" class="input-style" [(ngModel)]="categoriaNombre">
