@@ -1,6 +1,9 @@
 <ng-container *ngIf="categorias$ | async as categorias">
     <div class="d-flex justify-content-end">
-        <button class="me-3 me-md-4 btn-style" (click)="switchCrear = true">Crear</button>
+        <button class="me-3 me-md-4 btn-style" (click)="switchCrear = true">
+            <i class="fa-solid fa-plus me-1"></i>
+            Añadir
+        </button>
     </div>
     <app-categoria-modal-form *ngIf="switchCrear" 
         [tituloModal]="'Crear Categoria'"
@@ -26,14 +29,13 @@
                 <th class="th-categoria">Categoria</th>
                 <th class="th-categoria">Publicaciones</th>
                 <th class="th-categoria">Estado</th>
-                <th class="th-categoria"> </th>
+                <th class="th-categoria"></th>
             </tr>
         </thead>
         <tbody class="tbody-categoria">
-            <tr *ngFor="let categoria of categorias" class="mb-4 border">
-                <td class="td-categoria td-relative border">
-                    <span class="me-2 ">{{categoria.nombre}}</span>
-                    <span class="info">
+            <tr *ngFor="let categoria of categorias">
+                <td class="td-categoria td-relative">
+                    <span class="info me-sm-3">
                         <i class="fa-solid fa-circle-info"></i>
                         <div class="descripcion-tooltip" role="tooltip">
                             <h6>Descripcion</h6>
@@ -42,13 +44,14 @@
                             </span>
                         </div>
                     </span>
+                    <span>{{categoria.nombre}}</span>
                 </td>
-                <td class="td-categoria border">{{categoria.publicaciones.length}}</td>
-                <td class="td-categoria bprder">
+                <td class="td-categoria">{{categoria.publicaciones.length}}</td>
+                <td class="td-categoria">
                     <span *ngIf="!categoria.habilitado">Oculto</span>
                     <span *ngIf="categoria.habilitado">Visible</span>
                 </td>
-                <td class="td-categoria text-center border"><app-btn-group
+                <td class="td-categoria text-center"><app-btn-group
                     class="btns"
                     (switchModalEliminar)="switchEliminar = $event"
                     (switchEditar)="switchEditar = $event"

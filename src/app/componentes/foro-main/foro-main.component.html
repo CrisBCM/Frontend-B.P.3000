@@ -1,4 +1,4 @@
-<div class="mx-auto pb-4 px-0 main-container col-12 col-lg-10 col-xl-7 p-0 mt-5 foro-main">
+<div class="mx-auto my-5 pb-4 px-0 main-container col-12 col-lg-10 col-xl-7 p-0 foro-main">
     <header class="header-container">
         <ul class="d-flex ul-header-container px-4">
             <li class="link-style" [ngClass]="{'pagina-activa': paginaSeleccionada == 'general'}">
@@ -21,6 +21,8 @@
         </app-publicaciones-general>
     </ng-container>
     <ng-container *ngIf="paginaSeleccionada == 'indexForo'">
-        indexFOro
+        <app-foro-indice>
+            
+        </app-foro-indice>
     </ng-container>
 </div>

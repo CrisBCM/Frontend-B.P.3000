@@ -1,0 +1,22 @@
+.table-style{
+    width: 94%;
+    margin: 30px auto 0px auto;
+    border: 1px solid black;
+}
+.th-style{
+    padding: 8px 0px 8px 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.td-style{
+   vertical-align: center;
+   padding: 15px 0 0 10px;
+}
+.descripcion-p{
+    max-width: 520px;
+}
+@media (max-width:460px) {
+    .descripcion-p{
+        display: none;
+    }
+}
