@@ -45,6 +45,9 @@ import { AdminCategoriaComponent } from './componentes/admin-interfaz/admin-cate
 import { CategoriaBtnsComponent } from './componentes/admin-interfaz/admin-categoria/categoria-btns/categoria-btns.component';
 import { CategoriaModalFormComponent } from './componentes/admin-interfaz/admin-categoria/categoria-modal-form/categoria-modal-form.component';
 import { ForoIndiceComponent } from './componentes/foro-main/foro-indice/foro-indice.component';
+import { FechaAntiguedadPipe } from './pipes/fecha-antiguedad.pipe';
+import { PublicacionRecientePipe } from './pipes/publicacion-reciente.pipe';
+import { ForoMainRoutingModule } from './componentes/foro-main/foro-main-routing/foro-main-routing.module';
 
 
 
@@ -87,7 +90,9 @@ import { ForoIndiceComponent } from './componentes/foro-main/foro-indice/foro-in
     AdminCategoriaComponent,
     CategoriaBtnsComponent,
     CategoriaModalFormComponent,
-    ForoIndiceComponent
+    ForoIndiceComponent,
+    FechaAntiguedadPipe,
+    PublicacionRecientePipe
   ],
   imports: [
     BrowserModule,
@@ -95,8 +100,8 @@ import { ForoIndiceComponent } from './componentes/foro-main/foro-indice/foro-in
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    ForoMainRoutingModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass:AutenticacionInterceptor, multi:true},
               {provide: HTTP_INTERCEPTORS, useClass:SpinnerInterceptor, multi:true}],

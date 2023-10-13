@@ -1,44 +1,26 @@
 <main>
-    <table class="table-style">
+    <table *ngIf="categorias$ | async as categorias" class="table-style">
         <thead>
             <tr>
                 <th class="th-style">Categoria</th>
-                <th class="th-style">Publicaciones</th>
+                <th class="th-style text-center">Publicaciones</th>
                 <th class="th-style">Ultima Actividad</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let categoria of categorias">
                 <td class="td-style">
-                    <span class="fw-bold">Receta</span>
-                    <p class="descripcion-p">Descripcion de receta Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam numquam tempore perferendis pariatur ipsa dolore nisi animi, laudantium alias quia quaerat doloribus enim deleniti officiis nam suscipit ipsum est atque.</p>
+                    <span class="fw-bold">{{categoria.nombre}}</span>
+                    <p class="descripcion-p">{{categoria.descripcion}}</p>
                 </td>
-                <td class="td-style">15</td>
-                <td class="td-style">Juan hace 15 segundos</td>
-            </tr>
-            <tr>
+                <td class="td-style text-center">{{categoria.publicaciones.length}}</td>
                 <td class="td-style">
-                    <span class="fw-bold">Receta</span>
-                    <p class="descripcion-p">Descripcion de receta Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam numquam tempore perferendis pariatur ipsa dolore nisi animi, laudantium alias quia quaerat doloribus enim deleniti officiis nam suscipit ipsum est atque.</p>
+                    <span *ngIf="categoria.publicaciones | publicacionReciente as ultimaActividad">
+                        <a class="a-style" (click)="redirigirPerfilUsuario(ultimaActividad.autor)">{{ultimaActividad.autor}}</a>
+                         hace {{ultimaActividad.fecha | fechaAntiguedad}}
+                    </span>
+                    <span *ngIf="categoria.publicaciones.length == 0">No hay actividad</span>
                 </td>
-                <td class="td-style">15</td>
-                <td class="td-style">Juan hace 15 segundos</td>
-            </tr>
-            <tr>
-                <td class="td-style">
-                    <span class="fw-bold">Receta</span>
-                    <p class="descripcion-p">Descripcion de receta Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam numquam tempore perferendis pariatur ipsa dolore nisi animi, laudantium alias quia quaerat doloribus enim deleniti officiis nam suscipit ipsum est atque.</p>
-                </td>
-                <td class="td-style">15</td>
-                <td class="td-style">Juan hace 15 segundos</td>
-            </tr>
-            <tr>
-                <td class="td-style">
-                    <span class="fw-bold">Receta</span>
-                    <p class="descripcion-p">Descripcion de receta Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam numquam tempore perferendis pariatur ipsa dolore nisi animi, laudantium alias quia quaerat doloribus enim deleniti officiis nam suscipit ipsum est atque.</p>
-                </td>
-                <td class="td-style">15</td>
-                <td class="td-style">Juan hace 15 segundos</td>
             </tr>
         </tbody>
     </table>

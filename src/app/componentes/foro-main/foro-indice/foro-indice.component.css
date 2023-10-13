@@ -15,6 +15,15 @@
 .descripcion-p{
     max-width: 520px;
 }
+.a-style{
+    color: rgb(64, 79, 148);
+    cursor: pointer;
+    text-decoration: none;
+
+}
+.a-style:hover{
+    text-decoration: underline;
+}
 @media (max-width:460px) {
     .descripcion-p{
         display: none;

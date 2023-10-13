@@ -1,28 +1,13 @@
 <div class="mx-auto my-5 pb-4 px-0 main-container col-12 col-lg-10 col-xl-7 p-0 foro-main">
     <header class="header-container">
         <ul class="d-flex ul-header-container px-4">
-            <li class="link-style" [ngClass]="{'pagina-activa': paginaSeleccionada == 'general'}">
-                <a class="nav-link border-start header-li-style" (click)="paginaSeleccionada = 'general'">Todos los temas</a>
+            <li class="link-style" [ngClass]="{'pagina-activa': router.url.substring(9) == 'general'}">
+                <a class="nav-link border-start header-li-style" routerLink="/bp-foro/general">Todos los temas</a>
             </li>
-            <li class="link-style" [ngClass]="{'pagina-activa': paginaSeleccionada == 'indexForo'}">
-                <a class="nav-link border-start border-end header-li-style" (click)="paginaSeleccionada = 'indexForo'">Foro indice</a>
+            <li class="link-style" [ngClass]="{'pagina-activa': router.url.substring(9) == 'indice'}">
+                <a class="nav-link border-start border-end header-li-style" routerLink="/bp-foro/indice">Foro indice</a>
             </li>
         </ul>
-        <!-- <nav class="d-flex flex-wrap justify-content-center align-content-center px-0 px-sm-4">
-            <form class="ms-sm-auto d-flex gap-2 form-search">
-                <input type="text" class="input-search p-2">
-                <button class="button-magnifyng-glass"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
-        </nav> -->
     </header>
-    <ng-container *ngIf="paginaSeleccionada == 'general'">
-        <app-publicaciones-general>
-
-        </app-publicaciones-general>
-    </ng-container>
-    <ng-container *ngIf="paginaSeleccionada == 'indexForo'">
-        <app-foro-indice>
-            
-        </app-foro-indice>
-    </ng-container>
+    <router-outlet></router-outlet>
 </div>

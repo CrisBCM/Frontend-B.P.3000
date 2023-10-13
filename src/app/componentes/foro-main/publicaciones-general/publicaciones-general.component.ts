@@ -86,25 +86,7 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
     this.router.navigate(['/publicacion', idPublicacion]);
   }
 
-  calcularAntiguedadFecha(fecha: Date) {
-    let date = new Date(fecha);
-    return formatDistance(date, new Date(), { locale: es });
-  }
-
   redirigirAPerfilUsuario(nombreUsuario: string) {
-    let nombreUsuarioActual;
-
-    this.perfilUsuarioService.getNombreUsuarioActual.subscribe(
-      (nombreUsuarioSub) => {
-        nombreUsuarioActual = nombreUsuarioSub;
-      }
-    );
-
-    if (nombreUsuarioActual != nombreUsuario) {
-      this.perfilUsuarioService.setPerfilUsuario = null;
-      this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
-    }
-
-    this.router.navigate(['/bp-perfil', nombreUsuario]);
+    this.perfilUsuarioService.redirigirAPerfilUsuario(nombreUsuario);
   }
 }

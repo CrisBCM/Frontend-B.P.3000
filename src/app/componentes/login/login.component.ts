@@ -26,7 +26,7 @@ export class LoginComponent {
       next : () => {
       },
       complete : () =>{
-        this.router.navigate(["/bp-foro"]);
+        this.router.navigate(["/bp-foro/general"]);
       },
 
       error : err =>{

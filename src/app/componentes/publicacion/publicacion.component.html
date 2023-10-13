@@ -16,7 +16,7 @@
         <h2 class="h2-publicacion mb-2">{{publicacion.titulo}}</h2>
         <div class=" border-color mb-2 pb-2">
             <ul class="ul-info d-flex flex-column gap-2 mb-2">
-                <li class="neutral-style">{{publicacion.categoria}} de <a class="autor-link" (click)="redirigirAPerfilUsuario(publicacion.autor)">{{publicacion.autor}}</a> hace {{calcularAntiguedadFecha(publicacion.fecha)}}</li>
+                <li class="neutral-style">{{publicacion.categoria}} de <a class="autor-link" (click)="redirigirAPerfilUsuario(publicacion.autor)">{{publicacion.autor}}</a> hace {{publicacion.fecha | fechaAntiguedad}}</li>
                 <ng-container *ngIf="tokenDecoded$ | async as tokenDecoded">
                     <li *ngIf="tokenDecoded.nombreUsuario == publicacion.autor">
                         <app-modal-editar *ngIf="switchEditarPublicacion" (switchEditarPublicacion)="switchEditarPublicacion = $event" (nuevaPublicacion)="actualizarPublicacion($event)"></app-modal-editar>

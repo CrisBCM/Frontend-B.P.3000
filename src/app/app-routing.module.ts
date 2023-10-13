@@ -15,7 +15,6 @@ import { AdminInterfazComponent } from './componentes/admin-interfaz/admin-inter
 import { AdminGuard } from './service/admin.guard';
 
 const routes: Routes = [
-  { path: 'bp-foro', component:ForoMainComponent},
   { path: 'admin', component:AdminInterfazComponent, canActivate:[AdminGuard]},
   { path: 'bp-perfil/:nombreUsuario', component:BpPageComponent, canActivate:[authGuard]},
   { path: 'publicar', component:FormPublicacionComponent, canActivate:[authGuard]},
@@ -23,7 +22,7 @@ const routes: Routes = [
   { path: 'registro', component:RegistroComponent},
   { path:'iniciar-sesion', component:LoginComponent, canActivate:[LogedGuard]},
   { path:'btn', component:BtnPaginacionComponent},
-  { path:'', redirectTo:'bp-foro', pathMatch:'full'},
+  { path:'', redirectTo:'bp-foro/general', pathMatch:'full'},
 ];
 
 @NgModule({

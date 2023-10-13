@@ -82,22 +82,7 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   }
 
   redirigirAPerfilUsuario(nombreUsuario:string){
-    let nombreUsuarioActual;
-
-    this.perfilUsuarioService.getNombreUsuarioActual.subscribe(nombreUsuarioSub =>{
-      nombreUsuarioActual = nombreUsuarioSub;
-    })
-
-    if(nombreUsuarioActual != nombreUsuario){
-      this.perfilUsuarioService.setPerfilUsuario = null;
-      this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
-    }
-    this.router.navigate(["/bp-perfil", nombreUsuario]);
-  }
-
-  calcularAntiguedadFecha(fecha:Date){
-    let date = new Date(fecha);
-    return formatDistance(date, new Date(), {locale:es});
+    this.perfilUsuarioService.redirigirAPerfilUsuario(nombreUsuario);
   }
 
   abrirResponder(){
