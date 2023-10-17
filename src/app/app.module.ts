@@ -48,6 +48,7 @@ import { ForoIndiceComponent } from './componentes/foro-main/foro-indice/foro-in
 import { FechaAntiguedadPipe } from './pipes/fecha-antiguedad.pipe';
 import { PublicacionRecientePipe } from './pipes/publicacion-reciente.pipe';
 import { ForoMainRoutingModule } from './componentes/foro-main/foro-main-routing/foro-main-routing.module';
+import {ForoCategoria} from './componentes/foro-main/foro-categoria/foro-categoria.component';
 
 
 
@@ -92,7 +93,8 @@ import { ForoMainRoutingModule } from './componentes/foro-main/foro-main-routing
     CategoriaModalFormComponent,
     ForoIndiceComponent,
     FechaAntiguedadPipe,
-    PublicacionRecientePipe
+    PublicacionRecientePipe,
+    ForoCategoria
   ],
   imports: [
     BrowserModule,

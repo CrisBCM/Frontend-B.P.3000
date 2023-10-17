@@ -65,7 +65,8 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   }
   eliminarPublicacion(){
     this.foroService.eliminarPublicacion(this.idPublicacion).subscribe(()=>{
-      this.router.navigate(["/bp-foro"]);
+      this.foroService.quitarPublicacionDeArray(this.idPublicacion);
+      this.router.navigate([".."]);
     })
   }
   publicacionMeGusta(){

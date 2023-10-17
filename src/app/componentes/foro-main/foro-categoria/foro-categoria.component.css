@@ -1,23 +1,15 @@
 .post-container{
     background-color: rgba(121, 129, 165, 0.185);
 }
-.link-style{
-    list-style-type: none;
-    text-decoration: none;
-    text-decoration-line: none;
-}
-.anchor-style{
-    color: rgb(95, 118, 167);
-    cursor: pointer;
-}
-.anchor-style:hover{
-    color: rgb(93, 152, 204);
-}
 .header-filtros{
     justify-content: center;
     gap: 20px;
 }
-
+.titulo-categoria{
+    padding: .7rem 0px .3rem 1rem;
+    font-weight: 500;
+    color: #788186;
+}
 @media (min-width:383px) {
     .header-filtros{
         justify-content: space-between;

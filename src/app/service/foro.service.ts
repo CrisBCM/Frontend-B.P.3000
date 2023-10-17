@@ -34,7 +34,12 @@ export class ForoService {
   get categoriasAsObservable(){
     return this.categorias$.asObservable();
   }
-  
+  quitarPublicacionDeArray(idPublicacion:number){
+    let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+    if(indicePublicacion != null && this.publicaciones$.value){
+      this.publicaciones$.next(this.publicaciones$.value.filter(publicacion => publicacion.id != idPublicacion));
+    }
+  }
   recalcularPuntuacionPublicacion(indicePublicacion:number){
     if(this.publicaciones$.value){
       this.publicaciones$.value[indicePublicacion].puntuacion = this.publicaciones$.value[indicePublicacion].listaMeGusta.length - this.publicaciones$.value[indicePublicacion].listaNoMeGusta.length;

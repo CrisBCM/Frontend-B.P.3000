@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { formatDistance } from 'date-fns';
 import es from 'date-fns/locale/es';
 import { Observable } from 'rxjs';
@@ -15,10 +16,14 @@ export class ForoIndiceComponent {
 
   categorias$:Observable<Categoria[]>;
 
-  constructor(private categoriaService:CategoriaService, private perfilUsuarioService:PerfilUsuarioService){
+  constructor(private categoriaService:CategoriaService, private perfilUsuarioService:PerfilUsuarioService, private router:Router){
     this.categorias$ = categoriaService.categoriasObservable;
   }
   redirigirPerfilUsuario(nombreUsuario:string){
     this.perfilUsuarioService.redirigirAPerfilUsuario(nombreUsuario);
+  }
+  redirigirACategoria(nombreCategoria:string){
+    this.categoriaService.setPublicaciones = [];
+    this.router.navigate(['/bp-foro/categoria/' + nombreCategoria]);
   }
 }

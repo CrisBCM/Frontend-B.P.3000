@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-interfaz.component.css']
 })
 export class AdminInterfazComponent {
-  paginaActual:string = "Categorias";
-
   constructor(){}
 }

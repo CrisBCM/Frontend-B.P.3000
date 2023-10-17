@@ -18,8 +18,8 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
   cantMostrarPublicaciones: number = 5;
   publicaciones!:Publicacion[] | null;
   onDestroy$:Subject<boolean> = new Subject();
-  opcionesDeFiltro:string[] = ["Mas nuevo","Antiguo", "Mas gustado"];
-  nombreFiltroPorTema:string = "Mas nuevo"
+  opcionesDeFiltro:string[] = ["Mas Nuevo","Antiguo", "Mas gustado"];
+  nombreFiltroPorTema:string = "Mas Nuevo";
   @ViewChild('btnPaginacion') btnPaginacion!:BtnPaginacionComponent;
 
   constructor(private router: Router, private perfilUsuarioService: PerfilUsuarioService, private foroService:ForoService){}
@@ -39,20 +39,28 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
     this.btnPaginacion.paginaActual = this.paginaActual;
   }
   
-  filtrar(tipoDeFiltro:string){
-    switch(tipoDeFiltro){
-      case "Mas nuevo":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorMasNuevo();
-      break;
-      case "Antiguo":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorAntiguedad();
-      break;
-      case "Mas gustado":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorTemaPregunta();
-      break;
-      default : console.log("BOTON INEXISTENTE");
-      break;
+  // filtrar(tipoDeFiltro:string){
+  //   // switch(tipoDeFiltro){
+  //   //   case "Mas nuevo":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorMasNuevo();
+  //   //   break;
+  //   //   case "Antiguo":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorAntiguedad();
+  //   //   break;
+  //   //   case "Mas gustado":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorMasGustado();
+  //   //   break;
+  //   //   default : console.log("BOTON INEXISTENTE");
+  //   //   break;
+  //   // }
+   
+  // }
+  filtrar(filtro:string){
+    const filtros: {[key:string]: ()=> void} = {
+      'Mas Nuevo' : ()=> {this.nombreFiltroPorTema = filtro; this.filtrarPorMasNuevo()},
+      'Antiguo' : ()=> {this.nombreFiltroPorTema = filtro; this.filtrarPorAntiguedad()},
+      'Mas gustado' : ()=> {this.nombreFiltroPorTema = filtro; this.filtrarPorMasGustado()}
     }
+    filtros[filtro]();
   }
   filtrarPorPalabra(palabra:string){
-      console.log("FILTRANDO POR : " + palabra);
       this.publicaciones = this.foroService.getPublicacionesFiltroPalabra(palabra);
   }
   filtrarPorAntiguedad(){
@@ -60,7 +68,7 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
       this.publicaciones = this.foroService.publicacionesAntiguas;
      }
   }
-  filtrarPorTemaPregunta(){
+  filtrarPorMasGustado(){
     if(this.foroService.publicacionesMasGustado){
       this.publicaciones = this.foroService.publicacionesMasGustado;
      }

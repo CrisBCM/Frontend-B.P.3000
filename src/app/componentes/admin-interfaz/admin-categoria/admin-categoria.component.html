@@ -46,10 +46,10 @@
                     </span>
                     <span>{{categoria.nombre}}</span>
                 </td>
-                <td class="td-categoria">{{categoria.publicaciones.length}}</td>
+                <td class="td-categoria">{{categoria.cantidadPublicaciones}}</td>
                 <td class="td-categoria">
-                    <span *ngIf="!categoria.habilitado">Oculto</span>
-                    <span *ngIf="categoria.habilitado">Visible</span>
+                    <span *ngIf="!categoria.habilitado" class="oculto">Oculto</span>
+                    <span *ngIf="categoria.habilitado" class="visible">Visible</span>
                 </td>
                 <td class="td-categoria text-center"><app-btn-group
                     class="btns"

@@ -4,22 +4,22 @@
             <tr>
                 <th class="th-style">Categoria</th>
                 <th class="th-style text-center">Publicaciones</th>
-                <th class="th-style">Ultima Actividad</th>
+                <th class="th-style text-center">Ultima Actividad</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let categoria of categorias">
-                <td class="td-style">
-                    <span class="fw-bold">{{categoria.nombre}}</span>
+                <td class="td-style td-descripcion">
+                    <a (click)="redirigirACategoria(categoria.nombre)" class="link-style anchor-style">{{categoria.nombre}}</a>
                     <p class="descripcion-p">{{categoria.descripcion}}</p>
                 </td>
-                <td class="td-style text-center">{{categoria.publicaciones.length}}</td>
-                <td class="td-style">
-                    <span *ngIf="categoria.publicaciones | publicacionReciente as ultimaActividad">
-                        <a class="a-style" (click)="redirigirPerfilUsuario(ultimaActividad.autor)">{{ultimaActividad.autor}}</a>
-                         hace {{ultimaActividad.fecha | fechaAntiguedad}}
+                <td class="td-style text-center">{{categoria.cantidadPublicaciones}}</td>
+                <td class="td-style text-center">
+                    <span *ngIf="categoria.cantidadPublicaciones > 0">
+                        <a class="a-style" (click)="redirigirPerfilUsuario(categoria.ultimaPublicacion.autor)">{{categoria.ultimaPublicacion.autor}}</a>
+                    hace {{categoria.ultimaPublicacion.fecha | fechaAntiguedad}}
                     </span>
-                    <span *ngIf="categoria.publicaciones.length == 0">No hay actividad</span>
+                    <span *ngIf="categoria.cantidadPublicaciones == 0">No hay actividad</span>
                 </td>
             </tr>
         </tbody>

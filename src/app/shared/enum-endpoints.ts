@@ -28,5 +28,6 @@ export enum EnumEndpoints {
     eliminarCategoria = "http://localhost:8080/categoria/eliminar",
     editarCategoria = "http://localhost:8080/categoria/editar",
     obtenerResumenCategorias = "http://localhost:8080/categoria/resumen",
-    cambiarEstadoCategoria = "http://localhost:8080/categoria/cambiarestado"
+    cambiarEstadoCategoria = "http://localhost:8080/categoria/cambiarestado",
+    obtenerPublicacionesDeCategoria = "http://localhost:8080/categoria"
 }

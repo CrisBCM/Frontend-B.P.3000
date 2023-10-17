@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CategoriaDTO } from '../dto/categoria-dto';
 import { Categoria } from '../modelo/interfaces/categoria';
 import { EnumEndpoints } from '../shared/enum-endpoints';
+import { Publicacion } from '../modelo/interfaces/publicacion';
+import { ca } from 'date-fns/locale';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +13,28 @@ import { EnumEndpoints } from '../shared/enum-endpoints';
 export class CategoriaService {
 
   private categorias:BehaviorSubject<Categoria[]> = new BehaviorSubject<Categoria[]>([]);
+  private publicacionesCategoria:BehaviorSubject<Publicacion[]> = new BehaviorSubject<Publicacion[]>([]);
 
   constructor(private http:HttpClient) {
     this.obtenerCategorias().subscribe((categorias:Categoria[]) => {
       this.categorias.next(categorias);
     })
-
+  }
+  set setPublicaciones(publicaciones:Publicacion[]){
+    this.publicacionesCategoria.next(publicaciones);
   }
 
+  publicacionesDeCategoria(categoria:string){
+    this.obtenerPublicacionesDeCategoria(categoria).subscribe( (publicaciones:Publicacion[]) =>{
+      this.publicacionesCategoria.next(publicaciones);
+    })
+  }
+  filtrarPorPalabra(palabra:string){
+    return this.publicacionesCategoria.value.filter(publicacion => publicacion.titulo.toLocaleLowerCase().includes(palabra.toLocaleLowerCase()));
+  }
+  get publicaciones():Observable<Publicacion[]>{
+    return this.publicacionesCategoria.asObservable();
+  }
   get categoriasObservable():Observable<Categoria[]>{
     return this.categorias.asObservable();
   }
@@ -52,6 +68,11 @@ export class CategoriaService {
     this.categorias.value.push(categoria);
   }
 
+
+  //PETICIONES
+  obtenerPublicacionesDeCategoria(nombreCategoria:string):Observable<Publicacion[]>{
+    return this.http.get<Publicacion[]>(`${EnumEndpoints.obtenerPublicacionesDeCategoria}/${nombreCategoria}`);
+  }
   cambiarEstado(id:number):Observable<void>{
     return this.http.post<void>(`${EnumEndpoints.cambiarEstadoCategoria}/${id}`, "");
   }

@@ -5,14 +5,20 @@
 }
 .th-categoria{
     padding: 10px 0px 10px 5px;
-    color: rgb(131, 147, 165);
-    font-size: .9rem;
+    color: #c5c8ce;
+    font-weight: bold;
+}
+.visible{
+    color: rgb(67, 139, 67);
+}
+.oculto{
+    color: rgba(226, 73, 73, 0.705);
 }
 .td-categoria{
-    background-color: rgba(159, 176, 197, 0.507);
+    background-color: #a2b6c4;
     padding: 10px 10px;
     max-height: 100px;
-    color: rgb(109, 109, 109);
+    color: #041031;
     font-weight: 500;
 }
 .info{
@@ -40,7 +46,7 @@
     padding: 8px 15px;
     border-radius: 5px;
     background-color: transparent;
-    color: rgb(93, 93, 93);
+    color: #d6dbebee;
     font-weight: bold;
 }
 .btn-style:hover{

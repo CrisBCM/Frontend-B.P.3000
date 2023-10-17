@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-nav',
@@ -6,7 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./admin-nav.component.css']
 })
 export class AdminNavComponent {
-  @Output() emitCambioDePagina = new EventEmitter<string>;
-  @Input() paginaActual:string = "";
-  constructor(){}
+  paginaActual:string = "";
+  constructor(private router:Router){
+    this.paginaActual = router.url.substring(7).toLocaleLowerCase();
+  }
 }
