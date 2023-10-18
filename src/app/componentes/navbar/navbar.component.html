@@ -104,6 +104,9 @@
           <li *ngIf="!usuarioAutenticado.token" class="nav-item">
             <a  routerLink="/iniciar-sesion" class="nav-link px-3 font-style">Iniciar Sesion</a>
           </li>
+          <li *ngIf="!usuarioAutenticado.token" class="nav-item">
+            <a  routerLink="/registro" class="nav-link px-3 font-style">Registrarse</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link font-style px-4" aria-current="page" routerLink="/bp-foro/general">Foro</a>
           </li>

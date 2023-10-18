@@ -1,5 +1,5 @@
 <section class="container-fluid d-flex flex-column align-items-center mt-5 flex-wrap p-0">
-        <h3 class="text-center mb-4">Crear Cuenta</h3>
+        <h4 class="text-center mb-0 mb-sm-4">Crear Cuenta</h4>
         <form [formGroup]="registrarForm" class="col-12 col-sm-10 col-md-7 col-lg-6 col-xxl-4 form-style d-flex flex-wrap flex-column align-items-center gap-4 py-md-0 py-5">
             <label for="nombreCompleto" class="px-2 label-style  w-75">
                 <input [ngClass]="{'is-invalid': isValidField('nombreCompleto')}" formControlName="nombreCompleto" class="p-2 w-100 input-style" type="text" name="nombreCompleto" id="nombreCompleto" placeholder="NombreCompleto">
@@ -74,7 +74,12 @@
                 </div>
             </label>
             <div class="w-100 text-center">
-                <button class="button-style btn btn-md" [disabled]="registrarForm.invalid" [ngClass]="{'button-hover':registrarForm.valid}" (click)="enviarRegistro()">Registrarse</button>
+                <button class="button-style" [disabled]="registrarForm.invalid || spinner" [ngClass]="{'button-hover':registrarForm.valid && !spinner}" (click)="enviarRegistro()">
+                    <span class="d-flex justify-content-around">
+                        Registrarse
+                        <app-cargando-spinner *ngIf="spinner"></app-cargando-spinner>
+                    </span>
+                </button>
             </div>
             <div class="w-50 mx-auto mt-4 msg-success-container text-light p-3 text-center" *ngIf="msgRegistroCompletado">
                 {{msgRegistroCompletado}}
