@@ -13,7 +13,7 @@
         </div>
         <ul class="ul-info d-flex flex-wrap gap-1 mb-1 px-3 py-1 col-10 comentario">
             <li><a class="autor-link" (click)="redirigirAPerfilUsuario(respuesta.autor)">{{respuesta.autor}}</a></li>
-            <li>hace {{calcularAntiguedadFecha(respuesta.fecha)}}</li>
+            <li>hace {{respuesta.fecha | fechaAntiguedad}}</li>
             <li class="ms-auto" *ngIf="tokenDecoded$ | async as tokenDecoded">
                 <app-btn-group *ngIf="tokenDecoded.nombreUsuario == respuesta.autor" (switchModalEliminar)="modalEliminar = $event" (switchEditar)="editarSwitchRespuesta = $event" (click)="idRespuesta = respuesta.id"></app-btn-group>
             </li>

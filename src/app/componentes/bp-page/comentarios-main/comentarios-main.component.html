@@ -12,7 +12,7 @@
             </span>
             <app-form-editar-comentario-respuesta *ngIf="switchEditar && idComentario == comentario.id" [contenidoTemp]="comentario.contenido" (cerrarEditar)="switchEditar= $event" (contenidoFinal)="contenidoTemporal = $event" (confirmarEditar)="editarComentario(indiceComentario, comentario.publicacionId)"></app-form-editar-comentario-respuesta>
             <span>
-                hace: {{calcularAntiguedadFecha(comentario.fecha)}}
+                hace: {{comentario.fecha | fechaAntiguedad}}
             </span>
         </article>
     </div>
@@ -27,7 +27,7 @@
                 {{comentario.contenido}}
             </span>
             <span>
-                hace: {{calcularAntiguedadFecha(comentario.fecha)}}
+                hace: {{comentario.fecha | fechaAntiguedad}}
             </span>
         </article>
     </div>

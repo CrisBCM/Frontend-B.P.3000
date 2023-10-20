@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { RegistroPersona } from 'src/app/modelo/clases/registro-persona';
 
 import { RegistroServiceService } from 'src/app/service/registro-service.service';
+import { SpinnerService } from 'src/app/service/spinner.service';
 import { EnumEndpoints } from 'src/app/shared/enum-endpoints';
 
 @Component({
@@ -11,12 +13,24 @@ import { EnumEndpoints } from 'src/app/shared/enum-endpoints';
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit, OnDestroy{
 
   public msgError:any;
   msgRegistroCompletado:string = "";
+  spinner:boolean = false;
+  onDestroy$:Subject<boolean> = new Subject();
   
-  constructor(private formBuilder:FormBuilder, private registroService:RegistroServiceService, private router:Router){}
+  constructor(private formBuilder:FormBuilder, private registroService:RegistroServiceService, private router:Router, private spinnerService:SpinnerService){
+    
+  }
+  ngOnInit(): void {
+    this.spinnerService.obtenerSpinner.pipe(takeUntil(this.onDestroy$)).subscribe((spinner:boolean)=>{
+      this.spinner = spinner;
+    })
+  }
+  ngOnDestroy(): void {
+    this.onDestroy$.next(true);
+  }
 
   registrarForm = this.formBuilder.group({
     'nombreCompleto': ["", [Validators.required, Validators.minLength(2)]],

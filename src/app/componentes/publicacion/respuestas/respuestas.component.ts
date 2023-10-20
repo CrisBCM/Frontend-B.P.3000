@@ -50,10 +50,7 @@ export class RespuestasComponent {
     }
     this.router.navigate(["/bp-perfil", nombreUsuario]);
   }
-  calcularAntiguedadFecha(fecha:Date){
-    let date = new Date(fecha);
-    return formatDistance(date, new Date(), {locale:es});
-  }
+
   switchEdicionRespuesta(contenido:string){
     this.editarSwitchRespuesta = true;
     this.tempContenido = contenido;

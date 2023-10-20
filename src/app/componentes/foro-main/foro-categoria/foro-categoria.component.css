@@ -1,0 +1,18 @@
+.post-container{
+    background-color: rgba(121, 129, 165, 0.185);
+}
+.header-filtros{
+    justify-content: center;
+    gap: 20px;
+}
+.titulo-categoria{
+    padding: .7rem 0px .3rem 1rem;
+    font-weight: 500;
+    color: #788186;
+}
+@media (min-width:383px) {
+    .header-filtros{
+        justify-content: space-between;
+        gap: 0;
+    }
+}

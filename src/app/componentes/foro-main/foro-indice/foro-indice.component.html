@@ -1,0 +1,27 @@
+<main>
+    <table *ngIf="categorias$ | async as categorias" class="table-style">
+        <thead>
+            <tr>
+                <th class="th-style">Categoria</th>
+                <th class="th-style text-center">Publicaciones</th>
+                <th class="th-style text-center">Ultima Actividad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let categoria of categorias">
+                <td class="td-style td-descripcion">
+                    <a (click)="redirigirACategoria(categoria.nombre)" class="link-style anchor-style">{{categoria.nombre}}</a>
+                    <p class="descripcion-p">{{categoria.descripcion}}</p>
+                </td>
+                <td class="td-style text-center">{{categoria.cantidadPublicaciones}}</td>
+                <td class="td-style text-center">
+                    <span *ngIf="categoria.cantidadPublicaciones > 0">
+                        <a class="a-style" (click)="redirigirPerfilUsuario(categoria.ultimaPublicacion.autor)">{{categoria.ultimaPublicacion.autor}}</a>
+                    hace {{categoria.ultimaPublicacion.fecha | fechaAntiguedad}}
+                    </span>
+                    <span *ngIf="categoria.cantidadPublicaciones == 0">No hay actividad</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>

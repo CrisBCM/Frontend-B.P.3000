@@ -18,19 +18,27 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class PublicacionComponent implements OnInit, OnDestroy{
   idPublicacion!:number;
+  nombreUsuario:string = "";
   publicacion!:Publicacion;
   publicaciones$!:Observable<Publicacion[] | null>;
   mostrar:boolean = true;
   responder:boolean = false;
   switchEditarPublicacion:boolean = false;
+  switchEliminarPublicacion:boolean = false;
   onDestroy$:Subject<Boolean> = new Subject();
   tokenDecoded$!:Observable<any>;
 
   constructor(private tokenService:TokenService, private publicacionService:PublicacionService, activatedRoute:ActivatedRoute, private foroService:ForoService, private router:Router, private perfilUsuarioService:PerfilUsuarioService){
+    
     activatedRoute.params.subscribe((params:Params) =>{
       this.idPublicacion = params["idPublicacion"];
     })
     this.tokenDecoded$ = tokenService.tokenDecoded$;
+
+    this.tokenDecoded$.subscribe(tokendDecoded =>{
+      this.nombreUsuario = tokendDecoded.nombreUsuario;
+      console.log(this.nombreUsuario);
+    })
   }
   ngOnInit(): void {
     
@@ -55,28 +63,27 @@ export class PublicacionComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.onDestroy$.next(true);
   }
+  eliminarPublicacion(){
+    this.foroService.eliminarPublicacion(this.idPublicacion).subscribe(()=>{
+      this.foroService.quitarPublicacionDeArray(this.idPublicacion);
+      this.router.navigate([".."]);
+    })
+  }
+  publicacionMeGusta(){
+    this.foroService.publicacionMeGusta(this.idPublicacion, this.nombreUsuario).subscribe(()=>{})
+    this.foroService.setMeGustaPublicacion(this.idPublicacion, this.nombreUsuario);
+  }
+  publicacionNoMeGusta(){
+    this.foroService.publicacionNoMeGusta(this.idPublicacion, this.nombreUsuario).subscribe(()=>{})
+    this.foroService.setPublicacionNoMeGusta(this.idPublicacion, this.nombreUsuario);
+  }
   actualizarPublicacion(publicacion:Publicacion){
     this.publicacion = publicacion;
     this.publicacionService.setPublicacion = publicacion;
   }
 
   redirigirAPerfilUsuario(nombreUsuario:string){
-    let nombreUsuarioActual;
-
-    this.perfilUsuarioService.getNombreUsuarioActual.subscribe(nombreUsuarioSub =>{
-      nombreUsuarioActual = nombreUsuarioSub;
-    })
-
-    if(nombreUsuarioActual != nombreUsuario){
-      this.perfilUsuarioService.setPerfilUsuario = null;
-      this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
-    }
-    this.router.navigate(["/bp-perfil", nombreUsuario]);
-  }
-
-  calcularAntiguedadFecha(fecha:Date){
-    let date = new Date(fecha);
-    return formatDistance(date, new Date(), {locale:es});
+    this.perfilUsuarioService.redirigirAPerfilUsuario(nombreUsuario);
   }
 
   abrirResponder(){

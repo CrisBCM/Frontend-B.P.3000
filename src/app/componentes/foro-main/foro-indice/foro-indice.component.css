@@ -1,0 +1,32 @@
+.table-style{
+    width: 94%;
+    margin: 30px auto 0px auto;
+    border: rgba(106, 124, 158, 0.678) solid 2px;
+}
+.th-style{
+    padding: 8px 0px 8px 10px;
+    background-color: rgba(106, 124, 158, 0.678);
+    color: rgb(212, 216, 219);
+}
+
+.td-style{
+   vertical-align: center;
+   padding: 15px 0 0 10px;
+}
+.td-descripcion{
+    max-width: 300px;
+}
+.a-style{
+    color: rgb(64, 79, 148);
+    cursor: pointer;
+    text-decoration: none;
+
+}
+.a-style:hover{
+    text-decoration: underline;
+}
+@media (max-width:460px) {
+    .descripcion-p{
+        display: none;
+    }
+}

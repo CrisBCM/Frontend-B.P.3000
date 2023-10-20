@@ -1,0 +1,66 @@
+<ng-container *ngIf="categorias$ | async as categorias">
+    <div class="d-flex justify-content-end">
+        <button class="me-3 me-md-4 btn-style" (click)="switchCrear = true">
+            <i class="fa-solid fa-plus me-1"></i>
+            Añadir
+        </button>
+    </div>
+    <app-categoria-modal-form *ngIf="switchCrear" 
+        [tituloModal]="'Crear Categoria'"
+        (emitCerrar)="switchCrear = $event"
+        ></app-categoria-modal-form>
+    <app-categoria-modal-form *ngIf="switchEditar"
+        [switchEditar]="true"
+        [tituloModal]="'Editar Categoria'"
+        (emitCerrar)="switchEditar = $event"
+        [categoriaNombre]="categoria.nombre"
+        [categoriaDescripcion]="categoria.descripcion"
+        (emitEditar)="editarCategoria($event)"></app-categoria-modal-form>
+
+    <app-modal-eliminar  *ngIf="switchEliminar"
+                         [tituloModal]="'Eliminar Categoria'"
+                         [mensajeModal]="'Esta seguro que desea eliminar la categoria?'"
+                         (cerrarModal)="switchEliminar = $event"
+                         (confirmarEliminar)="eliminarCategoria()">
+    </app-modal-eliminar>
+    <table class="table-categoria mx-auto">
+        <thead class="thead-categoria">
+            <tr>
+                <th class="th-categoria">Categoria</th>
+                <th class="th-categoria">Publicaciones</th>
+                <th class="th-categoria">Estado</th>
+                <th class="th-categoria"></th>
+            </tr>
+        </thead>
+        <tbody class="tbody-categoria">
+            <tr *ngFor="let categoria of categorias">
+                <td class="td-categoria td-relative">
+                    <span class="info me-sm-3">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <div class="descripcion-tooltip" role="tooltip">
+                            <h6>Descripcion</h6>
+                            <span>
+                                {{categoria.descripcion}}
+                            </span>
+                        </div>
+                    </span>
+                    <span>{{categoria.nombre}}</span>
+                </td>
+                <td class="td-categoria">{{categoria.cantidadPublicaciones}}</td>
+                <td class="td-categoria">
+                    <span *ngIf="!categoria.habilitado" class="oculto">Oculto</span>
+                    <span *ngIf="categoria.habilitado" class="visible">Visible</span>
+                </td>
+                <td class="td-categoria text-center"><app-btn-group
+                    class="btns"
+                    (switchModalEliminar)="switchEliminar = $event"
+                    (switchEditar)="switchEditar = $event"
+                    (click)="elegirCategoria(categoria.id, categoria)"
+                    [btnCambioDeEstado]="true"
+                    [estadoHabilitado]="categoria.habilitado"
+                    (emitCambioDeEstado)="cambiarEstadoCategoria()"></app-btn-group>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>

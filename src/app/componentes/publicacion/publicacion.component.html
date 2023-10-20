@@ -1,12 +1,22 @@
 <div class="mx-auto d-flex flex-wrap pb-sm-5 pt-sm-4 pe-sm-5 p-0 col-12 col-lg-8 col-xl-6 div-publicacion gap-2">
-    <div class="col-12 col-sm-1 autor-img-container mx-3" *ngIf="publicacion">
+    <app-modal-eliminar *ngIf="switchEliminarPublicacion" [tituloModal]="'¿Eliminar Publicacion?'" [mensajeModal]="'¿Estas seguro que deseas eliminar esta publicacion?'" (cerrarModal)="switchEliminarPublicacion = false" (confirmarEliminar)="eliminarPublicacion()"></app-modal-eliminar>
+    <div class="div-aside col-sm-1 autor-img-container mx-3 align-items-center gap-4" *ngIf="publicacion">
         <img class="autor-img" [src]="publicacion.fotoAutor" alt="">
+        <div class="d-flex flex-column align-items-center">
+            <button class="btn-default" (click)="publicacionMeGusta()">
+                <i class="btn-votar btn-votar-arriba fa-solid fa-caret-up" [ngClass]="{'votar-arriba-activo': publicacion.listaMeGusta.includes(nombreUsuario)}" ></i>
+            </button>
+            <span>{{publicacion.puntuacion}}</span>
+            <button class="btn-default" (click)="publicacionNoMeGusta()">
+                <i class="btn-votar btn-votar-abajo fa-solid fa-caret-down" [ngClass]="{'votar-abajo-activo': publicacion.listaNoMeGusta.includes(nombreUsuario)}"></i>
+            </button>
+        </div>
     </div>
     <section *ngIf="publicacion" class="publicacion-container col-12 col-sm-10 px-2 px-sm-0">
         <h2 class="h2-publicacion mb-2">{{publicacion.titulo}}</h2>
         <div class=" border-color mb-2 pb-2">
             <ul class="ul-info d-flex flex-column gap-2 mb-2">
-                <li class="neutral-style">{{publicacion.tema}} de <a class="autor-link" (click)="redirigirAPerfilUsuario(publicacion.autor)">{{publicacion.autor}}</a> hace {{calcularAntiguedadFecha(publicacion.fecha)}}</li>
+                <li class="neutral-style">{{publicacion.categoria}} de <a class="autor-link" (click)="redirigirAPerfilUsuario(publicacion.autor)">{{publicacion.autor}}</a> hace {{publicacion.fecha | fechaAntiguedad}}</li>
                 <ng-container *ngIf="tokenDecoded$ | async as tokenDecoded">
                     <li *ngIf="tokenDecoded.nombreUsuario == publicacion.autor">
                         <app-modal-editar *ngIf="switchEditarPublicacion" (switchEditarPublicacion)="switchEditarPublicacion = $event" (nuevaPublicacion)="actualizarPublicacion($event)"></app-modal-editar>
@@ -14,6 +24,11 @@
                             <i class="fa-solid fa-pen"></i>
                             Editar
                         </button>
+                        <button class="btn btn-sm button-style neutral-style ps-0" (click)="switchEliminarPublicacion = true">
+                            <i class="fa-regular fa-trash-can"></i>
+                            Eliminar
+                        </button>
+                        
                     </li>
                 </ng-container>
             </ul>

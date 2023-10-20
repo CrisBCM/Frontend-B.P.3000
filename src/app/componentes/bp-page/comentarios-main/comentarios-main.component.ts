@@ -39,28 +39,11 @@ export class ComentariosMainComponent implements OnInit{
       this.switchEditar = false;
     })
   }
-
-  calcularAntiguedadFecha(fecha:Date){
-    let date = new Date(fecha);
-    return formatDistance(date, new Date(), {locale:es});
-  }
-
   redirigirAPublicacion(idPublicacion:number){
     this.router.navigate(["/publicacion", idPublicacion]);
   }
 
   redirigirAPerfilUsuario(nombreUsuario:string){
-    let nombreUsuarioActual;
-
-    this.perfilUsuarioService.getNombreUsuarioActual.subscribe(nombreUsuarioSub =>{
-      nombreUsuarioActual = nombreUsuarioSub;
-    })
-
-    if(nombreUsuarioActual != nombreUsuario){
-      this.perfilUsuarioService.setPerfilUsuario = null;
-      this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
-    }
-
-    this.router.navigate(["/bp-perfil", nombreUsuario]);
+    this.perfilUsuarioService.redirigirAPerfilUsuario(nombreUsuario);
   }
 }

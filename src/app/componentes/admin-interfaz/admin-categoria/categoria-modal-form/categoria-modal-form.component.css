@@ -1,0 +1,49 @@
+.modal-body{
+    background-color: rgb(205, 216, 224);
+    max-width: 95%;
+    min-height: 500px;
+    border-radius: 8px;
+}
+.form-categoria{
+    width: 90%;
+    margin: 20px auto 0 auto;
+}
+.input-style{
+    border: 1px solid rgba(151, 150, 150, 0.329);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.082);
+    padding: 5px 0;
+    max-height: 600px;
+}
+.input-style:focus-visible{
+    outline: none;
+}
+.btn-style{
+    border: none;
+    padding: 8px 20px;
+    color: rgba(255, 255, 255, 0.637);
+    border-radius: 5px;
+}
+.btn-crear{
+    background-color: rgb(129, 159, 216);
+}
+.btn-cancelar{
+    background-color: rgb(151, 150, 150);
+}
+.btn-style:hover{
+    color: whitesmoke;
+}
+@media (min-width: 952px) {
+    .modal-body{
+        max-width: 70%;
+    }
+}
+@media (min-width:1200px){
+    .modal-body{
+        max-width: 50%;
+    }
+}
+@media (min-width:1800px){
+    .modal-body{
+        max-width: 40%;
+    }
+}

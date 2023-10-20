@@ -8,7 +8,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class BtnGroupComponent {
   @Output() switchModalEliminar = new EventEmitter<boolean>;
   @Output() switchEditar = new EventEmitter<boolean>;
-  
+  @Output() emitCambioDeEstado = new EventEmitter<void>;
+  @Input() btnCambioDeEstado:boolean = false;
+  @Input() estadoHabilitado!:boolean;
+
   constructor(){}
   
 }

@@ -35,6 +35,20 @@ import { FormEditarComentarioRespuestaComponent } from './componentes/form-edita
 import { CargandoSpinnerComponent } from './componentes/cargando-spinner/cargando-spinner.component';
 import { SpinnerInterceptor } from './shared/spinner.interceptor';
 import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginacion.component';
+import { PublicacionesGeneralComponent } from './componentes/foro-main/publicaciones-general/publicaciones-general.component';
+import { FiltroDropdownComponent } from './componentes/filtro-dropdown/filtro-dropdown.component';
+import { FiltroBusquedaComponent } from './componentes/filtro-busqueda/filtro-busqueda.component';
+import { CategoriaComponent } from './componentes/categoria/categoria.component';
+import { AdminInterfazComponent } from './componentes/admin-interfaz/admin-interfaz.component';
+import { AdminNavComponent } from './componentes/admin-interfaz/admin-nav/admin-nav.component';
+import { AdminCategoriaComponent } from './componentes/admin-interfaz/admin-categoria/admin-categoria.component';
+import { CategoriaBtnsComponent } from './componentes/admin-interfaz/admin-categoria/categoria-btns/categoria-btns.component';
+import { CategoriaModalFormComponent } from './componentes/admin-interfaz/admin-categoria/categoria-modal-form/categoria-modal-form.component';
+import { ForoIndiceComponent } from './componentes/foro-main/foro-indice/foro-indice.component';
+import { FechaAntiguedadPipe } from './pipes/fecha-antiguedad.pipe';
+import { PublicacionRecientePipe } from './pipes/publicacion-reciente.pipe';
+import { ForoMainRoutingModule } from './componentes/foro-main/foro-main-routing/foro-main-routing.module';
+import {ForoCategoria} from './componentes/foro-main/foro-categoria/foro-categoria.component';
 
 
 
@@ -67,7 +81,20 @@ import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginac
     BtnGroupComponent,
     FormEditarComentarioRespuestaComponent,
     CargandoSpinnerComponent,
-    BtnPaginacionComponent
+    BtnPaginacionComponent,
+    PublicacionesGeneralComponent,
+    FiltroDropdownComponent,
+    FiltroBusquedaComponent,
+    CategoriaComponent,
+    AdminInterfazComponent,
+    AdminNavComponent,
+    AdminCategoriaComponent,
+    CategoriaBtnsComponent,
+    CategoriaModalFormComponent,
+    ForoIndiceComponent,
+    FechaAntiguedadPipe,
+    PublicacionRecientePipe,
+    ForoCategoria
   ],
   imports: [
     BrowserModule,
@@ -75,8 +102,8 @@ import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginac
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    ForoMainRoutingModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass:AutenticacionInterceptor, multi:true},
               {provide: HTTP_INTERCEPTORS, useClass:SpinnerInterceptor, multi:true}],

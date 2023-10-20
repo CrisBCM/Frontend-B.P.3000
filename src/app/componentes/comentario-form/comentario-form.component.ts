@@ -38,7 +38,7 @@ export class ComentarioFormComponent {
       this.tokenDecoded = tokenDecoded;
     })
 
-    console.log("TOKEN DECODED: " + this.tokenDecoded);
+    console.log("TOKEN DECODED: " + JSON.stringify(this.tokenDecoded));
 
     this.idUsuario = this.tokenDecoded.persona_id;
 
