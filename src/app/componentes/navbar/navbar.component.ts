@@ -12,13 +12,19 @@ import { TokenService } from 'src/app/service/token.service';
 export class NavbarComponent implements OnInit{
 
   usuarioAutenticado:any;
+  tokenDecoded:any;
 
   constructor(private tokenService:TokenService){}
   
   ngOnInit(): void {
     this.tokenService.currentToken.subscribe(tokenObject =>{
       this.usuarioAutenticado = tokenObject;
-      console.log(JSON.stringify(this.usuarioAutenticado));
+      console.log(JSON.stringify(this.usuarioAutenticado) + " USUARIO AUTENTICADO");
+    })
+
+    this.tokenService.tokenDecoded$.subscribe(tokenDecoded =>{
+      this.tokenDecoded = tokenDecoded;
+      console.log(JSON.stringify(tokenDecoded.role));
     })
   }
 

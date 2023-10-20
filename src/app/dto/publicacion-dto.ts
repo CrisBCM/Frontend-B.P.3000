@@ -1,5 +1,3 @@
-import { ComentarioDTO } from "./comentario-dto";
-
 export interface PublicacionDTO {
     id:number;
     fotoAutor:string;
@@ -7,5 +5,8 @@ export interface PublicacionDTO {
     fecha:Date;
     titulo:string;
     contenido:string;
-    tema:string;
+    categoria:string;
+    listaMeGusta:string[];
+    listaNoMeGusta:string[];
+    puntuacion:number;
 }

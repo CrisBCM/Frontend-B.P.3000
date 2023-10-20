@@ -18,7 +18,7 @@
         </div>
         <ul class="ul-info d-flex flex-wrap gap-1 mb-1 px-3 py-1 col-10 comentario">
             <li><a class="autor-link" (click)="redirigirAPerfilUsuario(comentario.autor)">{{comentario.autor}}</a></li>
-            <li>hace {{calcularAntiguedadFecha(comentario.fecha)}}</li>
+            <li>hace {{comentario.fecha | fechaAntiguedad}}</li>
             <li class="ms-auto"*ngIf="tokenDecoded$ | async as tokenDecoded" >
                 <app-btn-group *ngIf="tokenDecoded.nombreUsuario == comentario.autor" (switchModalEliminar)="modalEliminar = $event" (switchEditar)="editarSwitchComentario = $event" (click)="idComentario = comentario.id"></app-btn-group>
             </li>

@@ -12,3 +12,26 @@ body{
     align-items: center;
     justify-content: center;
   }
+  .link-style{
+    list-style-type: none;
+    text-decoration: none;
+    text-decoration-line: none;
+    cursor: pointer;
+}
+.anchor-style{
+    color: rgb(95, 118, 167);
+    font-weight: 600;
+    cursor: pointer;
+}
+.anchor-style:hover{
+    color: rgb(93, 152, 204);
+    text-decoration: underline;
+}
+th{
+    color: #213A5C;
+    font-weight: 600;
+}
+p, td{
+    color: #465e72;
+    font-weight: 500;
+}

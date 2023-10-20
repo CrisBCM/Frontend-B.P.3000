@@ -1,5 +1,5 @@
 <section class="d-flex flex-wrap justify-content-center align-content-center mt-5">
-    <form [formGroup]="loginForm" (submit)="iniciarSesion()" class="col-xxl-3 d-flex flex-column gap-3 pt-5 p-sm-5 form-style align-items-center justify-content-center mt-5">
+    <form [formGroup]="loginForm" (submit)="iniciarSesion()" class="col-xxl-3 d-flex flex-column gap-3 pt-5 p-5 form-style align-items-center justify-content-center mt-5">
         <h4 class="text-center mb-4">Iniciar Sesion</h4>
         <label for="email" class="d-flex flex-column gap-2 w-label">Email
             <input (keydown)="changeValue()" [ngClass]="{'is-invalid':isValidField('email')}" formControlName="email" type="text" name="email" id="email" class="input-style">
@@ -10,7 +10,12 @@
         <label for="password" class="d-flex flex-column gap-2 w-label">Contraseña
             <input (keydown)="changeValue()" [ngClass]="{'is-invalid':isValidField('password')}" formControlName="password" type="password" name="password" id="password" class="input-style">
         </label>
-        <button type="submit" class="mt-4 w-50 mx-auto button-style" [disabled]="loginForm.invalid" [ngClass]="{'button-hover button-valid':loginForm.valid}">iniciar sesion</button>
+        <button type="submit" class="mt-4 w-50 mx-auto button-style" [disabled]="loginForm.invalid || spinner" [ngClass]="{'button-hover button-valid':loginForm.valid && !spinner}">
+            <span class="d-flex justify-content-around">
+                Iniciar sesion
+                <app-cargando-spinner *ngIf="spinner"></app-cargando-spinner>
+            </span>
+        </button>
         <p class="text-center px-4 px-md-0">¿Aun no tenes cuenta? <a routerLink="/registro" class="button-a">registrate</a> ahora mismo!</p>
     </form>
  </section>

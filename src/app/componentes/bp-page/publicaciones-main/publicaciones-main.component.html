@@ -4,7 +4,7 @@
             <article class="px-3 py-2 border w-75 article-relative" *ngFor="let publicacion of persona.publicaciones">
                 <div class="d-flex flex-wrap justify-content-between">
                     <h6 class="mb-0">
-                        <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.tema}}: {{publicacion.titulo}}.</a>
+                        <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.categoria}}: {{publicacion.titulo}}.</a>
                     </h6>
                     <div class="btn-group btn-responsive" role="group">
                         <button type="button" class="btn btn-sm py-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +43,7 @@
 
                     </div> 
                 </div>
-                <span>publicado hace: {{calcularAntiguedadFecha(publicacion.fecha)}} - </span>
+                <span>publicado hace: {{publicacion.fecha | fechaAntiguedad}} - </span>
                 <span>por: <a (click)="redirigirAPerfilUsuario(persona.nombreUsuario)" class="link-style anchor-style">{{publicacion.autor}}</a></span>
             </article>
         </ng-container>
@@ -57,9 +57,9 @@
         <ng-container *ngIf="usuario.publicaciones.length > 0; else ceroPublicaciones">
             <article class="px-3 py-2 border w-75" *ngFor="let publicacion of usuario.publicaciones">
                 <h6 class="mb-0">
-                    <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.tema}}: {{publicacion.titulo}}.</a>
+                    <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.categoria}}: {{publicacion.titulo}}.</a>
                 </h6>
-                <span>publicado hace: {{calcularAntiguedadFecha(publicacion.fecha)}} - </span>
+                <span>publicado hace: {{publicacion.fecha | fechaAntiguedad}} - </span>
                 <span>por: <a (click)="redirigirAPerfilUsuario(usuario.nombreUsuario)" class="link-style anchor-style">{{publicacion.autor}}</a></span>
             </article>
         </ng-container>

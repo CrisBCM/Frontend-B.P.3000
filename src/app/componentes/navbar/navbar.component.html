@@ -3,7 +3,7 @@
       <button class="navbar-toggler d-lg-none ms-md-5 ms-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTopLabel" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand p-0 me-0 text-center a-logo" routerLink="/bp-foro">
+      <a class="navbar-brand p-0 me-0 text-center a-logo" routerLink="/bp-foro/general">
         <svg class="hidden-desktop" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 200 111" enable-background="new 0 0 200 111" xml:space="preserve">  <image id="image0" width="200" height="111" x="0" y="0"
           href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABvCAMAAACen3/6AAAABGdBTUEAALGPC/xhBQAAACBjSFJN
       AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAACOlBMVEUAAAAAJIwAKIkAKIkA
@@ -101,11 +101,17 @@
       </a>
       <div class="d-none d-lg-flex col-lg-6 list-container">
         <ul class="navbar-nav justify-content-md-center ms-md-5 justify-content-center align-items-center">
-          <li class="nav-item">
-            <a *ngIf="!usuarioAutenticado.token" routerLink="/iniciar-sesion" class="nav-link px-3 font-style">Iniciar Sesion</a>
+          <li *ngIf="!usuarioAutenticado.token" class="nav-item">
+            <a  routerLink="/iniciar-sesion" class="nav-link px-3 font-style">Iniciar Sesion</a>
+          </li>
+          <li *ngIf="!usuarioAutenticado.token" class="nav-item">
+            <a  routerLink="/registro" class="nav-link px-3 font-style">Registrarse</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link font-style px-4" aria-current="page" routerLink="/bp-foro">Foro</a>
+            <a class="nav-link font-style px-4" aria-current="page" routerLink="/bp-foro/general">Foro</a>
+          </li>
+          <li class="nav-item" *ngIf="tokenDecoded.role == 'ADMIN'">
+            <a class="nav-link font-style px-4" aria-current="page" routerLink="/admin/categorias">Admin</a>
           </li>
         </ul>
       </div>

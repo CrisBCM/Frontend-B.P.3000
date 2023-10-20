@@ -1,0 +1,38 @@
+.filtrar-tema-contenedor{
+    position: relative;
+}
+.btn-default{
+    border: none;
+    background-color: transparent;
+}
+.lista-filtro{
+    position: absolute;
+    width: 120px;
+    background-color: rgb(226, 231, 245);
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.336);
+    z-index: 2;
+}
+.ul-style{
+    margin-bottom: 0;
+    text-decoration: none;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.li-style{
+    height: 41px;
+    border-bottom: 1px solid rgb(167, 167, 167);
+    cursor: pointer;
+}
+.li-style:last-child{
+    border-bottom: none;
+}
+.li-style:hover{
+    background-color:  rgba(199, 212, 233, 0.705);
+}
+.li-span{
+    font-size: 15px;
+    font-weight: 300;
+}
+

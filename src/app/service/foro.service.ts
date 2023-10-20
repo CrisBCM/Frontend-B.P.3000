@@ -6,6 +6,7 @@ import { Publicacion } from '../modelo/interfaces/publicacion';
 import { Comentario } from '../modelo/interfaces/comentario';
 import { Respuesta } from '../modelo/interfaces/respuesta';
 import { Router } from '@angular/router';
+import { CategoriaResumenDTO } from '../dto/categoria-resumen-dto';
 
 
 @Injectable({
@@ -13,16 +14,115 @@ import { Router } from '@angular/router';
 })
 export class ForoService {
 
-  publicaciones$:BehaviorSubject<Publicacion[] | null> = new BehaviorSubject<Publicacion[] | null>(null);;
+  publicaciones$:BehaviorSubject<Publicacion[] | null> = new BehaviorSubject<Publicacion[] | null>(null);
+  categorias$:BehaviorSubject<CategoriaResumenDTO[]> = new BehaviorSubject<CategoriaResumenDTO[]>([]);
 
   constructor(private http:HttpClient, private router:Router) {
 
-    this.obtenerPosts().subscribe(arrayPublicacion =>{
+    this.obtenerPosts().subscribe((arrayPublicacion:Publicacion[]) =>{
       console.log(arrayPublicacion);
 
-      this.publicaciones$.next(arrayPublicacion);
-    }) 
+      this.publicaciones$.next(arrayPublicacion.sort((publicacionA, publicacionB) => new Date(publicacionB.fecha).getTime() - new Date(publicacionA.fecha).getTime()));
+    })
+
+    this.obtenerCategoriasResumen().subscribe((categorias:CategoriaResumenDTO[]) => {
+      this.categorias$.next(categorias);
+    })
     
+  }
+
+  get categoriasAsObservable(){
+    return this.categorias$.asObservable();
+  }
+  quitarPublicacionDeArray(idPublicacion:number){
+    let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+    if(indicePublicacion != null && this.publicaciones$.value){
+      this.publicaciones$.next(this.publicaciones$.value.filter(publicacion => publicacion.id != idPublicacion));
+    }
+  }
+  recalcularPuntuacionPublicacion(indicePublicacion:number){
+    if(this.publicaciones$.value){
+      this.publicaciones$.value[indicePublicacion].puntuacion = this.publicaciones$.value[indicePublicacion].listaMeGusta.length - this.publicaciones$.value[indicePublicacion].listaNoMeGusta.length;
+    }
+  }
+  setMeGustaPublicacion(idPublicacion:number, nombreUsuario:string){
+    if(this.publicaciones$.value){
+
+      let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+
+      if(!this.publicaciones$.value[indicePublicacion].listaMeGusta.includes(nombreUsuario)){
+
+        if(this.publicaciones$.value[indicePublicacion].listaNoMeGusta.includes(nombreUsuario)){
+          let indiceUsuarioNoMeGusta = this.publicaciones$.value[indicePublicacion].listaNoMeGusta.findIndex(nombre => nombre == nombreUsuario);
+          this.publicaciones$.value[indicePublicacion].listaNoMeGusta.splice(indiceUsuarioNoMeGusta, 1);
+        }
+
+        this.publicaciones$.value[indicePublicacion].listaMeGusta.push(nombreUsuario);
+
+      }else{
+        let indiceUsuarioMeGusta = this.publicaciones$.value[indicePublicacion].listaMeGusta.findIndex(nombre => nombre == nombreUsuario);
+
+        this.publicaciones$.value[indicePublicacion].listaMeGusta.splice(indiceUsuarioMeGusta, 1);
+      }
+      this.recalcularPuntuacionPublicacion(indicePublicacion);
+    }
+  }
+
+  setPublicacionNoMeGusta(idPublicacion:number, nombreUsuario:string){
+    if(this.publicaciones$.value){
+
+      let indicePublicacion = this.obtenerIndicePublicacion(idPublicacion);
+
+      if(!this.publicaciones$.value[indicePublicacion].listaNoMeGusta.includes(nombreUsuario)){
+
+        if(this.publicaciones$.value[indicePublicacion].listaMeGusta.includes(nombreUsuario)){
+          let indiceUsuarioMeGusta = this.publicaciones$.value[indicePublicacion].listaMeGusta.findIndex(nombre => nombre == nombreUsuario);
+          this.publicaciones$.value[indicePublicacion].listaMeGusta.splice(indiceUsuarioMeGusta, 1);
+        }
+
+        this.publicaciones$.value[indicePublicacion].listaNoMeGusta.push(nombreUsuario);
+        
+      }else{
+        let indiceUsuarioNoMeGusta = this.publicaciones$.value[indicePublicacion].listaNoMeGusta.findIndex(nombre => nombre == nombreUsuario);
+
+        this.publicaciones$.value[indicePublicacion].listaNoMeGusta.splice(indiceUsuarioNoMeGusta, 1);
+      }
+      this.recalcularPuntuacionPublicacion(indicePublicacion);
+    }
+
+    
+  }
+
+  // filtrarPorPalabra(array:Publicacion[] | null, palabra:string){
+  //   return array?.filter(publicacion => publicacion.titulo.includes(palabra));
+  // }
+  filtrarPorMasNuevo(array:Publicacion[] | null){
+    return array?.sort((a,b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+  }
+  filtrarPorMasAntiguo(array:Publicacion[] | null){
+    return array?.sort((a,b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+  }
+  filtrarPorMasGustado(array:Publicacion[] | null){
+    return array?.sort((a,b) => b.puntuacion - a.puntuacion);
+  }
+
+  getPublicacionesFiltroPalabra(palabra:string):Publicacion[] | null{
+    let arrayFiltrado = this.publicaciones$.value?.filter(publicacion => publicacion.titulo.toLocaleLowerCase().includes(palabra.toLocaleLowerCase()));
+    if(arrayFiltrado){
+      return arrayFiltrado;
+    }else{
+      return [];
+    }
+  }
+  
+  get publicacionesAntiguas(){
+    return this.filtrarPorMasAntiguo(this.publicaciones$.value);
+  }
+  get publicacionesMasGustado(){
+    return this.filtrarPorMasGustado(this.publicaciones$.value);
+  }
+  get publicacionesMasNuevas(){
+    return this.filtrarPorMasNuevo(this.publicaciones$.value);
   }
 
   get behaviorSubjectPublicaciones():Observable<Publicacion[] | null>{
@@ -112,5 +212,14 @@ export class ForoService {
   }
   noMeGusta(url:string, idComentarioORespuesta:number, nombreUsuario:string):Observable<any>{
     return this.http.put(`${url}/${idComentarioORespuesta}/${nombreUsuario}`, "");
+  }
+  publicacionMeGusta(idPublicacion:number, nombreUsuario:string):Observable<any>{
+    return this.http.put(`${EnumEndpoints.publicacionVotarMeGusta}/${idPublicacion}/${nombreUsuario}`, "");
+  }
+  publicacionNoMeGusta(idPublicacion:number, nombreUsuario:string):Observable<any>{
+    return this.http.put(`${EnumEndpoints.publicacionVotarNoMeGusta}/${idPublicacion}/${nombreUsuario}`, "");
+  }
+  obtenerCategoriasResumen():Observable<CategoriaResumenDTO[]>{
+    return this.http.get<CategoriaResumenDTO[]>(EnumEndpoints.obtenerResumenCategorias);
   }
 }

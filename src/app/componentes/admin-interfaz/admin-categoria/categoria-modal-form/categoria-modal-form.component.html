@@ -1,0 +1,36 @@
+<div class="modal-style">
+    <div class="modal-body" *ngIf="!switchEditar">
+        <h5 class="text-center mt-5">{{tituloModal}}</h5>
+        <form [formGroup]="form" class="form-categoria d-flex flex-column gap-3">
+            <div class="d-flex flex-column">
+                <label for="nombre">Nombre</label>
+                <input formControlName="nombre" type="text" class="input-style">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="descripcion">Descripcion</label>
+                <textarea formControlName="descripcion" name="descripcion" id="descripcion" cols="30" rows="10" class="input-style"></textarea>
+            </div>
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <button type="button" class="btn-style btn-cancelar" (click)="emitCerrar.emit(false)">Cancelar</button>
+                <button type="button" class="btn-style btn-crear" (click)="crearCategoria()">Crear</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-body" *ngIf="switchEditar && categoriaNombre && categoriaDescripcion">
+        <h5 class="text-center mt-5">{{tituloModal}}</h5>
+        <form class="form-categoria d-flex flex-column gap-3">
+            <div class="d-flex flex-column">
+                <label for="nombre">Nombre</label>
+                <input name="nombre" id="nombre" type="text" class="input-style" [(ngModel)]="categoriaNombre">
+            </div>
+            <div class="d-flex flex-column"> 
+                <label for="descripcion">Descripcion</label>
+                <textarea name="descripcion" id="descripcion" cols="30" rows="10" class="input-style" [(ngModel)]="categoriaDescripcion"></textarea>
+            </div>
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <button type="button" class="btn-style btn-cancelar" (click)="emitCerrar.emit(false)">Cancelar</button>
+                <button type="button" class="btn-style btn-crear" (click)="emitEditarCategoria()">Editar</button>
+            </div>
+        </form>
+    </div>
+</div>

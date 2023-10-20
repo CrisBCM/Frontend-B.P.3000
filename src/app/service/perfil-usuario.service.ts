@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PersonaDTO } from '../dto/persona-dto';
 import { EnumEndpoints } from '../shared/enum-endpoints';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,20 @@ export class PerfilUsuarioService {
 
   private switchPublicacionesOComentarios$:BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(true);
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private router:Router) {
   }
 
   obtenerPerfilUsuario(nombreUsuario:string):Observable<PersonaDTO>{
     return this.http.get<PersonaDTO>(`${EnumEndpoints.perfilUsuario}/${nombreUsuario}`);
+  }
+
+  redirigirAPerfilUsuario(nombreUsuario:string){
+    if(this.nombreUsuarioActual$.value != nombreUsuario){
+      this.perfilUsuario$.next(null)
+      this.nombreUsuarioActual$.next(nombreUsuario);
+    }
+
+    this.router.navigate(["/bp-perfil", nombreUsuario]);
   }
   
   set setPerfilUsuario(perfilUsuario:PersonaDTO | null){

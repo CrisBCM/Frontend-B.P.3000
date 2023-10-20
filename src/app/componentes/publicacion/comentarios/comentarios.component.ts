@@ -38,29 +38,9 @@ export class ComentariosComponent {
     this.publicacion.comentarios.push(comentario);
   }
   redirigirAPerfilUsuario(nombreUsuario:string){
-    let nombreUsuarioActual;
-
-    this.perfilUsuarioService.getNombreUsuarioActual.subscribe(nombreUsuarioSub =>{
-      nombreUsuarioActual = nombreUsuarioSub;
-    })
-
-    if(nombreUsuarioActual != nombreUsuario){
-      this.perfilUsuarioService.setPerfilUsuario = null;
-      this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
-    }
-    this.router.navigate(["/bp-perfil", nombreUsuario]);
+    this.perfilUsuarioService.redirigirAPerfilUsuario(nombreUsuario);
   }
-  calcularAntiguedadFecha(fecha:Date){
-    let date = new Date(fecha);
-    return formatDistance(date, new Date(), {locale:es});
-  }
-  // eliminarComentario(idComentario:number){
-  //   this.foroService.eliminarComentario(idComentario).subscribe(()=>{
-  //   })
-  //   let nuevaListaComentario = this.publicacion.comentarios.filter(comentario => comentario.id != idComentario);
 
-  //   this.publicacion.comentarios = nuevaListaComentario;
-  // }
   editarComentario(comentarioI:number){
     const formData = new FormData();
 

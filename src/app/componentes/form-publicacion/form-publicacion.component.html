@@ -5,10 +5,11 @@
     <form [formGroup]="form" class="d-flex flex-column px-3 py-4 form-style mt-4">
         <label for="titulo" class="mb-1">Titulo</label>
         <input formControlName="titulo" type="text" placeholder="Titulo" id="titulo" class="input-style py-2 ps-1 mb-3">
-        <select formControlName="tema" name="tema" id="tema" class="input-style w-25 py-2 mb-3">
-            <option selected disabled>Tema</option>
-            <option value="Receta">Receta</option>
-            <option value="Pregunta">Pregunta</option>
+        <select *ngIf="categorias$ | async as categorias" formControlName="categoria" name="categoria" id="categoria" class="input-style w-25 py-2 mb-3">
+            <option selected disabled>Categoria</option>
+            <ng-container *ngFor="let categoria of categorias">
+                <option *ngIf="categoria.habilitado" [value]="categoria.nombre">{{categoria.nombre}}</option>
+            </ng-container>
         </select>
         <div class="d-flex justify-content-between mb-1">
             <label for="contenido">Descripcion</label>

@@ -21,3 +21,6 @@
 .btn:active{
     border: none;
 }
+.li-hover:hover{
+    background-color: rgb(78, 107, 124);
+}

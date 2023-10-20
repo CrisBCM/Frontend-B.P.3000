@@ -33,6 +33,7 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
       this.persona$.pipe(takeUntil(this.onDestroy$)).subscribe((persona:Persona | null)=>{
         if(persona){
           this.persona = persona;
+          console.log(this.persona.publicaciones + "PUBLICACIONESSSSS");
         }
       })
     }
@@ -48,10 +49,6 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
     this.switchEditarPublicacion = true;
     this.publicacionService.setPublicacion = publicacion;
     console.log(publicacion);
-  }
-  calcularAntiguedadFecha(fecha:Date){
-    let date = new Date(fecha);
-    return formatDistance(date, new Date(), {locale:es});
   }
 
   redirigirAPublicacion(idPublicacion:number){
@@ -71,18 +68,7 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
   }
 
   redirigirAPerfilUsuario(nombreUsuario:string){
-    let nombreUsuarioActual;
-
-    this.perfilUsuarioService.getNombreUsuarioActual.subscribe(nombreUsuarioSub =>{
-      nombreUsuarioActual = nombreUsuarioSub;
-    })
-
-    if(nombreUsuarioActual != nombreUsuario){
-      this.perfilUsuarioService.setPerfilUsuario = null;
-      this.perfilUsuarioService.setNombreUsuarioActual = nombreUsuario;
-    }
-
-    this.router.navigate(["/bp-perfil", nombreUsuario]);
+    this.perfilUsuarioService.redirigirAPerfilUsuario(nombreUsuario);
   }
   
 }

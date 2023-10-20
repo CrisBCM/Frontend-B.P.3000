@@ -30,6 +30,9 @@ export class TokenService {
   get tokenDecoded$():Observable<any>{
     return this.tokenDecoded.asObservable();
   }
+  get tokenDecodedValue(){
+    return this.tokenDecoded.value;
+  }
 
   set newCurrentToken(cambio:any){
     this.currentToken$.next(cambio);

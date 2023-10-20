@@ -1,0 +1,17 @@
+<main *ngIf="publicaciones.length > 0" class="px-4 mt-4">
+    <header class="mb-3 d-flex flex-wrap header-filtros">
+        <app-filtro-dropdown [nombreFiltro]="nombreFiltroPorTema" [opcionesDeFiltro]="opcionesDeFiltro" (filtrar)="filtrar($event)" ></app-filtro-dropdown>
+        <app-filtro-busqueda (emitFiltro)="filtrarPorPalabra($event)"></app-filtro-busqueda>
+    </header>
+    <section class="post-container" *ngIf="publicaciones">
+        <h5 class="titulo-categoria">{{nombreCategoria.trim() + 's'}}</h5>
+        <article class=" px-3 py-2 border-top" *ngFor="let publicacion of publicaciones">
+            <h6 class="mb-0">
+                <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.categoria}}: {{publicacion.titulo}}.</a>
+            </h6>
+            <span>publicado hace: {{publicacion.fecha | fechaAntiguedad}} - </span>
+            <span>por: <a (click)="redirigirAPerfilUsuario(publicacion.autor)" class="link-style anchor-style">{{publicacion.autor}}</a></span>
+        </article>
+        <!-- <app-btn-paginacion #btnPaginacion *ngIf="publicaciones.length > 5" class="d-flex justify-content-center py-3 border-top" [listaObjetos]="publicaciones" (emitPaginaActual)="paginaActual = $event" [cantMostrarPublicaciones]="cantMostrarPublicaciones"></app-btn-paginacion> -->
+    </section>
+</main>

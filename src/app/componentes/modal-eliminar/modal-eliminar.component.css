@@ -4,6 +4,9 @@
     min-height: 100px;
     border-radius: 10px;
 }
+.btn-confirmar{
+    min-width: 120px;
+}
 .btn-eliminar{
     background-color: rgb(105, 150, 216);
 }
