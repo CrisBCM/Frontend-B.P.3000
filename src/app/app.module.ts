@@ -21,7 +21,7 @@ import { FormPublicacionComponent } from './componentes/form-publicacion/form-pu
 import { PublicacionComponent } from './componentes/publicacion/publicacion.component';
 import { ComentarioFormComponent } from './componentes/comentario-form/comentario-form.component';
 import { BotonLikeDislikeComponent } from './componentes/boton-like-dislike/boton-like-dislike.component';
-import { AutenticacionInterceptor } from './shared/autenticacion.interceptor';
+import { AutenticacionInterceptor } from './interceptor/autenticacion.interceptor';
 import { ConsumoMainComponent } from './componentes/bp-page/consumo-main/consumo-main.component';
 import { PublicacionesMainComponent } from './componentes/bp-page/publicaciones-main/publicaciones-main.component';
 import { ComentariosMainComponent } from './componentes/bp-page/comentarios-main/comentarios-main.component';
@@ -33,7 +33,7 @@ import { ModalEliminarComponent } from './componentes/modal-eliminar/modal-elimi
 import { BtnGroupComponent } from './componentes/btn-group/btn-group.component';
 import { FormEditarComentarioRespuestaComponent } from './componentes/form-editar-comentario-respuesta/form-editar-comentario-respuesta.component';
 import { CargandoSpinnerComponent } from './componentes/cargando-spinner/cargando-spinner.component';
-import { SpinnerInterceptor } from './shared/spinner.interceptor';
+import { SpinnerInterceptor } from './interceptor/spinner.interceptor';
 import { BtnPaginacionComponent } from './componentes/btn-paginacion/btn-paginacion.component';
 import { PublicacionesGeneralComponent } from './componentes/foro-main/publicaciones-general/publicaciones-general.component';
 import { FiltroDropdownComponent } from './componentes/filtro-dropdown/filtro-dropdown.component';
@@ -49,6 +49,7 @@ import { FechaAntiguedadPipe } from './pipes/fecha-antiguedad.pipe';
 import { PublicacionRecientePipe } from './pipes/publicacion-reciente.pipe';
 import { ForoMainRoutingModule } from './componentes/foro-main/foro-main-routing/foro-main-routing.module';
 import {ForoCategoria} from './componentes/foro-main/foro-categoria/foro-categoria.component';
+import { ModalSessionExpiredComponent } from './componentes/modal-session-expired/modal-session-expired.component';
 
 
 
@@ -94,7 +95,8 @@ import {ForoCategoria} from './componentes/foro-main/foro-categoria/foro-categor
     ForoIndiceComponent,
     FechaAntiguedadPipe,
     PublicacionRecientePipe,
-    ForoCategoria
+    ForoCategoria,
+    ModalSessionExpiredComponent
   ],
   imports: [
     BrowserModule,

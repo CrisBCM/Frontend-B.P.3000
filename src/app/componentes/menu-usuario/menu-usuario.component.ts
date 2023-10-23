@@ -4,7 +4,6 @@ import { SharingService } from 'src/app/service/sharing.service';
 import { TokenService } from 'src/app/service/token.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Persona } from 'src/app/modelo/interfaces/persona';
-import { Roles } from 'src/app/shared/roles';
 
 @Component({
   selector: 'app-menu-usuario',
