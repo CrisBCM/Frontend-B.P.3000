@@ -1,5 +1,5 @@
 <div class="router-container d-flex flex-column">
-    <app-modal-session-expired></app-modal-session-expired>
+    <app-modal-session-expired *ngIf="sessionExp"></app-modal-session-expired>
     <app-navbar class="nav-bar"></app-navbar>
     <router-outlet></router-outlet>
     <app-footer class="app-footer mt-auto col-12"></app-footer>

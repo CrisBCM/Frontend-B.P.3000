@@ -1,0 +1,28 @@
+.modal-body{
+    background-color: rgb(208, 195, 195);
+    width: 95%;
+    max-width: 380px;
+    height: 200px;
+    border-radius: 3px;
+}
+.btn-default{
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 5px 8px;
+}
+.btn-default:focus-visible{
+    outline: none;
+}
+.btn-default:hover{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.205);
+}
+.btn-iniciar-sesion{
+    background-color:rgb(150, 181, 190);
+}
+.btn-foro{
+    background-color: rgb(236, 236, 236);
+}
+@media screen {
+    
+}

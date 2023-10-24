@@ -1,6 +1,9 @@
 <div class="modal-style">
-    <div class="modal-body d-flex justify-content-center">
-        <span>SESION EXPIRADA</span>
-        <button class="btn btn-sm">a</button>
+    <div class="modal-body d-flex flex-column align-items-center justify-content-center gap-4">
+        <h5>Sesion Expirada</h5>
+        <div class="d-flex gap-3">
+            <button class="btn-default btn-iniciar-sesion" (click)="sessionExpiredSv.setSessionExpired = false" routerLink="/iniciar-sesion">Iniciar Sesion</button>
+            <button class="btn-default btn-foro" (click)="sessionExpiredSv.setSessionExpired = false" routerLink="/bp-foro/general">Ir al foro</button>
+        </div>
     </div>
 </div>

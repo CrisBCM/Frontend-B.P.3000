@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SessionExpiredService } from 'src/app/service/session-expired.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { SessionExpiredService } from 'src/app/service/session-expired.service';
 })
 export class ModalSessionExpiredComponent {
   sessionExpired:boolean = false;
-  constructor(private sessionExpiredSv:SessionExpiredService){
+  constructor(public sessionExpiredSv:SessionExpiredService, private router:Router){
     this.sessionExpiredSv.sessionExpired$.subscribe(session =>{
       this.sessionExpired = session;
     })

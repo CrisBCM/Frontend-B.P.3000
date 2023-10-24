@@ -6,25 +6,43 @@ import {
   HttpInterceptor,
   HttpHeaders
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { TokenService } from '../service/token.service';
+import { Router } from '@angular/router';
+import { SharingService } from '../service/sharing.service';
+import { SessionExpiredService } from '../service/session-expired.service';
 
 @Injectable()
 export class AutenticacionInterceptor implements HttpInterceptor {
 
-  constructor(private tokenSevice:TokenService) {}
+  constructor(private tokenService:TokenService, private sharingService:SharingService, private sessionExpSv:SessionExpiredService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
-    let token;
     
-    this.tokenSevice.currentToken.subscribe(token =>{
-      token = token.token;
+    this.tokenService.currentToken.subscribe(token =>{
 
-        if(token){
+        if(token.token){
+
+          this.tokenService.tokenDecoded$.subscribe(tokenDecoded =>{
+            let expiracion = tokenDecoded.exp;
+            let fechaActual = Math.floor(Date.now() / 1000);
+        
+            if(expiracion <= fechaActual){
+              this.tokenService.newCurrentToken ="{}";
+              this.tokenService.newTokenDecoded = "{}";
+              this.sharingService.newPersona = null;
+              
+              localStorage.removeItem("usuarioActual");
+              
+              this.sessionExpSv.setSessionExpired = true;
+
+            }
+
+          })
+
           request = request.clone({
             setHeaders:{
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token.token}`
             }
             
           });
