@@ -36,6 +36,12 @@ export class SharingService{
       this.persona$.value.comentarios[indiceComentario] = comentarioNuevo;
     }
   }
+  eliminarComentario(idComentario:number){
+    if(this.persona$.value){
+      let nuevoArrayComentarios = this.persona$.value?.comentarios.filter(comentario => comentario.id != idComentario);
+      this.persona$.value.comentarios = nuevoArrayComentarios;
+    }
+  }
 
   set totalConsumido(consumoDeldia:number){
     this.totalConsumido$.next(consumoDeldia);

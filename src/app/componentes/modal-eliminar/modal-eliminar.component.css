@@ -1,19 +1,28 @@
 .modal-body{
     background-color: rgb(211, 211, 211);
-    max-width: 40%;
     min-height: 100px;
+    max-width: 450px;
     border-radius: 10px;
+    margin: 0 5px;
 }
 .btn-confirmar{
     min-width: 120px;
-}
-.btn-eliminar{
     background-color: rgb(105, 150, 216);
+    border: none;
 }
+.btn-default{
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.btn-default:focus-visible{
+    outline: none;
+}
+
 .btn-cancelar{
     background-color: rgb(180, 179, 179);
 }
-.btn-eliminar:hover{
+.btn-confirmar:hover{
     background-color: rgb(47, 87, 148);
 }
 .btn-cancelar:hover{

@@ -19,14 +19,24 @@ export class ComentariosMainComponent implements OnInit{
   usuario$!:Observable<PersonaDTO | null>;
   @Input() persona$!:Observable<Persona | null> | null;
   switchEditar:boolean = false;
+  switchModalEliminar:boolean = false;
   contenidoTemporal:string = "";
-  idComentario!:number;
+  idComentario:number = 0;
+  idPublicacion:number = 0;
 
   constructor(private perfilUsuarioService:PerfilUsuarioService, private router:Router, private foroService:ForoService, private sharingService:SharingService){
   }
 
   ngOnInit(): void {
     this.usuario$ = this.perfilUsuarioService.getPerfilUsuario;
+    
+  }
+  eliminarComentario(){
+    this.foroService.eliminarComentario(this.idComentario).subscribe(()=>{
+      this.foroService.seteliminarComentario(this.idComentario, this.idPublicacion);
+      this.sharingService.eliminarComentario(this.idComentario);
+      this.switchModalEliminar = false;
+    })
   }
   editarComentario(indiceComentario:number, idPublicacion:number){
     const formData = new FormData();
