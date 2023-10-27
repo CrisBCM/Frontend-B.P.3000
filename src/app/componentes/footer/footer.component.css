@@ -1,0 +1,17 @@
+.redes-container{
+    /* background-color: rgb(41, 44, 85); */
+}
+.red-btn{
+    font-size: 2em;
+    color: rgb(196, 194, 194);
+}
+.contacto-info{
+    color: rgb(196, 194, 194);
+    font-weight: 400;
+}
+.copyrigth{
+    border-top: 1px solid rgba(128, 128, 128, 0.24);
+}
+.copy-info{
+    color: rgba(196, 194, 194, 0.534);;
+}

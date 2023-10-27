@@ -1,3 +1,6 @@
+.section{
+    min-height: 75vh;
+}
 .form-style{
     background-color: rgba(102, 108, 143, 0.404);
     color: rgba(44, 62, 124, 0.815);

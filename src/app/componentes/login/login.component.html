@@ -1,5 +1,5 @@
-<section class="d-flex flex-wrap justify-content-center align-content-center mt-5">
-    <form [formGroup]="loginForm" (submit)="iniciarSesion()" class="col-xxl-3 d-flex flex-column gap-3 pt-5 p-5 form-style align-items-center justify-content-center mt-5">
+<section class="d-flex flex-wrap justify-content-center align-content-center section">
+    <form [formGroup]="loginForm" (submit)="iniciarSesion()" class="col-xxl-3 d-flex flex-column gap-3 pt-5 p-5 form-style align-items-center justify-content-center my-5">
         <h4 class="text-center mb-4">Iniciar Sesion</h4>
         <label for="email" class="d-flex flex-column gap-2 w-label">Email
             <input (keydown)="changeValue()" [ngClass]="{'is-invalid':isValidField('email')}" formControlName="email" type="text" name="email" id="email" class="input-style">
