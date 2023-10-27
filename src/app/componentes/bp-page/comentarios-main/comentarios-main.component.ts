@@ -43,7 +43,7 @@ export class ComentariosMainComponent implements OnInit{
     formData.append("contenido", this.contenidoTemporal);
 
     this.foroService.editarComentario(this.idComentario, formData).subscribe(comentarioNuevo =>{
-      console.log("COMENTARIONUEVO: " + JSON.stringify(comentarioNuevo));
+     
       this.sharingService.editarComentario(indiceComentario, comentarioNuevo);
       this.foroService.setEditarComentario(idPublicacion, comentarioNuevo);
       this.switchEditar = false;

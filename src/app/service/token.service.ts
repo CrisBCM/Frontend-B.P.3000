@@ -14,7 +14,7 @@ export class TokenService {
 
   constructor() {
     this.actualizarTokenDecoded();
-    console.log("constructor de token Service. Token: " + JSON.stringify(this.tokenDecoded.value) );
+   
   }
 
 

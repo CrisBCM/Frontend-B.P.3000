@@ -20,7 +20,7 @@ export class ForoService {
   constructor(private http:HttpClient, private router:Router) {
 
     this.obtenerPosts().subscribe((arrayPublicacion:Publicacion[]) =>{
-      console.log(arrayPublicacion);
+     
 
       this.publicaciones$.next(arrayPublicacion.sort((publicacionA, publicacionB) => new Date(publicacionB.fecha).getTime() - new Date(publicacionA.fecha).getTime()));
     })

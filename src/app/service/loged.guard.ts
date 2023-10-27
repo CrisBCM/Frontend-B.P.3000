@@ -15,9 +15,9 @@ export const LogedGuard:CanActivateFn = () => {
   
   if(usuarioActual && usuarioActual.token)
   {
-    console.log("ESTOY REDIRIGIENDO A FORO!");
+   
 
-    console.log(usuarioActual);
+   
     router.navigate(["/bp-foro"])
     return false;
   }

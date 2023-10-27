@@ -37,7 +37,7 @@ export class PublicacionComponent implements OnInit, OnDestroy{
 
     this.tokenDecoded$.subscribe(tokendDecoded =>{
       this.nombreUsuario = tokendDecoded.nombreUsuario;
-      console.log(this.nombreUsuario);
+     
     })
   }
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class PublicacionComponent implements OnInit, OnDestroy{
 
         this.publicacionService.setPublicacion = this.publicacion;
 
-        console.log(JSON.stringify("THIS.PUBLICACION " + JSON.stringify(this.publicacion)));
+       
 
       }
     })
@@ -92,6 +92,6 @@ export class PublicacionComponent implements OnInit, OnDestroy{
 
   anadirComentario(comentario:Comentario){
     this.publicacion.comentarios.push(comentario);
-    console.log(JSON.stringify(comentario) +  "SOY COMENTARIO")
+   
   }
 }

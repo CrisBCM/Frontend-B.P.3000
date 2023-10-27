@@ -63,7 +63,7 @@ export class FormPublicacionComponent implements OnInit, OnDestroy{
 
 
   errorPublicar(){
-    console.log("ERROR AL PUBLICAR!");
+   
     return;
   }
 
@@ -76,10 +76,10 @@ export class FormPublicacionComponent implements OnInit, OnDestroy{
       contenido : this.contenido.value,
     }
 
-    console.log(publicacion);
+   
     
     this.foroService.publicar(this.idUsuario, publicacion).subscribe(nuevaPublicacion =>{
-      console.log(nuevaPublicacion);
+     
       this.form.reset();
       this.foroService.añadirPublicacion = nuevaPublicacion;
       this.foroService.redirigirAPublicacion(nuevaPublicacion.id);

@@ -38,11 +38,11 @@ export class ComentarioFormComponent {
       this.tokenDecoded = tokenDecoded;
     })
 
-    console.log("TOKEN DECODED: " + JSON.stringify(this.tokenDecoded));
+   
 
     this.idUsuario = this.tokenDecoded.persona_id;
 
-    console.log("IDUSUARIO : " + this.idUsuario);
+   
   }
 
   form = this.fb.group({
@@ -84,7 +84,7 @@ export class ComentarioFormComponent {
     contenido.append("contenido", this.contenido.value)
 
     this.foroService.responderComentario(this.idComentario, this.idUsuario, contenido).subscribe((respuesta:Respuesta) =>{
-      console.log(this.idComentario);
+     
       this.anadirRespuesta.emit(respuesta);
       
     })

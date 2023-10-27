@@ -48,7 +48,7 @@ export class BotonLikeDislikeComponent {
     this.comentarioORespuesta ? url = EnumEndpoints.meGustaRespuesta : url = EnumEndpoints.meGusta;
 
     this.foroService.meGusta(url, this.idComentarioORespuesta, this.nombreUsuario).subscribe(()=>{
-      console.log("Funciono")
+     
     })
     
     if(this.listaMeGusta.includes(this.nombreUsuario)){
@@ -68,7 +68,7 @@ export class BotonLikeDislikeComponent {
     this.comentarioORespuesta ? url = EnumEndpoints.noMeGustaRespuesta : url = EnumEndpoints.noMeGusta;
 
     this.foroService.noMeGusta(url, this.idComentarioORespuesta, this.nombreUsuario).subscribe(()=>{
-      console.log("funciono el nomegusta");
+     
     })
 
     if(this.listaNoMeGusta.includes(this.nombreUsuario))

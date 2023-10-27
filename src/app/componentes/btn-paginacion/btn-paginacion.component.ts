@@ -61,9 +61,9 @@ export class BtnPaginacionComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    console.log('ESCUCHANDO HOSTLISTENER' + event.target.innerWidth);
+   
     const screenWidth = event.target.innerWidth;
-    console.log(screenWidth + ' SCREENWIDTH');
+   
     this.isMobile = screenWidth < 470;
   }
 
@@ -73,7 +73,7 @@ export class BtnPaginacionComponent implements OnInit {
     this.definirCantidadDeBotones();
     this.definirUltimoElemento();
     
-    console.log(this.cantidadPaginas + " CANTIDAD PAGINAS");
+   
     let cantidadBotones = 0;
 
     this.isMobile ? (cantidadBotones = 1) : (cantidadBotones = 4);
@@ -85,6 +85,6 @@ export class BtnPaginacionComponent implements OnInit {
   cambiarPagina(nuevoNumero: number) {
     this.paginaActual = nuevoNumero;
     this.emitPaginaActual.emit(this.paginaActual);
-    console.log(this.paginaActual);
+   
   }
 }

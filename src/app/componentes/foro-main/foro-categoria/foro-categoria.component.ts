@@ -22,7 +22,7 @@ export class ForoCategoria implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.activatedRoute.params.pipe(takeUntil(this.onDestroy$)).subscribe((param:Params) =>{
       this.nombreCategoria = param["categoria"];
-      console.log(this.nombreCategoria);
+     
     })
 
     this.categoriaService.publicacionesDeCategoria(this.nombreCategoria);
@@ -34,7 +34,7 @@ export class ForoCategoria implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    console.log("Categoria component was destroyed");
+   
     this.onDestroy$.next(true);
   }
 

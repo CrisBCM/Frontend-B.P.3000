@@ -33,7 +33,7 @@ export class PerfilUsuarioService {
   
   set setPerfilUsuario(perfilUsuario:PersonaDTO | null){
     this.perfilUsuario$.next(perfilUsuario);
-    console.log(perfilUsuario);
+   
   }
 
   get getPerfilUsuario():Observable<PersonaDTO | null>{

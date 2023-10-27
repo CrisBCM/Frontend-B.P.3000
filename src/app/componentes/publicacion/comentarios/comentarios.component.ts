@@ -29,7 +29,7 @@ export class ComentariosComponent {
   }
   eliminarComentario(){
     this.foroService.eliminarComentario(this.idComentario).subscribe(()=>{
-      console.log("IDCOMENTARIO: " + this.idComentario + ", IDPublicacion: " + this.publicacion.id);
+     
       this.foroService.seteliminarComentario(this.idComentario, this.publicacion.id);
       this.modalEliminar = false;
     })
@@ -47,7 +47,7 @@ export class ComentariosComponent {
     formData.append("contenido", this.tempContenido);
 
     this.foroService.editarComentario(this.idComentario, formData).subscribe(nuevoComentario =>{
-      console.log(JSON.stringify(nuevoComentario) + " NUEVO COMENTARIO!!");
+     
       this.publicacion.comentarios[comentarioI] = nuevoComentario;
       this.editarSwitchComentario = false;
     })
@@ -61,7 +61,7 @@ export class ComentariosComponent {
     this.respuestasMostradas = nuevasRespuestasMostradas;
   }
   anadirRespuestaComentario(comentarioI:number, respuesta:Respuesta){
-    console.log("ESTA FUNCIONANDO")
+   
     this.publicacion.comentarios[comentarioI].respuestas.push(respuesta);
   }
 }

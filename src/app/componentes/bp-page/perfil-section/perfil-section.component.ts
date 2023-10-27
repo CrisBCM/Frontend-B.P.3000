@@ -67,7 +67,7 @@ export class PerfilSectionComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    console.log("se ejecuto el ngOnDestroy")
+   
     this.onDestroy$.next(true);
   }
 
@@ -82,7 +82,7 @@ export class PerfilSectionComponent implements OnInit, OnDestroy{
 
       this.sharingService.cambiarAvatar(persona.nombreUsuario, formImagen).subscribe((nuevaImagen:Imagen) =>{
 
-        console.log("no me bugeo")
+       
 
         persona.imgAvatar = nuevaImagen;
 

@@ -12,7 +12,7 @@ export class FiltroBusquedaComponent {
   constructor(){}
 
   emitirFiltro(){
-    console.log("EMITIENDO FILTRO");
+   
     this.emitFiltro.emit(this.palabraFiltro);
   }
 

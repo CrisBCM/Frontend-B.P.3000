@@ -70,8 +70,8 @@ export class RegistroComponent implements OnInit, OnDestroy{
   crearPersona():RegistroPersona{
     let persona = new RegistroPersona(this.nombreCompleto.value ,this.email.value, this.password.value, this.nombreUsuario.value, this.peso.value, Number(this.actividad.value));
 
-    console.log("Se esta creando la persona:")
-    console.log(persona);
+   
+   
 
     return persona;
   }

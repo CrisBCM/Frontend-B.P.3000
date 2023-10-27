@@ -33,7 +33,7 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
       this.persona$.pipe(takeUntil(this.onDestroy$)).subscribe((persona:Persona | null)=>{
         if(persona){
           this.persona = persona;
-          console.log(this.persona.publicaciones + "PUBLICACIONESSSSS");
+         
         }
       })
     }
@@ -48,7 +48,7 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
   setPublicacionEditar(publicacion:Publicacion){
     this.switchEditarPublicacion = true;
     this.publicacionService.setPublicacion = publicacion;
-    console.log(publicacion);
+   
   }
 
   redirigirAPublicacion(idPublicacion:number){
@@ -56,7 +56,7 @@ export class PublicacionesMainComponent implements OnInit, OnDestroy{
   }
 
   eliminarPublicacion(idPublicacion:number){
-    console.log("IDPUBLICACION: " + idPublicacion);
+   
     this.foroService.eliminarPublicacion(idPublicacion).subscribe(()=>{
     
       let publicaciones:Publicacion[] = this.persona?.publicaciones.filter(publicacion => publicacion.id != idPublicacion);

@@ -31,7 +31,7 @@ export class RespuestasComponent {
   
   eliminarRespuesta(){
     this.foroService.eliminarRespuesta(this.idRespuesta).subscribe( data =>{
-      console.log(data);
+     
       this.foroService.setEliminarRespuesta(this.idRespuesta, this.publicacion.id, this.comentario.id);
       this.modalEliminar = false;
     })

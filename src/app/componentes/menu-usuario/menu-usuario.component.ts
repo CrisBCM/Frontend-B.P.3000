@@ -36,7 +36,7 @@ export class MenuUsuarioComponent implements OnInit, OnDestroy{
     this.onDestroy$.next(true);
   }
   redirigirAPerfilUsuario(){
-    console.log(this.tokenDecoded);
+   
     this.router.navigate(["bp-perfil"]);
     this.router.navigate(["/bp-perfil", this.tokenDecoded.nombreUsuario]);
   }

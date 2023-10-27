@@ -20,6 +20,6 @@ export class FormEditarComentarioRespuestaComponent {
     this.confirmarEditar.emit();
   }
   mostrarContenido(){
-    console.log(this.contenidoTemp);
+   
   }
 }

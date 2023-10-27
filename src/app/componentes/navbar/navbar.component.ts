@@ -19,12 +19,12 @@ export class NavbarComponent implements OnInit{
   ngOnInit(): void {
     this.tokenService.currentToken.subscribe(tokenObject =>{
       this.usuarioAutenticado = tokenObject;
-      console.log(JSON.stringify(this.usuarioAutenticado) + " USUARIO AUTENTICADO");
+     
     })
 
     this.tokenService.tokenDecoded$.subscribe(tokenDecoded =>{
       this.tokenDecoded = tokenDecoded;
-      console.log(JSON.stringify(tokenDecoded.role));
+     
     })
   }
 

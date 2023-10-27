@@ -72,7 +72,7 @@ export class ConsumoMainComponent implements OnInit, OnDestroy{
     
     this.image = image;
 
-    console.log(this.image);
+   
   }
 
   crearComida(com:any){
@@ -136,10 +136,10 @@ export class ConsumoMainComponent implements OnInit, OnDestroy{
 
         this.comidaService.subirComida(formData, estomagoId, this.persona?.nombreUsuario, options).subscribe(data =>{
 
-          console.log("soy estomago id  " + estomagoId);
+         
   
           let nuevaComida = this.crearComida(data);
-          console.log(data);
+         
   
           this.persona?.estomago.comidas.push(nuevaComida);
 
@@ -147,7 +147,7 @@ export class ConsumoMainComponent implements OnInit, OnDestroy{
   
           this.setTotalConsumido();
           this.image = null;
-          console.log("soy dataaaa: "+ JSON.stringify(nuevaComida));
+         
         })
       }
       
@@ -172,7 +172,7 @@ export class ConsumoMainComponent implements OnInit, OnDestroy{
 
         this.comidaService.editarComida(estomagoId, formData, this.persona.nombreUsuario, this.comidaSeleccionada).subscribe(data =>{
 
-          console.log(JSON.stringify(data));
+         
   
           const indiceComida = this.persona.estomago.comidas.findIndex(comida => comida.id == this.comidaSeleccionada);
   
@@ -193,7 +193,7 @@ export class ConsumoMainComponent implements OnInit, OnDestroy{
       }
 
     }else{
-      console.log("form Invalido!");
+     
     }
 
     
@@ -211,7 +211,7 @@ export class ConsumoMainComponent implements OnInit, OnDestroy{
 
         this.setTotalConsumido();
 
-        console.log("exitoso!");
+       
       });
     };
 
