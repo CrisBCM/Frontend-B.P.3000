@@ -39,19 +39,6 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
     this.btnPaginacion.paginaActual = this.paginaActual;
   }
   
-  // filtrar(tipoDeFiltro:string){
-  //   // switch(tipoDeFiltro){
-  //   //   case "Mas nuevo":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorMasNuevo();
-  //   //   break;
-  //   //   case "Antiguo":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorAntiguedad();
-  //   //   break;
-  //   //   case "Mas gustado":this.nombreFiltroPorTema = tipoDeFiltro; this.filtrarPorMasGustado();
-  //   //   break;
-  //   //   default : console.log("BOTON INEXISTENTE");
-  //   //   break;
-  //   // }
-   
-  // }
   filtrar(filtro:string){
     const filtros: {[key:string]: ()=> void} = {
       'Mas Nuevo' : ()=> {this.nombreFiltroPorTema = filtro; this.filtrarPorMasNuevo()},
@@ -60,7 +47,9 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
     }
     filtros[filtro]();
   }
+
   filtrarPorPalabra(palabra:string){
+      this.paginaActual = 1;
       this.publicaciones = this.foroService.getPublicacionesFiltroPalabra(palabra);
   }
   filtrarPorAntiguedad(){
@@ -78,10 +67,6 @@ export class PublicacionesGeneralComponent implements OnInit, OnDestroy{
       this.publicaciones = this.foroService.publicacionesMasNuevas;
      }
   }
-  // cambiarPublicacionesPaginadas(){
-  //   let nuevoArray = this.publicacionesPaginadas.filter(e => e.autor == "Cris123");
-  //   console.log(nuevoArray);
-  // }
 
   get publicacionesPaginadas() {
     const inicio = (this.paginaActual - 1) * this.cantMostrarPublicaciones;

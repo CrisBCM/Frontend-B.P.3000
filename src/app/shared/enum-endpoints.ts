@@ -1,6 +1,6 @@
 export enum EnumEndpoints {
     registroPath = "https://bp-foro-api.onrender.com/api/v1/auth/registrar",
-    inicioSesionPath = "https://bp-foro-api.onrender.com/api/v1/auth/iniciar-sesion",
+    inicioSesionPath = "https://bp-foro-api.onrender.com/ost:8081/api/v1/auth/iniciar-sesion",
     getPersona = "https://bp-foro-api.onrender.com/persona/obtener",
     añadirComida = "https://bp-foro-api.onrender.com/v3/comida/añadir",
     eliminarComida = "https://bp-foro-api.onrender.com/v3/comida/eliminar",
@@ -31,3 +31,7 @@ export enum EnumEndpoints {
     cambiarEstadoCategoria = "https://bp-foro-api.onrender.com/categoria/cambiarestado",
     obtenerPublicacionesDeCategoria = "https://bp-foro-api.onrender.com/categoria"
 }
+
+
+// https://bp-foro-api.onrender.com
+// https://bp-foro-api.onrender.com

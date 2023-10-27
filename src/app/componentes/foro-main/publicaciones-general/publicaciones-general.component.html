@@ -6,12 +6,11 @@
     <section class="post-container" *ngIf="publicaciones">
         <article class=" px-3 py-2 border-top" *ngFor="let publicacion of publicacionesPaginadas">
             <h6 class="mb-0">
-                <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.categoria}}: {{publicacion.titulo}}.</a>
+                <a (click)="redirigirAPublicacion(publicacion.id)" class="link-style anchor-style">{{publicacion.categoria}}: {{publicacion.titulo}}</a>
             </h6>
             <span>publicado hace: {{publicacion.fecha | fechaAntiguedad}} - </span>
             <span>por: <a (click)="redirigirAPerfilUsuario(publicacion.autor)" class="link-style anchor-style">{{publicacion.autor}}</a></span>
         </article>
         <app-btn-paginacion #btnPaginacion *ngIf="publicaciones.length > 5" class="d-flex justify-content-center py-3 border-top" [listaObjetos]="publicaciones" (emitPaginaActual)="paginaActual = $event" [cantMostrarPublicaciones]="cantMostrarPublicaciones"></app-btn-paginacion>
     </section>
-    <!-- <button (click)="nuevoFiltro('Mas Nuevo')">APRETAAAAAAA</button> -->
 </main>
